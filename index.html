@@ -9,12 +9,12 @@
     <meta name="description" content="Cari layanan kesehatan dan gizi terdekat di Gresik? Puskesmas nelayan Kabupaten Gresik melayani kesehatan masyarakat nelayan, pendampingan gizi anak stunting, dan terapi medis secara profesional.">
     <meta name="keywords" content="puskesmas nelayan gresik, puskesmas kabupaten gresik, kesehatan nelayan, ahli gizi gresik, puskesmas terdekat, diet stunting anak, terapi nutrisi gresik">
     <meta name="author" content="Puskesmas nelayan Kabupaten Gresik">
-    
+
     <meta property="og:title" content="Puskesmas Nelayan Kabupaten Gresik">
     <meta property="og:description" content="Pelayanan kesehatan masyarakat, pendampingan gizi anak stunting, dan terapi medis bersama tenaga kesehatan terpercaya di Kabupaten Gresik.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://puskesmasnelayangresik.my.id/">
-    
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,23 +35,23 @@
       "priceRange": "$"
     }
     </script>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    
+
     <style>
         :root {
-            --primary-green: #059669; 
+            --primary-green: #059669;
             --light-green: #d1fae5;
-            --accent-orange: #f59e0b; 
+            --accent-orange: #f59e0b;
             --dark-text: #1e293b;
         }
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            color: #475569; 
-            scroll-behavior: smooth; 
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #475569;
+            scroll-behavior: smooth;
             background-color: #f8fafc;
         }
         
@@ -60,18 +60,18 @@
         .bg-primary { background-color: var(--primary-green) !important; }
         
         /* Hero Section */
-        .hero-section { 
+        .hero-section {
             padding: 120px 0 80px; color: white; position: relative; overflow: hidden;
             border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
         }
         
         /* Styling Card Gizi & Portofolio */
-        .card-gizi { 
+        .card-gizi {
             border: none; transition: all 0.3s ease; border-radius: 24px; background: #ffffff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1);
         }
-        .card-gizi:hover { 
+        .card-gizi:hover {
             transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); border-color: var(--light-green);
         }
         
@@ -80,8 +80,9 @@
         .btn-wa:hover { background-color: #128c7e; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
         .btn-outline-primary { border-color: var(--primary-green); color: var(--primary-green); border-radius: 50px; }
         .btn-outline-primary:hover { background-color: var(--primary-green); color: white; }
+        
         /* Ikon Fitur */
-        .feature-icon { 
+        .feature-icon {
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; background: var(--light-green);
             width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin-left: auto; margin-right: auto;
             display: flex; align-items: center; justify-content: center;
@@ -89,7 +90,7 @@
         
         /* Judul Section */
         .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: var(--dark-text); }
-        .section-title::after { 
+        .section-title::after {
             content: ''; width: 60px; height: 4px; background: var(--accent-orange); position: absolute;
             bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px;
         }
@@ -99,22 +100,26 @@
         .navbar-brand img { height: 45px; width: auto; object-fit: contain; }
         .nav-link { font-weight: 500; color: #475569 !important; padding: 10px 15px !important; }
         .nav-link:hover { color: var(--primary-green) !important; }
+        
         /* SEO Footer Area */
         .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
         
         /* System Styles */
-        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
+        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center;
+            align-items: center; flex-direction: column; transition: opacity 0.5s; }
         .site-section { display: none; animation: fadeIn 0.5s; }
         .site-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
         /* Admin Sidebar */
         .admin-sidebar { width: 250px; background: #1e293b; color: white; min-height: 100vh; position: fixed; left: 0; top: 0; overflow-y: auto; z-index: 1000; }
         .admin-sidebar a { display: block; padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-weight: 500; border-left: 4px solid transparent; transition: 0.3s; cursor: pointer; }
         .admin-sidebar a:hover, .admin-sidebar a.active { background: rgba(255,255,255,0.1); color: white; border-left-color: var(--primary-green); }
         .admin-main { margin-left: 250px; padding: 30px; min-height: 100vh; background: #f1f5f9; }
         
-        .note-modal-backdrop { z-index: 1040 !important; } 
+        .note-modal-backdrop { z-index: 1040 !important; }
         .note-modal { z-index: 1050 !important; }
+        
         @media (max-width: 768px) {
             .hero-section { padding: 100px 0 60px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; }
             .display-4 { font-size: 2.2rem; }
@@ -128,7 +133,7 @@
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
         <p class="mt-3 text-secondary fw-bold" id="loading-text">Memuat Data...</p>
     </div>
-    <!-- ================= PUBLIC VIEW ================= -->
+
     <div id="public-view">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
             <div class="container">
@@ -154,6 +159,7 @@
                 </div>
             </div>
         </nav>
+
         <main>
             <header id="home" class="hero-section bg-gradient-primary text-center site-section active">
                 <div class="container">
@@ -163,33 +169,32 @@
                     </p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                         <a href="#layanan" class="btn btn-outline-light btn-lg px-5 rounded-pill shadow-sm" onclick="nav('layanan')">Jelajahi Program</a>
-                        <a href="#" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill dyn-wa">
-                            Konsultasi Sekarang
-                        </a>
+                        <a href="#" class="btn btn-wa btn-lg px-5 shadow-sm rounded-pill dyn-wa">Konsultasi Sekarang</a>
                     </div>
                 </div>
             </header>
+
             <section id="layanan" class="py-5 mt-4 site-section">
                 <div class="container py-4">
                     <h2 class="text-center section-title">Program Layanan Kesehatan</h2>
-                    <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
-                    </div>
+                    <div class="row g-4 mt-2 justify-content-center" id="layanan-container"></div>
                 </div>
             </section>
+
             <section id="program" class="py-5 mt-4 site-section">
                 <div class="container py-4">
                     <div class="text-center mb-5">
                         <h2 class="section-title">Katalog & Program Puskesmas</h2>
                         <p class="text-muted mt-2">Berbagai program kesehatan dan terapi yang telah kami susun untuk masyarakat.</p>
                     </div>
-                    <div class="row g-4 justify-content-center" id="program-container">
-                    </div>
+                    <div class="row g-4 justify-content-center" id="program-container"></div>
                 </div>
             </section>
+
             <section id="baca-program" class="py-5 mt-5 site-section">
-                <div class="container py-5" id="baca-container">
-                </div>
+                <div class="container py-5" id="baca-container"></div>
             </section>
+
             <section id="keunggulan" class="py-5 site-section" style="background-color: #f0fdf4;">
                 <div class="container py-4">
                     <div class="row align-items-center">
@@ -200,27 +205,21 @@
                             <h2 class="fw-bold mb-4">Mengapa Memilih Pelayanan Bersama Kami?</h2>
                             <ul class="list-unstyled mt-4">
                                 <li class="mb-4 d-flex align-items-start">
-                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                        <i class="fa-solid fa-microscope"></i>
-                                    </div>
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fa-solid fa-microscope"></i></div>
                                     <div class="ms-3">
                                         <h4 class="fw-bold mb-1 h6">Pelayanan Sesuai Standar Kemenkes</h4>
                                         <p class="text-muted small mb-0">Rekomendasi tindakan medis dan asupan gizi mengacu pada standar kesehatan resmi dari Kementerian Kesehatan RI dan WHO.</p>
                                     </div>
                                 </li>
                                 <li class="mb-4 d-flex align-items-start">
-                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                        <i class="fa-solid fa-leaf"></i>
-                                    </div>
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fa-solid fa-leaf"></i></div>
                                     <div class="ms-3">
                                         <h4 class="fw-bold mb-1 h6">Pendekatan Ramah Masyarakat Nelayan</h4>
                                         <p class="text-muted small mb-0">Solusi kesehatan dan gizi disesuaikan dengan kondisi lingkungan dan potensi bahan makanan lokal pesisir Gresik.</p>
                                     </div>
                                 </li>
                                 <li class="mb-4 d-flex align-items-start">
-                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                        <i class="fa-solid fa-mobile-screen-button"></i>
-                                    </div>
+                                    <div class="bg-primary text-white rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fa-solid fa-mobile-screen-button"></i></div>
                                     <div class="ms-3">
                                         <h4 class="fw-bold mb-1 h6">Konsultasi Terjangkau & Responsif</h4>
                                         <p class="text-muted small mb-0">Pemantauan kesehatan dan tanya jawab keluhan dapat dilakukan langsung dengan tenaga medis kami melalui WhatsApp.</p>
@@ -231,6 +230,7 @@
                     </div>
                 </div>
             </section>
+
             <section id="contact" class="py-5 site-section">
                 <div class="container text-center py-5">
                     <h2 class="section-title">Mulai Perjalanan Sehat Anda</h2>
@@ -241,15 +241,14 @@
                                 <i class="fa-solid fa-headset display-4 text-primary mb-4"></i>
                                 <h3 class="fw-bold mb-2 h4">Layanan Konsultasi</h3>
                                 <p class="text-muted mb-4 small">Tersedia untuk sesi *Online* maupun pemeriksaan langsung di Puskesmas. Petugas kami siap melayani Anda.</p>
-                                <a href="#" class="btn btn-wa btn-lg w-100 rounded-pill py-3 dyn-wa">
-                                    <i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp
-                                </a>
+                                <a href="#" class="btn btn-wa btn-lg w-100 rounded-pill py-3 dyn-wa"><i class="fa-brands fa-whatsapp me-2 fa-lg"></i> Hubungi via WhatsApp</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
+
         <footer class="pt-5 pb-3 bg-dark text-white">
             <div class="container text-center">
                 <div class="mb-4">
@@ -257,13 +256,11 @@
                 </div>
                 <h5 class="fw-bold mb-2">Puskesmas Nelayan Kabupaten Gresik</h5>
                 <p class="mb-4 text-secondary small">Sahabat kesehatan terpercaya untuk masyarakat pesisir, tumbuh kembang anak, dan gaya hidup sehat keluarga Anda.</p>
-                
                 <div class="mb-4">
                     <a href="#" aria-label="Instagram" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#" aria-label="Facebook" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                 </div>
-                
                 <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
                     <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Puskesmas Nelayan Kabupaten Gresik:</span>
                     <span style="word-wrap: break-word;">Bungah, Dukun, Kebomas, Manyar, Panceng, Sidayu, Ujungpangkah, Sangkapura, Tambak, dan seluruh wilayah pesisir Kabupaten Gresik.</span>
@@ -274,8 +271,6 @@
             </div>
         </footer>
     </div>
-    <!-- ================= END PUBLIC VIEW ================= -->
-    <!-- ================= ADMIN LOGIN VIEW ================= -->
     <div id="login-view" style="display: none; height: 100vh; background: #e2e8f0; align-items: center; justify-content: center;">
         <div class="bg-white p-5 rounded-4 shadow-lg w-100 mx-3" style="max-width: 400px;">
             <div class="text-center mb-4">
@@ -298,7 +293,7 @@
             </div>
         </div>
     </div>
-    <!-- ================= ADMIN DASHBOARD & CRUD VIEW ================= -->
+
     <div id="admin-view" style="display: none;">
         <aside class="admin-sidebar">
             <div class="p-4 text-center border-bottom border-secondary border-opacity-25 mb-3">
@@ -315,14 +310,14 @@
             <a href="#home" class="mt-5 border-top border-secondary border-opacity-25 pt-3 text-info"><i class="fa-solid fa-earth-asia me-2"></i> Lihat Website</a>
             <a onclick="handleLogout()" class="text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
         </aside>
+        
         <main class="admin-main">
-            <!-- DASHBOARD TAB -->
             <div id="admin-dashboard-view" style="display:none;">
                 <h2 class="fw-bold text-dark mb-2">Monitoring Viewers</h2>
                 <p class="text-muted mb-4">Statistik kinerja program pada website Puskesmas Anda</p>
                 <div class="row g-4" id="dashboard-stats-container"></div>
             </div>
-            <!-- TABLE TAB -->
+            
             <div id="admin-table-view" style="display:none;">
                 <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-4 rounded-4 shadow-sm">
                     <div>
@@ -340,7 +335,7 @@
             </div>
         </main>
     </div>
-    <!-- Modal Admin Form -->
+
     <div class="modal fade" id="adminModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 rounded-4 shadow-lg">
@@ -358,22 +353,31 @@
             </div>
         </div>
     </div>
-    <!-- SCRIPTS -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <script>
         // MASUKKAN URL APLIKASI WEB ANDA DI SINI
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxhSlWG69VHuSnHWGRKEFbaSJD4rwZkRl5_KwR2rwpL2E3Y3GR1KOUH4SQnnftj4j4Z/exec"; 
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxhSlWG69VHuSnHWGRKEFbaSJD4rwZkRl5_KwR2rwpL2E3Y3GR1KOUH4SQnnftj4j4Z/exec";
+        
         let currentAdminSheet = 'Pengaturan';
         let currentAdminHeaders = [];
         let currentEditId = null;
+
         document.addEventListener("DOMContentLoaded", function() {
+            // Log Kunjungan saat pertama kali session dibuka
+            if (!sessionStorage.getItem('visited_global')) {
+                fetch(GAS_URL, { method: 'POST', body: JSON.stringify({action: 'recordVisit'}) });
+                sessionStorage.setItem('visited_global', 'true');
+            }
+
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
         });
+
         function handleRouting() {
             let hash = window.location.hash.substring(1);
             if (hash === 'admin') {
@@ -394,7 +398,7 @@
                 
                 let menuLink = document.querySelector(`.nav-link[onclick="nav('${hash}')"]`);
                 if(hash && !menuLink && hash !== 'baca-program') {
-                    bukaProgramSlug(hash, false); 
+                    bukaProgramSlug(hash, false);
                 } else {
                     loadPublicData();
                     if(hash) { setTimeout(() => nav(hash, false), 200); }
@@ -402,6 +406,7 @@
                 }
             }
         }
+
         function nav(section, pushHistory = true) {
             document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(section);
@@ -414,105 +419,139 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if(pushHistory) history.pushState({section: section}, '', '#' + section);
         }
+
         function showLoading(msg = "Memuat Data...") {
             document.getElementById('loading-text').innerText = msg;
             document.getElementById('loading-screen').style.opacity = '1';
             document.getElementById('loading-screen').style.display = 'flex';
         }
+        
         function hideLoading() {
             const loader = document.getElementById('loading-screen');
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 500);
         }
+        
         function createSlugJS(str) {
             return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
         }
-        // ================= PUBLIC FETCH =================
+
+        // ================= PUBLIC FETCH & OPTIMIZED CACHING =================
         async function loadPublicData() {
-            showLoading();
-            if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
-                renderDefaultLayanan(); hideLoading(); return;
+            // Caching mechanism: Load from Local Storage for instant render
+            const cachedPkmData = localStorage.getItem('pkm_data_cache');
+            if (cachedPkmData) {
+                renderPublicContent(JSON.parse(cachedPkmData));
+            } else {
+                showLoading();
             }
+
+            if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
+                renderDefaultLayanan(); 
+                hideLoading(); 
+                return;
+            }
+
             try {
+                // Background fetch to ensure fresh data
                 const response = await fetch(`${GAS_URL}?action=getAllData`);
                 const result = await response.json();
+                
                 if(result.success) {
-                    const pengaturan = result.data.pengaturan;
-                    const layanan = result.data.layanan;
-                    const program = result.data.program;
-                    
-                    if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
-                    if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
-                    if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
-                    
-                    let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
-                    document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
-                    const layananContainer = document.getElementById('layanan-container');
-                    layananContainer.innerHTML = ''; 
-                    if(layanan.length > 0) {
-                        layanan.forEach((item, index) => {
-                            let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
-                            let colorStyle = (index % 3 === 2) ? "style='color: var(--accent-orange); background: #fef3c7;'" : "";
-                            layananContainer.innerHTML += `
-                            <div class="col-md-6 col-lg-4">
-                                <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                                    <div class="feature-icon" ${colorStyle}><i class="${item.ikon || 'fa-solid fa-leaf'}"></i></div>
-                                    <h3 class="fw-bold mb-3 h5">${item.judul}</h3>
-                                    <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
-                                    <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                                </article>
-                            </div>`;
-                        });
-                    } else { renderDefaultLayanan(); }
-                    const programContainer = document.getElementById('program-container');
-                    programContainer.innerHTML = '';
-                    if(program.length > 0) {
-                        program.forEach(p => {
-                            let imgRaw = p.gambar || 'https://via.placeholder.com/600x400';
-                            let imgArr = [];
-                            try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
-                            let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
-                            let slug = createSlugJS(p.judul);
-                            programContainer.innerHTML += `
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
-                                    <div class="position-relative overflow-hidden cursor-pointer" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
-                                        <img src="${imgSrc}" class="w-100 h-100 object-fit-cover" style="transition:0.5s;">
-                                        <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
-                                    </div>
-                                    <div class="p-4 d-flex flex-column flex-grow-1">
-                                        <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
-                                        <div class="text-muted small flex-grow-1 mb-4">${p.deskripsi.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</div>
-                                        <div class="d-flex gap-2 mt-auto">
-                                            ${p.link_demo ? `<a href="${p.link_demo}" target="_blank" class="btn btn-dark btn-sm flex-grow-1 rounded-pill"><i class="fa-solid fa-play me-1"></i> Demo</a>` : ''}
-                                            <button onclick="bukaProgramSlug('${slug}')" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">Detail</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
-                        });
-                    } else {
-                        programContainer.innerHTML = '<p class="text-muted text-center w-100">Belum ada portofolio program.</p>';
-                    }
+                    localStorage.setItem('pkm_data_cache', JSON.stringify(result.data));
+                    renderPublicContent(result.data); // Update UI
                 }
-            } catch (e) { renderDefaultLayanan(); }
+            } catch (e) { 
+                if(!cachedPkmData) renderDefaultLayanan(); 
+            }
             hideLoading();
         }
+
+        function renderPublicContent(data) {
+            const pengaturan = data.pengaturan;
+            const layanan = data.layanan;
+            const program = data.program;
+            
+            if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
+            if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
+            if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
+            
+            let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
+            document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
+            
+            const layananContainer = document.getElementById('layanan-container');
+            layananContainer.innerHTML = '';
+            
+            if(layanan.length > 0) {
+                layanan.forEach((item, index) => {
+                    let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
+                    let colorStyle = (index % 3 === 2) ? "style='color: var(--accent-orange); background: #fef3c7;'" : "";
+                    layananContainer.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                            <div class="feature-icon" ${colorStyle}><i class="${item.ikon || 'fa-solid fa-leaf'}"></i></div>
+                            <h3 class="fw-bold mb-3 h5">${item.judul}</h3>
+                            <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
+                            <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                        </article>
+                    </div>`;
+                });
+            } else { 
+                renderDefaultLayanan(); 
+            }
+            
+            const programContainer = document.getElementById('program-container');
+            programContainer.innerHTML = '';
+            
+            if(program.length > 0) {
+                program.forEach(p => {
+                    let imgRaw = p.gambar || 'https://via.placeholder.com/600x400';
+                    let imgArr = [];
+                    try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
+                    let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
+                    let slug = createSlugJS(p.judul);
+                    
+                    programContainer.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
+                            <div class="position-relative overflow-hidden cursor-pointer" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
+                                <img src="${imgSrc}" class="w-100 h-100 object-fit-cover" loading="lazy" style="transition:0.5s;">
+                                <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
+                                <div class="text-muted small flex-grow-1 mb-4">${p.deskripsi.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</div>
+                                <div class="d-flex gap-2 mt-auto">
+                                    ${p.link_demo ? `<a href="${p.link_demo}" target="_blank" class="btn btn-dark btn-sm flex-grow-1 rounded-pill"><i class="fa-solid fa-play me-1"></i> Demo</a>` : ''}
+                                    <button onclick="bukaProgramSlug('${slug}')" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">Detail</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            } else {
+                programContainer.innerHTML = '<p class="text-muted text-center w-100">Belum ada portofolio program.</p>';
+            }
+        }
+
         async function bukaProgramSlug(slug, pushHistory = true) {
             showLoading("Memuat Detail...");
             nav('baca-program', false);
             if (pushHistory) history.pushState({ section: 'baca-program', slug: slug }, '', '#' + slug);
+            
             try {
                 const response = await fetch(GAS_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getProgramBySlug', slug: slug})
                 });
                 const res = await response.json();
                 hideLoading();
+                
                 if(res.success && res.data) {
                     const headers = res.headers; const d = res.data;
                     let iJ = headers.indexOf('judul'); let iK = headers.indexOf('kategori');
                     let iI = headers.indexOf('deskripsi'); let iG = headers.indexOf('gambar');
                     let iD = headers.indexOf('link_demo');
+                    
                     let imgRaw = d[iG] || ''; let mediaList = [];
                     try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
                     
@@ -532,6 +571,7 @@
                         <div class="text-muted leading-relaxed" style="font-size:1.1rem; line-height: 1.8;">${d[iI]}</div>
                         ${demoBtn}
                     </div>`;
+                    
                     document.getElementById('baca-container').innerHTML = html;
                 } else {
                     document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Data tidak ditemukan.</div>`;
@@ -541,39 +581,51 @@
                 document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
             }
         }
+
         function renderDefaultLayanan() {
             document.getElementById('layanan-container').innerHTML = `
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-baby"></i></div><h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3><p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh serta pencegahan stunting pada balita.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div><h3 class="fw-bold mb-3 h5">Manajemen Kesehatan Nelayan</h3><p class="text-muted small mb-4 flex-grow-1">Program kesehatan preventif dan kuratif yang disesuaikan dengan aktivitas melaut untuk menjaga kebugaran fisik dan stamina nelayan.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div><h3 class="fw-bold mb-3 h5">Layanan Medis Umum</h3><p class="text-muted small mb-4 flex-grow-1">Perencanaan kesehatan, cek medis rutin, dan edukasi pencegahan untuk Penyakit Tidak Menular (Diabetes, Hipertensi, Asam Urat).</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>`;
         }
+
         // ================= ADMIN FUNCTIONS =================
         async function handleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-user').value;
             const p = document.getElementById('login-pass').value;
+            
             showLoading("Memverifikasi...");
             try {
                 const response = await fetch(GAS_URL, {
                     method: 'POST', body: JSON.stringify({action: 'login', username: u, password: p})
                 });
                 const res = await response.json();
+                
                 if (res.success) {
                     sessionStorage.setItem('IS_ADMIN', 'true');
                     handleRouting();
-                } else { hideLoading(); Swal.fire('Gagal', res.message, 'error'); }
-            } catch (err) { hideLoading(); Swal.fire('Error', 'Koneksi gagal.', 'error'); }
+                } else { 
+                    hideLoading(); 
+                    Swal.fire('Gagal', res.message, 'error'); 
+                }
+            } catch (err) { 
+                hideLoading(); 
+                Swal.fire('Error', 'Koneksi gagal.', 'error'); 
+            }
         }
+        
         function handleLogout() {
-            sessionStorage.removeItem('IS_ADMIN'); 
+            sessionStorage.removeItem('IS_ADMIN');
             handleRouting();
         }
+
         async function loadAdminDashboard() {
             document.getElementById('admin-table-view').style.display = 'none';
             document.getElementById('admin-dashboard-view').style.display = 'block';
             document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
             document.getElementById('nav-Dashboard').classList.add('active');
-            
+
             showLoading("Memuat Dashboard...");
             try {
                 const response = await fetch(GAS_URL, {
@@ -584,53 +636,62 @@
                 let topProgHtml = '';
                 if(detail.topProgram && detail.topProgram.length > 0){
                     topProgHtml = detail.topProgram.map(b => `
-                        <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
-                            <span class="text-dark fw-bold">${b.judul.substring(0, 50)}</span>
-                            <span class="badge bg-primary text-white rounded-pill px-3 py-2"><i class="fa-solid fa-eye me-1"></i> ${b.views} views</span>
-                        </div>
-                    `).join('');
+                    <div class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                        <span class="text-dark fw-bold">${b.judul.substring(0, 50)}</span>
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-2"><i class="fa-solid fa-eye me-1"></i> ${b.views} views</span>
+                    </div>`).join('');
                 } else {
                     topProgHtml = '<p class="text-muted fst-italic">Belum ada data interaksi.</p>';
                 }
+                
                 document.getElementById('dashboard-stats-container').innerHTML = `
-                    <div class="col-md-5">
-                        <div class="bg-white p-5 rounded-4 shadow-sm border-start border-4 border-primary h-100 d-flex flex-column justify-content-center align-items-center text-center">
-                            <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fs-2 mb-4" style="width:70px; height:70px;"><i class="fa-solid fa-chart-line"></i></div>
-                            <h6 class="text-muted fw-bold text-uppercase mb-2">Total Viewers Program</h6>
-                            <h1 class="display-3 fw-bolder text-dark mb-0">${detail.totalViews || 0}</h1>
-                        </div>
+                <div class="col-md-5">
+                    <div class="bg-white p-5 rounded-4 shadow-sm border-start border-4 border-primary h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                        <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fs-2 mb-4" style="width:70px; height:70px;"><i class="fa-solid fa-users"></i></div>
+                        <h6 class="text-muted fw-bold text-uppercase mb-2">Total Kunjungan Web</h6>
+                        <h1 class="display-3 fw-bolder text-dark mb-0">${detail.totalViews || 0}</h1>
                     </div>
-                    <div class="col-md-7">
-                        <div class="bg-white p-5 rounded-4 shadow-sm h-100">
-                            <h5 class="fw-bold text-dark mb-4 pb-3 border-bottom"><i class="fa-solid fa-star text-warning me-2"></i> Top 5 Program Kesehatan</h5>
-                            ${topProgHtml}
-                        </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="bg-white p-5 rounded-4 shadow-sm h-100">
+                        <h5 class="fw-bold text-dark mb-4 pb-3 border-bottom"><i class="fa-solid fa-star text-warning me-2"></i> Top 5 Program Kesehatan</h5>
+                        ${topProgHtml}
                     </div>
-                `;
-            } catch(e) { document.getElementById('dashboard-stats-container').innerHTML = '<div class="col-12"><div class="alert alert-danger">Gagal memuat statistik.</div></div>'; }
+                </div>`;
+            } catch(e) { 
+                document.getElementById('dashboard-stats-container').innerHTML = '<div class="col-12"><div class="alert alert-danger">Gagal memuat statistik.</div></div>'; 
+            }
             hideLoading();
         }
+
         async function loadAdminModule(sheet) {
             currentAdminSheet = sheet;
             document.getElementById('admin-dashboard-view').style.display = 'none';
             document.getElementById('admin-table-view').style.display = 'block';
             document.getElementById('admin-title').innerText = 'Data ' + sheet;
+            
             document.querySelectorAll('.admin-nav').forEach(n => n.classList.remove('active'));
             document.getElementById('nav-' + sheet).classList.add('active');
-            
+
             showLoading(`Memuat ${sheet}...`);
             try {
                 const response = await fetch(GAS_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getAdminData', sheetName: sheet})
                 });
                 const res = await response.json();
+                
                 if(res.success) {
                     currentAdminHeaders = res.headers;
                     renderAdminTable(res.data);
-                } else { Swal.fire('Gagal', res.message, 'error'); }
-            } catch (e) { Swal.fire('Error', 'Gagal memuat data tabel. Pastikan Sheet tidak kosong.', 'error'); }
+                } else { 
+                    Swal.fire('Gagal', res.message, 'error'); 
+                }
+            } catch (e) { 
+                Swal.fire('Error', 'Gagal memuat data tabel. Pastikan Sheet tidak kosong.', 'error'); 
+            }
             hideLoading();
         }
+
         function renderAdminTable(data) {
             let head = '<tr>';
             currentAdminHeaders.forEach((h, i) => {
@@ -639,7 +700,7 @@
             });
             head += '<th class="text-center text-uppercase text-secondary small" style="width:120px;">Aksi</th></tr>';
             document.getElementById('admin-table-head').innerHTML = head;
-            
+
             let body = '';
             if(data.length === 0) {
                 body = `<tr><td colspan="${currentAdminHeaders.length + 1}" class="text-center py-5 text-muted">Belum ada data. Silakan tekan Tambah Baru.</td></tr>`;
@@ -654,28 +715,31 @@
                             try { let arr = JSON.parse(text); if(arr.length>0) text = arr[0]; } catch(e){}
                             if(text.startsWith('http')) {
                                 body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
-                            } else { body += `<td><div style="max-height:50px; overflow:hidden;">${text}</div></td>`; }
+                            } else { 
+                                body += `<td><div style="max-height:50px; overflow:hidden;">${text}</div></td>`; 
+                            }
                         } else {
                             let clean = text.replace(/<[^>]*>?/gm, '').substring(0, 50);
                             body += `<td><div style="max-height:50px; overflow:hidden;" class="text-muted small">${clean}</div></td>`;
                         }
                     });
-                    
-                    // PEMBARUAN TOMBOL SOLID KUNING DAN MERAH
                     body += `<td class="text-center text-nowrap">
-                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;"
+                            onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
                         <button class="btn btn-sm border-0 rounded-3 shadow-sm" style="background-color: #e63946; color: white; width: 32px; height: 32px; line-height: 1;" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
                     </td></tr>`;
                 });
             }
             document.getElementById('admin-table-body').innerHTML = body;
         }
+
         function openAdminModal(mode, id = null, btnObj = null) {
             currentEditId = mode === 'edit' ? id : null;
             document.getElementById('modal-title').innerText = mode === 'add' ? 'Tambah Data Baru' : 'Edit Data';
-            
+
             let html = '';
             let rowData = mode === 'edit' && btnObj ? JSON.parse(btnObj.getAttribute('data-row')) : [];
+            
             currentAdminHeaders.forEach((h, i) => {
                 const val = mode === 'edit' ? rowData[i] : '';
                 let hL = h.toLowerCase();
@@ -697,7 +761,7 @@
                     }
                     html += `
                     <div class="col-md-6 mb-3">
-                        <label class="form-label text-muted small fw-bold">${h} (File Upload)</label>
+                        <label class="form-label text-muted small fw-bold">${h} (File Upload maks 10MB)</label>
                         <input type="file" class="form-control admin-file border-0 bg-light rounded-3" data-header="${h}" accept="image/*,video/*" multiple>
                         <input type="hidden" class="admin-input" data-header="${h}" value='${val}'>
                         ${preview}
@@ -717,7 +781,7 @@
                 }
             });
             document.getElementById('adminForm').innerHTML = html;
-            
+
             $('.rich-text').each(function() {
                 $(this).summernote({
                     placeholder: 'Tulis deskripsi detail...', height: 250,
@@ -726,12 +790,16 @@
             });
             new bootstrap.Modal(document.getElementById('adminModal')).show();
         }
+
         const getBase64 = (file) => new Promise((resolve, reject) => {
-            const reader = new FileReader(); reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
+            const reader = new FileReader(); 
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result); 
+            reader.onerror = error => reject(error);
         });
+
         async function saveAdminData() {
-            let obj = {}; 
+            let obj = {};
             document.querySelectorAll('.admin-input').forEach(input => {
                 if(input.classList.contains('rich-text')) {
                     let sVal = $(input).summernote('code');
@@ -740,30 +808,54 @@
                     obj[input.dataset.header] = input.value;
                 }
             });
-            
+
             document.getElementById('btnSave').innerText = "Menyimpan...";
             document.getElementById('btnSave').disabled = true;
+            
             const fileInputs = document.querySelectorAll('.admin-file');
             for (let fileInput of fileInputs) {
                 const header = fileInput.dataset.header;
                 if (fileInput.files && fileInput.files.length > 0) {
-                    showLoading("Mengunggah File Media...");
+                    
+                    // [UPDATE] Limit Data 10MB
                     let uploadedUrls = [];
+                    for(let i=0; i<fileInput.files.length; i++) {
+                        if (fileInput.files[i].size > 10 * 1024 * 1024) {
+                            Swal.fire('File Terlalu Besar', `Maksimal ukuran file adalah 10MB (${fileInput.files[i].name}).`, 'error');
+                            resetBtn();
+                            return;
+                        }
+                    }
+
+                    showLoading("Mengunggah File Media...");
                     for(let i=0; i<fileInput.files.length; i++) {
                         try {
                             let base64Str = await getBase64(fileInput.files[i]);
-                            const fName = "img_" + new Date().getTime() + "_" + fileInput.files[i].name;
+                            const fName = "media_" + new Date().getTime() + "_" + fileInput.files[i].name;
                             const response = await fetch(GAS_URL, {
                                 method: 'POST', body: JSON.stringify({ action: 'uploadMedia', base64Data: base64Str, fileName: fName })
                             });
                             const upRes = await response.json();
-                            if (upRes.success) { uploadedUrls.push(upRes.url); } 
-                            else { Swal.fire('Gagal', upRes.message, 'error'); hideLoading(); resetBtn(); return; }
-                        } catch (e) { Swal.fire('Error', 'Gagal upload media', 'error'); hideLoading(); resetBtn(); return; }
+                            
+                            if (upRes.success) { 
+                                uploadedUrls.push(upRes.url); 
+                            } else { 
+                                Swal.fire('Gagal', upRes.message, 'error'); 
+                                hideLoading(); 
+                                resetBtn(); 
+                                return; 
+                            }
+                        } catch (e) { 
+                            Swal.fire('Error', 'Gagal upload media', 'error'); 
+                            hideLoading(); 
+                            resetBtn(); 
+                            return; 
+                        }
                     }
-                    obj[header] = JSON.stringify(uploadedUrls); 
+                    obj[header] = JSON.stringify(uploadedUrls);
                 }
             }
+            
             showLoading("Menyimpan Database...");
             try {
                 const payload = { action: currentEditId ? 'updateData' : 'insertData', sheetName: currentAdminSheet, dataObj: obj };
@@ -773,19 +865,27 @@
                 const res = await response.json();
                 
                 resetBtn(); hideLoading();
+                
                 if(res.success) {
                     bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
                     Swal.fire('Sukses', res.message, 'success');
                     loadAdminModule(currentAdminSheet);
-                } else { Swal.fire('Error', res.message, 'error'); }
-            } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
+                } else { 
+                    Swal.fire('Error', res.message, 'error'); 
+                }
+            } catch (e) { 
+                resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); 
+            }
         }
+
         function resetBtn() {
             document.getElementById('btnSave').innerText = "Simpan Data";
             document.getElementById('btnSave').disabled = false;
         }
+
         function deleteAdminData(id) {
-            Swal.fire({ title: 'Yakin hapus?', text: "Data akan dihapus permanen!", icon: 'warning', showCancelButton: true, confirmButtonText: 'Hapus'
+            Swal.fire({ 
+                title: 'Yakin hapus?', text: "Data akan dihapus permanen!", icon: 'warning', showCancelButton: true, confirmButtonText: 'Hapus'
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     showLoading("Menghapus...");
@@ -795,9 +895,17 @@
                         });
                         const res = await response.json();
                         hideLoading();
-                        if(res.success) { Swal.fire('Terhapus!', '', 'success'); loadAdminModule(currentAdminSheet); }
-                        else Swal.fire('Error', res.message, 'error');
-                    } catch(e) { hideLoading(); Swal.fire('Error', 'Gagal menghapus.', 'error'); }
+                        
+                        if(res.success) { 
+                            Swal.fire('Terhapus!', '', 'success'); 
+                            loadAdminModule(currentAdminSheet); 
+                        } else {
+                            Swal.fire('Error', res.message, 'error');
+                        }
+                    } catch(e) { 
+                        hideLoading(); 
+                        Swal.fire('Error', 'Gagal menghapus.', 'error'); 
+                    }
                 }
             });
         }
