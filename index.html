@@ -7,39 +7,13 @@
     
     <title>Puskesmas Nelayan Kabupaten Gresik - Layanan Kesehatan & Gizi</title>
     <meta name="description" content="Cari layanan kesehatan dan gizi terdekat di Gresik? Puskesmas nelayan Kabupaten Gresik melayani kesehatan masyarakat nelayan, pendampingan gizi anak stunting, dan terapi medis secara profesional.">
-    <meta name="keywords" content="puskesmas nelayan gresik, puskesmas kabupaten gresik, kesehatan nelayan, ahli gizi gresik, puskesmas terdekat, diet stunting anak, terapi nutrisi gresik">
-    <meta name="author" content="Puskesmas nelayan Kabupaten Gresik">
     
-    <meta property="og:title" content="Puskesmas Nelayan Kabupaten Gresik">
-    <meta property="og:description" content="Pelayanan kesehatan masyarakat, pendampingan gizi anak stunting, dan terapi medis bersama tenaga kesehatan terpercaya di Kabupaten Gresik.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://puskesmasnelayangresik.my.id/">
+    <!-- Penambahan Favicon -->
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o" type="image/png">
     
-    <!-- Optimasi Kecepatan: Preconnect ke server CDN utama -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HealthAndBeautyBusiness",
-      "name": "Puskesmas nelayan Kabupaten Gresik",
-      "image": "https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o",
-      "@id": "https://puskesmasnelayangresik.my.id/",
-      "url": "https://puskesmasnelayangresik.my.id/",
-      "telephone": "+6285536666320",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Gresik",
-        "addressRegion": "Jawa Timur",
-        "addressCountry": "ID"
-      },
-      "description": "Layanan kesehatan dan konsultasi gizi profesional di Kabupaten Gresik untuk masyarakat nelayan, anak stunting, dan terapi penyakit khusus.",
-      "areaServed": "Kabupaten Gresik",
-      "priceRange": "$"
-    }
-    </script>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -59,7 +33,6 @@
             scroll-behavior: smooth; 
             background-color: #f8fafc;
         }
-        
         .bg-gradient-primary { background: linear-gradient(135deg, #065f46 0%, #10b981 100%); }
         .text-primary { color: var(--primary-green) !important; }
         .bg-primary { background-color: var(--primary-green) !important; }
@@ -69,7 +42,6 @@
             border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
         }
-        
         .card-gizi { 
             border: none; transition: all 0.3s ease; border-radius: 24px; background: #ffffff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1);
@@ -102,7 +74,7 @@
         
         .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
         
-        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
+        #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.3s; }
         .site-section { display: none; animation: fadeIn 0.5s; }
         .site-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -128,7 +100,6 @@
         <p class="mt-3 text-secondary fw-bold" id="loading-text">Memuat Data...</p>
     </div>
     
-    <!-- ================= PUBLIC VIEW ================= -->
     <div id="public-view">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
             <div class="container">
@@ -172,8 +143,7 @@
             <section id="layanan" class="py-5 mt-4 site-section">
                 <div class="container py-4">
                     <h2 class="text-center section-title">Program Layanan Kesehatan</h2>
-                    <div class="row g-4 mt-2 justify-content-center" id="layanan-container">
-                    </div>
+                    <div class="row g-4 mt-2 justify-content-center" id="layanan-container"></div>
                 </div>
             </section>
             <section id="program" class="py-5 mt-4 site-section">
@@ -182,13 +152,11 @@
                         <h2 class="section-title">Katalog & Program Puskesmas</h2>
                         <p class="text-muted mt-2">Berbagai program kesehatan dan terapi yang telah kami susun untuk masyarakat.</p>
                     </div>
-                    <div class="row g-4 justify-content-center" id="program-container">
-                    </div>
+                    <div class="row g-4 justify-content-center" id="program-container"></div>
                 </div>
             </section>
             <section id="baca-program" class="py-5 mt-5 site-section">
-                <div class="container py-5" id="baca-container">
-                </div>
+                <div class="container py-5" id="baca-container"></div>
             </section>
             <section id="keunggulan" class="py-5 site-section" style="background-color: #f0fdf4;">
                 <div class="container py-4">
@@ -258,12 +226,6 @@
                 <h5 class="fw-bold mb-2">Puskesmas Nelayan Kabupaten Gresik</h5>
                 <p class="mb-4 text-secondary small">Sahabat kesehatan terpercaya untuk masyarakat pesisir, tumbuh kembang anak, dan gaya hidup sehat keluarga Anda.</p>
                 
-                <div class="mb-4">
-                    <a href="#" aria-label="Instagram" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook" class="text-white me-3 fs-5 hover-opacity"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" aria-label="YouTube" class="text-white fs-5 hover-opacity" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-                
                 <div class="seo-areas mt-4 mb-4 p-3 bg-secondary bg-opacity-10 rounded">
                     <span class="d-block mb-1 fw-bold text-light">Jangkauan Layanan Puskesmas Nelayan Kabupaten Gresik:</span>
                     <span style="word-wrap: break-word;">Bungah, Dukun, Kebomas, Manyar, Panceng, Sidayu, Ujungpangkah, Sangkapura, Tambak, dan seluruh wilayah pesisir Kabupaten Gresik.</span>
@@ -274,9 +236,7 @@
             </div>
         </footer>
     </div>
-    <!-- ================= END PUBLIC VIEW ================= -->
     
-    <!-- ================= ADMIN LOGIN VIEW ================= -->
     <div id="login-view" style="display: none; height: 100vh; background: #e2e8f0; align-items: center; justify-content: center;">
         <div class="bg-white p-5 rounded-4 shadow-lg w-100 mx-3" style="max-width: 400px;">
             <div class="text-center mb-4">
@@ -300,7 +260,6 @@
         </div>
     </div>
     
-    <!-- ================= ADMIN DASHBOARD & CRUD VIEW ================= -->
     <div id="admin-view" style="display: none;">
         <aside class="admin-sidebar">
             <div class="p-4 text-center border-bottom border-secondary border-opacity-25 mb-3">
@@ -308,23 +267,19 @@
                 <p class="small text-muted mb-0 mt-1">Sistem Manajemen Konten</p>
             </div>
             <a onclick="loadAdminDashboard()" class="admin-nav" id="nav-Dashboard"><i class="fa-solid fa-chart-line me-2"></i> Dashboard</a>
-            
             <p class="px-4 text-xs font-bold text-secondary mt-4 mb-2 text-uppercase">Konten Website</p>
             <a onclick="loadAdminModule('Pengaturan')" class="admin-nav" id="nav-Pengaturan"><i class="fa-solid fa-sliders me-2"></i> Pengaturan Teks</a>
             <a onclick="loadAdminModule('Layanan')" class="admin-nav" id="nav-Layanan"><i class="fa-solid fa-notes-medical me-2"></i> Kelola Layanan</a>
             <a onclick="loadAdminModule('Program')" class="admin-nav" id="nav-Program"><i class="fa-solid fa-images me-2"></i> Katalog/Program</a>
-            
             <a href="#home" class="mt-5 border-top border-secondary border-opacity-25 pt-3 text-info"><i class="fa-solid fa-earth-asia me-2"></i> Lihat Website</a>
             <a onclick="handleLogout()" class="text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a>
         </aside>
         <main class="admin-main">
-            <!-- DASHBOARD TAB -->
             <div id="admin-dashboard-view" style="display:none;">
                 <h2 class="fw-bold text-dark mb-2">Monitoring Viewers</h2>
                 <p class="text-muted mb-4">Statistik kinerja pengunjung dan program pada website Anda</p>
                 <div class="row g-4" id="dashboard-stats-container"></div>
             </div>
-            <!-- TABLE TAB -->
             <div id="admin-table-view" style="display:none;">
                 <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-4 rounded-4 shadow-sm">
                     <div>
@@ -343,7 +298,6 @@
         </main>
     </div>
     
-    <!-- Modal Admin Form -->
     <div class="modal fade" id="adminModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 rounded-4 shadow-lg">
@@ -362,32 +316,28 @@
         </div>
     </div>
     
-    <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        // MASUKKAN URL APLIKASI WEB ANDA DI SINI
         const GAS_URL = "https://script.google.com/macros/s/AKfycbxhSlWG69VHuSnHWGRKEFbaSJD4rwZkRl5_KwR2rwpL2E3Y3GR1KOUH4SQnnftj4j4Z/exec"; 
         
         let currentAdminSheet = 'Pengaturan';
         let currentAdminHeaders = [];
         let currentEditId = null;
-        let isVisitRecorded = false; // Memastikan fitur kunjungan hanya tercatat 1x per sesi
+        let isVisitRecorded = false; 
         
         document.addEventListener("DOMContentLoaded", function() {
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
             
-            // Catat kunjungan ke web secara background (tidak membebani loading)
             if(!sessionStorage.getItem('IS_ADMIN') && !isVisitRecorded) {
                 isVisitRecorded = true;
                 fetch(GAS_URL, {
-                    method: 'POST', 
-                    body: JSON.stringify({action: 'recordWebVisit'})
-                }).catch(e => console.log('Silent record visit gagal:', e));
+                    method: 'POST', body: JSON.stringify({action: 'recordWebVisit'})
+                }).catch(e => console.log('Silent visit gagal:', e));
             }
         });
         
@@ -438,148 +388,189 @@
             document.getElementById('loading-screen').style.opacity = '1';
             document.getElementById('loading-screen').style.display = 'flex';
         }
-        
         function hideLoading() {
             const loader = document.getElementById('loading-screen');
             loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 500);
+            setTimeout(() => loader.style.display = 'none', 300);
         }
         
         function createSlugJS(str) {
             return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
         }
-        
-        // ================= PUBLIC FETCH =================
-        async function loadPublicData() {
-            showLoading();
-            if(GAS_URL === "MASUKKAN_URL_WEB_APP_ANDA_DI_SINI") {
-                renderDefaultLayanan(); hideLoading(); return;
+
+        // ================= CONVERTER VIDEO URL =================
+        function getPlayableVideoUrl(rawUrl) {
+            let cleanUrl = rawUrl.replace('#video', '');
+            if (cleanUrl.includes('lh3.googleusercontent.com/d/')) {
+                let fileId = cleanUrl.split('/d/')[1];
+                return `https://drive.google.com/uc?export=download&id=${fileId}`;
             }
+            return cleanUrl;
+        }
+        
+        // ================= PUBLIC FETCH & RENDER =================
+        async function loadPublicData() {
+            // Optimasi 0-Second Load: Tampilkan dari Cache LocalStorage dulu
+            const cachedStr = localStorage.getItem('puskesmasDataCache');
+            if (cachedStr) {
+                try {
+                    const result = JSON.parse(cachedStr);
+                    renderPublicContent(result.data);
+                    hideLoading(); 
+                } catch(e) {}
+            } else {
+                showLoading();
+            }
+
+            // Ambil data terbaru di latar belakang
             try {
                 const response = await fetch(`${GAS_URL}?action=getAllData`);
                 const result = await response.json();
                 if(result.success) {
-                    const pengaturan = result.data.pengaturan;
-                    const layanan = result.data.layanan;
-                    const program = result.data.program;
-                    
-                    if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
-                    if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
-                    if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
-                    
-                    let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
-                    document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
-                    
-                    const layananContainer = document.getElementById('layanan-container');
-                    layananContainer.innerHTML = ''; 
-                    if(layanan.length > 0) {
-                        layanan.forEach((item, index) => {
-                            let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
-                            let colorStyle = (index % 3 === 2) ? "style='color: var(--accent-orange); background: #fef3c7;'" : "";
-                            layananContainer.innerHTML += `
-                            <div class="col-md-6 col-lg-4">
-                                <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
-                                    <div class="feature-icon" ${colorStyle}><i class="${item.ikon || 'fa-solid fa-leaf'}"></i></div>
-                                    <h3 class="fw-bold mb-3 h5">${item.judul}</h3>
-                                    <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
-                                    <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
-                                </article>
-                            </div>`;
-                        });
-                    } else { renderDefaultLayanan(); }
-                    
-                    const programContainer = document.getElementById('program-container');
-                    programContainer.innerHTML = '';
-                    if(program.length > 0) {
-                        program.forEach(p => {
-                            let imgRaw = p.gambar || 'https://via.placeholder.com/600x400';
-                            let imgArr = [];
-                            try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
-                            let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
-                            
-                            // Jika media adalah video (ada flag #video), fallback tampilan gambar bisa dikustom. Kita bersihkan flagnya:
-                            let isVideo = imgSrc.includes('#video');
-                            imgSrc = imgSrc.replace('#video', '');
-                            
-                            let slug = createSlugJS(p.judul);
-                            programContainer.innerHTML += `
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
-                                    <div class="position-relative overflow-hidden cursor-pointer bg-dark" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
-                                        ${isVideo 
-                                            ? `<video src="${imgSrc}" class="w-100 h-100 object-fit-cover opacity-75" style="transition:0.5s;"></video><div class="position-absolute top-50 start-50 translate-middle text-white display-4"><i class="fa-solid fa-play-circle"></i></div>` 
-                                            : `<img src="${imgSrc}" class="w-100 h-100 object-fit-cover" style="transition:0.5s;">`}
-                                        <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
-                                    </div>
-                                    <div class="p-4 d-flex flex-column flex-grow-1">
-                                        <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
-                                        <div class="text-muted small flex-grow-1 mb-4">${p.deskripsi.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</div>
-                                        <div class="d-flex gap-2 mt-auto">
-                                            ${p.link_demo ? `<a href="${p.link_demo}" target="_blank" class="btn btn-dark btn-sm flex-grow-1 rounded-pill"><i class="fa-solid fa-play me-1"></i> Demo</a>` : ''}
-                                            <button onclick="bukaProgramSlug('${slug}')" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">Detail</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
-                        });
-                    } else {
-                        programContainer.innerHTML = '<p class="text-muted text-center w-100">Belum ada portofolio program.</p>';
-                    }
+                    localStorage.setItem('puskesmasDataCache', JSON.stringify(result));
+                    renderPublicContent(result.data); // Update tampilan jika ada yg baru
                 }
-            } catch (e) { renderDefaultLayanan(); }
+            } catch (e) {
+                if(!cachedStr) renderDefaultLayanan();
+            }
             hideLoading();
+        }
+
+        function renderPublicContent(data) {
+            const pengaturan = data.pengaturan;
+            const layanan = data.layanan;
+            const program = data.program;
+            
+            if(pengaturan.Hero_Title) document.getElementById('dyn-hero-title').innerText = pengaturan.Hero_Title;
+            if(pengaturan.Hero_Subtitle) document.getElementById('dyn-hero-subtitle').innerText = pengaturan.Hero_Subtitle;
+            if(pengaturan.About_Text) document.getElementById('dyn-about-text').innerText = pengaturan.About_Text;
+            
+            let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
+            document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
+            
+            const layananContainer = document.getElementById('layanan-container');
+            layananContainer.innerHTML = ''; 
+            if(layanan.length > 0) {
+                layanan.forEach((item, index) => {
+                    let linkPesan = item.pesan_wa ? `${linkWa}?text=${encodeURIComponent(item.pesan_wa)}` : linkWa;
+                    let colorStyle = (index % 3 === 2) ? "style='color: var(--accent-orange); background: #fef3c7;'" : "";
+                    layananContainer.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card-gizi h-100 p-4 text-center d-flex flex-column">
+                            <div class="feature-icon" ${colorStyle}><i class="${item.ikon || 'fa-solid fa-leaf'}"></i></div>
+                            <h3 class="fw-bold mb-3 h5">${item.judul}</h3>
+                            <p class="text-muted small mb-4 flex-grow-1">${item.deskripsi}</p>
+                            <a href="${linkPesan}" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a>
+                        </article>
+                    </div>`;
+                });
+            } else { renderDefaultLayanan(); }
+            
+            const programContainer = document.getElementById('program-container');
+            programContainer.innerHTML = '';
+            if(program.length > 0) {
+                program.forEach(p => {
+                    let imgRaw = p.gambar || 'https://via.placeholder.com/600x400';
+                    let imgArr = [];
+                    try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
+                    let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
+                    
+                    let isVideo = imgSrc.includes('#video');
+                    let finalUrl = isVideo ? getPlayableVideoUrl(imgSrc) : imgSrc;
+                    let slug = createSlugJS(p.judul);
+
+                    programContainer.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
+                            <div class="position-relative overflow-hidden cursor-pointer bg-dark" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
+                                ${isVideo 
+                                    ? `<video src="${finalUrl}" class="w-100 h-100 object-fit-cover opacity-75" preload="metadata"></video><div class="position-absolute top-50 start-50 translate-middle text-white display-4"><i class="fa-solid fa-play-circle"></i></div>` 
+                                    : `<img src="${finalUrl}" class="w-100 h-100 object-fit-cover">`}
+                                <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
+                                <div class="text-muted small flex-grow-1 mb-4">${p.deskripsi.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</div>
+                                <div class="d-flex gap-2 mt-auto">
+                                    ${p.link_demo ? `<a href="${p.link_demo}" target="_blank" class="btn btn-dark btn-sm flex-grow-1 rounded-pill"><i class="fa-solid fa-play me-1"></i> Demo</a>` : ''}
+                                    <button onclick="bukaProgramSlug('${slug}')" class="btn btn-outline-primary btn-sm flex-grow-1 rounded-pill">Detail</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            } else {
+                programContainer.innerHTML = '<p class="text-muted text-center w-100">Belum ada portofolio program.</p>';
+            }
         }
         
         async function bukaProgramSlug(slug, pushHistory = true) {
-            showLoading("Memuat Detail...");
             nav('baca-program', false);
             if (pushHistory) history.pushState({ section: 'baca-program', slug: slug }, '', '#' + slug);
+            
+            // Coba muat instan dari Cache LocalStorage
+            let isInstant = false;
             try {
+                let cache = JSON.parse(localStorage.getItem('puskesmasDataCache'));
+                if(cache && cache.data && cache.data.program) {
+                    let cachedProg = cache.data.program.find(x => createSlugJS(x.judul) === slug);
+                    if (cachedProg) {
+                        renderDetailBuku(cachedProg);
+                        isInstant = true;
+                    }
+                }
+            } catch(e) {}
+            
+            if(!isInstant) showLoading("Memuat Detail...");
+
+            try {
+                // Tetap lakukan fetch POST agar API menghitung penambahan Views
                 const response = await fetch(GAS_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getProgramBySlug', slug: slug})
                 });
                 const res = await response.json();
                 hideLoading();
+
                 if(res.success && res.data) {
-                    const headers = res.headers; const d = res.data;
-                    let iJ = headers.indexOf('judul'); let iK = headers.indexOf('kategori');
-                    let iI = headers.indexOf('deskripsi'); let iG = headers.indexOf('gambar');
-                    let iD = headers.indexOf('link_demo');
-                    
-                    let imgRaw = d[iG] || ''; let mediaList = [];
-                    try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
-                    
-                    let imgHtml = '';
-                    if (mediaList.length > 0) {
-                        let urlRaw = mediaList[0];
-                        if (urlRaw.includes('#video')) {
-                             // Render ke format Video
-                             imgHtml = `<video src="${urlRaw.replace('#video','')}" class="w-100 rounded-4 shadow-sm mb-4 bg-dark" style="max-height:500px; object-fit:contain;" controls></video>`;
-                        } else {
-                             // Render ke format Image
-                             imgHtml = `<img src="${urlRaw}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
-                        }
-                    }
-                    
-                    let demoBtn = d[iD] ? `<a href="${d[iD]}" target="_blank" class="btn btn-dark btn-lg rounded-pill mt-4 px-5"><i class="fa-solid fa-external-link-alt me-2"></i> Akses Tautan / Demo</a>` : '';
-                    
-                    let html = `
-                    <div class="card-gizi p-4 p-md-5 mx-auto" style="max-width: 850px;">
-                        <button onclick="nav('program')" class="btn btn-light rounded-pill mb-4 fw-bold text-primary"><i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Katalog</button>
-                        <br><span class="badge bg-primary px-3 py-2 rounded-pill mb-3">${d[iK]}</span>
-                        <h1 class="fw-bold text-dark mb-4">${d[iJ]}</h1>
-                        ${imgHtml}
-                        <div class="text-muted leading-relaxed" style="font-size:1.1rem; line-height: 1.8;">${d[iI]}</div>
-                        ${demoBtn}
-                    </div>`;
-                    document.getElementById('baca-container').innerHTML = html;
-                } else {
+                    let dObj = {};
+                    res.headers.forEach((h, i) => dObj[h] = res.data[i]);
+                    renderDetailBuku(dObj);
+                } else if(!isInstant) {
                     document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Data tidak ditemukan.</div>`;
                 }
             } catch (e) {
                 hideLoading();
-                document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
+                if(!isInstant) document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
             }
+        }
+
+        function renderDetailBuku(d) {
+            let imgRaw = d.gambar || ''; let mediaList = [];
+            try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
+            
+            let imgHtml = '';
+            if (mediaList.length > 0) {
+                let urlRaw = mediaList[0];
+                if (urlRaw.includes('#video')) {
+                     let videoUrl = getPlayableVideoUrl(urlRaw);
+                     imgHtml = `<video src="${videoUrl}" class="w-100 rounded-4 shadow-sm mb-4 bg-dark" style="max-height:500px; object-fit:contain;" controls playsinline preload="metadata"></video>`;
+                } else {
+                     imgHtml = `<img src="${urlRaw}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
+                }
+            }
+            
+            let demoBtn = d.link_demo ? `<a href="${d.link_demo}" target="_blank" class="btn btn-dark btn-lg rounded-pill mt-4 px-5"><i class="fa-solid fa-external-link-alt me-2"></i> Akses Tautan / Demo</a>` : '';
+            
+            let html = `
+            <div class="card-gizi p-4 p-md-5 mx-auto" style="max-width: 850px;">
+                <button onclick="nav('program')" class="btn btn-light rounded-pill mb-4 fw-bold text-primary"><i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Katalog</button>
+                <br><span class="badge bg-primary px-3 py-2 rounded-pill mb-3">${d.kategori || ''}</span>
+                <h1 class="fw-bold text-dark mb-4">${d.judul || ''}</h1>
+                ${imgHtml}
+                <div class="text-muted leading-relaxed" style="font-size:1.1rem; line-height: 1.8;">${d.deskripsi || ''}</div>
+                ${demoBtn}
+            </div>`;
+            document.getElementById('baca-container').innerHTML = html;
         }
         
         function renderDefaultLayanan() {
@@ -711,9 +702,9 @@
                         if(isMedia) {
                             try { let arr = JSON.parse(text); if(arr.length>0) text = arr[0]; } catch(e){}
                             if(text.startsWith('http')) {
-                                // Pengecekan rendering Media (Video atau Foto) dalam Panel Admin
                                 if(text.includes('#video')) {
-                                    body += `<td><video src="${text.replace('#video','')}" class="rounded-3 shadow-sm bg-dark" style="width:50px; height:50px; object-fit:cover;"></video></td>`;
+                                    let vUrl = getPlayableVideoUrl(text);
+                                    body += `<td><video src="${vUrl}" class="rounded-3 shadow-sm bg-dark" style="width:50px; height:50px; object-fit:cover;"></video></td>`;
                                 } else {
                                     body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
                                 }
@@ -725,7 +716,7 @@
                     });
                     
                     body += `<td class="text-center text-nowrap">
-                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row).replace(/'/g, "&#39;")}'><i class="fa-solid fa-pen"></i></button>
                         <button class="btn btn-sm border-0 rounded-3 shadow-sm" style="background-color: #e63946; color: white; width: 32px; height: 32px; line-height: 1;" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
                     </td></tr>`;
                 });
@@ -757,7 +748,8 @@
                         preview = '<div class="mt-2 d-flex gap-2">';
                         mediaArr.forEach(url => {
                             if (url.includes('#video')) {
-                                preview += `<video src="${url.replace('#video','')}" class="rounded shadow-sm bg-dark" style="height:60px; width:60px; object-fit:cover;" controls></video>`;
+                                let vUrl = getPlayableVideoUrl(url);
+                                preview += `<video src="${vUrl}" class="rounded shadow-sm bg-dark" style="height:60px; width:60px; object-fit:cover;" controls></video>`;
                             } else {
                                 preview += `<img src="${url}" class="rounded shadow-sm" style="height:60px; width:60px; object-fit:cover;">`;
                             }
@@ -824,7 +816,6 @@
                     
                     for(let i=0; i<fileInput.files.length; i++) {
                         let f = fileInput.files[i];
-                        // Mencegah file terlalu besar client-side yang berpotensi menyangkut jika > 10MB murni
                         if (f.size > 15 * 1024 * 1024) { 
                              Swal.fire('Error', `File ${f.name} terlalu besar. Maksimal disarankan ~10MB - 15MB.`, 'error');
                              hideLoading(); resetBtn(); return;
@@ -847,7 +838,6 @@
                             
                             const upRes = await response.json();
                             if (upRes.success) { 
-                                // Tag khusus video agar dirender di UI
                                 let finalUrl = mimeType.startsWith('video/') ? upRes.url + '#video' : upRes.url;
                                 uploadedUrls.push(finalUrl); 
                             } 
@@ -870,6 +860,7 @@
                 if(res.success) {
                     bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
                     Swal.fire('Sukses', res.message, 'success');
+                    localStorage.removeItem('puskesmasDataCache'); // Hapus cache agar web update
                     loadAdminModule(currentAdminSheet);
                 } else { Swal.fire('Error', res.message, 'error'); }
             } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
@@ -891,7 +882,11 @@
                         });
                         const res = await response.json();
                         hideLoading();
-                        if(res.success) { Swal.fire('Terhapus!', '', 'success'); loadAdminModule(currentAdminSheet); }
+                        if(res.success) { 
+                            Swal.fire('Terhapus!', '', 'success'); 
+                            localStorage.removeItem('puskesmasDataCache');
+                            loadAdminModule(currentAdminSheet); 
+                        }
                         else Swal.fire('Error', res.message, 'error');
                     } catch(e) { hideLoading(); Swal.fire('Error', 'Gagal menghapus.', 'error'); }
                 }
