@@ -321,7 +321,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxhSlWG69VHuSnHWGRKEFbaSJD4rwZkRl5_KwR2rwpL2E3Y3GR1KOUH4SQnnftj4j4Z/exec"; 
+        // PENTING: GANTI URL DI BAWAH INI DENGAN LINK HOSTING ANDA
+        const API_URL = "https://cbt-belajar-inovasi.my.id/pkm/api.php"; 
         
         let currentAdminSheet = 'Pengaturan';
         let currentAdminHeaders = [];
@@ -332,11 +333,10 @@
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
             
-            // Optimasi Loading: Tunda POST recordWebVisit agar GET data utama tidak tertahan
             setTimeout(() => {
                 if(!sessionStorage.getItem('IS_ADMIN') && !isVisitRecorded) {
                     isVisitRecorded = true;
-                    fetch(GAS_URL, {
+                    fetch(API_URL, {
                         method: 'POST', body: JSON.stringify({action: 'recordWebVisit'})
                     }).catch(e => console.log('Silent visit gagal:', e));
                 }
@@ -400,26 +400,17 @@
             return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
         }
 
-        // ================= CONVERTER VIDEO URL FIX =================
         function getPlayableVideoUrl(rawUrl) {
             let cleanUrl = rawUrl.replace('#video', '');
-            
-            // Ubah link "uc?export=download" menjadi link "preview" (wajib agar video jalan tanpa error)
             let idMatch = cleanUrl.match(/[?&]id=([^&]+)/);
-            if (idMatch && idMatch[1]) {
-                return `https://drive.google.com/file/d/${idMatch[1]}/preview`;
-            }
-            
-            // Ubah link lh3.googleusercontent.com menjadi mode preview jika ditandai #video
+            if (idMatch && idMatch[1]) { return `https://drive.google.com/file/d/${idMatch[1]}/preview`; }
             if (cleanUrl.includes('lh3.googleusercontent.com/d/')) {
                 let fileId = cleanUrl.split('/d/')[1];
                 return `https://drive.google.com/file/d/${fileId}/preview`;
             }
-            
             return cleanUrl;
         }
         
-        // ================= PUBLIC FETCH & RENDER =================
         async function loadPublicData() {
             const cachedStr = localStorage.getItem('puskesmasDataCache');
             if (cachedStr) {
@@ -432,7 +423,7 @@
                 showLoading();
             }
             try {
-                const response = await fetch(`${GAS_URL}?action=getAllData`);
+                const response = await fetch(`${API_URL}?action=getAllData`);
                 const result = await response.json();
                 if(result.success) {
                     localStorage.setItem('puskesmasDataCache', JSON.stringify(result));
@@ -483,11 +474,10 @@
                     try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
                     let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
                     
-                    let isVideo = imgSrc.includes('#video');
+                    let isVideo = imgSrc.includes('#video') || imgSrc.endsWith('.mp4');
                     let finalUrl = isVideo ? getPlayableVideoUrl(imgSrc) : imgSrc;
                     let slug = createSlugJS(p.judul);
                     
-                    // Gunakan Iframe jika video agar preview berjalan lancar dari gdrive, dibungkus div overlay transparan agar tetap bisa diklik
                     programContainer.innerHTML += `
                     <div class="col-md-6 col-lg-4">
                         <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
@@ -537,7 +527,7 @@
             
             if(!isInstant) showLoading("Memuat Detail...");
             try {
-                const response = await fetch(GAS_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getProgramBySlug', slug: slug})
                 });
                 const res = await response.json();
@@ -562,9 +552,8 @@
             let imgHtml = '';
             if (mediaList.length > 0) {
                 let urlRaw = mediaList[0];
-                if (urlRaw.includes('#video')) {
+                if (urlRaw.includes('#video') || urlRaw.endsWith('.mp4')) {
                      let videoUrl = getPlayableVideoUrl(urlRaw);
-                     // Gunakan div.ratio untuk respon iframe Google Drive yang baik agar video tidak pecah
                      imgHtml = `<div class="ratio ratio-16x9 mb-4 rounded-4 shadow-sm overflow-hidden bg-dark">
                                     <iframe src="${videoUrl}" allow="autoplay" allowfullscreen style="border: none;"></iframe>
                                 </div>`;
@@ -594,14 +583,13 @@
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div><h3 class="fw-bold mb-3 h5">Layanan Medis Umum</h3><p class="text-muted small mb-4 flex-grow-1">Perencanaan kesehatan, cek medis rutin, dan edukasi pencegahan untuk Penyakit Tidak Menular (Diabetes, Hipertensi, Asam Urat).</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>`;
         }
         
-        // ================= ADMIN FUNCTIONS =================
         async function handleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-user').value;
             const p = document.getElementById('login-pass').value;
             showLoading("Memverifikasi...");
             try {
-                const response = await fetch(GAS_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST', body: JSON.stringify({action: 'login', username: u, password: p})
                 });
                 const res = await response.json();
@@ -625,7 +613,7 @@
             
             showLoading("Memuat Dashboard...");
             try {
-                const response = await fetch(GAS_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getDashboardStats'})
                 });
                 const detail = await response.json();
@@ -682,7 +670,7 @@
             
             showLoading(`Memuat ${sheet}...`);
             try {
-                const response = await fetch(GAS_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getAdminData', sheetName: sheet})
                 });
                 const res = await response.json();
@@ -697,7 +685,7 @@
         function renderAdminTable(data) {
             let head = '<tr>';
             currentAdminHeaders.forEach((h, i) => {
-                if(i===0) head += `<th class="text-uppercase text-secondary small" style="width: 50px;">ID</th>`;
+                if(h.toLowerCase() === 'id') head += `<th class="text-uppercase text-secondary small" style="width: 50px;">ID</th>`;
                 else head += `<th class="text-uppercase text-secondary small">${h}</th>`;
             });
             head += '<th class="text-center text-uppercase text-secondary small" style="width:120px;">Aksi</th></tr>';
@@ -709,6 +697,7 @@
             } else {
                 data.forEach(row => {
                     body += '<tr>';
+                    let rowId = row[0]; // Asumsi kolom 0 adalah ID
                     row.forEach((cell, i) => {
                         let text = cell ? cell.toString() : '';
                         let isMedia = typeof text === 'string' && (text.startsWith('http') || text.startsWith('['));
@@ -716,7 +705,7 @@
                         if(isMedia) {
                             try { let arr = JSON.parse(text); if(arr.length>0) text = arr[0]; } catch(e){}
                             if(text.startsWith('http')) {
-                                if(text.includes('#video')) {
+                                if(text.includes('#video') || text.endsWith('.mp4')) {
                                     let vUrl = getPlayableVideoUrl(text);
                                     body += `<td><div class="position-relative" style="width:50px; height:50px;"><iframe src="${vUrl}" class="rounded-3 shadow-sm bg-dark w-100 h-100" style="border:none; pointer-events:none;"></iframe><div class="position-absolute top-0 start-0 w-100 h-100" style="z-index:1;"></div></div></td>`;
                                 } else {
@@ -730,8 +719,8 @@
                     });
                     
                     body += `<td class="text-center text-nowrap">
-                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row).replace(/'/g, "&#39;")}'><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-sm border-0 rounded-3 shadow-sm" style="background-color: #e63946; color: white; width: 32px; height: 32px; line-height: 1;" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${rowId}', this)" data-row='${JSON.stringify(row).replace(/'/g, "&#39;")}'><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm border-0 rounded-3 shadow-sm" style="background-color: #e63946; color: white; width: 32px; height: 32px; line-height: 1;" onclick="deleteAdminData('${rowId}')"><i class="fa-solid fa-trash"></i></button>
                     </td></tr>`;
                 });
             }
@@ -747,13 +736,13 @@
             currentAdminHeaders.forEach((h, i) => {
                 const val = mode === 'edit' ? rowData[i] : '';
                 let hL = h.toLowerCase();
-                let readOnly = (mode === 'edit' && i === 0) ? 'readonly' : '';
+                let isReadOnly = (hL === 'id' || hL === 'views' || (currentAdminSheet === 'Pengaturan' && hL === 'kunci')) ? 'readonly' : '';
                 
-                if (hL === 'views') {
+                if (hL === 'views' || hL === 'id') {
                     html += `
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3" ${hL === 'id' && mode === 'add' ? 'style="display:none;"' : ''}>
                         <label class="form-label text-muted small fw-bold">${h} (Otomatis)</label>
-                        <input type="number" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val || 0}" readonly>
+                        <input type="text" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val || (hL === 'views' ? 0 : '')}" readonly>
                     </div>`;
                 } else if (hL.includes('gambar') || hL.includes('foto') || hL.includes('media')) {
                     let preview = ''; let mediaArr = [];
@@ -761,7 +750,7 @@
                     if (mediaArr.length > 0) {
                         preview = '<div class="mt-2 d-flex gap-2">';
                         mediaArr.forEach(url => {
-                            if (url.includes('#video')) {
+                            if (url.includes('#video') || url.endsWith('.mp4')) {
                                 let vUrl = getPlayableVideoUrl(url);
                                 preview += `<div class="position-relative" style="height:60px; width:60px;"><iframe src="${vUrl}" class="rounded shadow-sm bg-dark w-100 h-100" style="border:none; pointer-events:none;"></iframe><div class="position-absolute top-0 start-0 w-100 h-100" style="z-index:1;"></div></div>`;
                             } else {
@@ -777,7 +766,7 @@
                         <input type="hidden" class="admin-input" data-header="${h}" value='${val}'>
                         ${preview}
                     </div>`;
-                } else if (hL.includes('isi') || hL.includes('deskripsi')) {
+                } else if (hL.includes('isi') || hL.includes('deskripsi') || hL.includes('nilai')) {
                     html += `
                     <div class="col-12 mb-3">
                         <label class="form-label text-muted small fw-bold">${h}</label>
@@ -787,7 +776,7 @@
                     html += `
                     <div class="col-md-6 mb-3">
                         <label class="form-label text-muted small fw-bold">${h}</label>
-                        <input type="text" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val}" ${readOnly}>
+                        <input type="text" class="form-control bg-light border-0 rounded-3 admin-input" data-header="${h}" value="${val}" ${isReadOnly}>
                     </div>`;
                 }
             });
@@ -840,7 +829,7 @@
                             const fName = "media_" + new Date().getTime() + "_" + f.name;
                             let mimeType = f.type || 'application/octet-stream';
                             
-                            const response = await fetch(GAS_URL, {
+                            const response = await fetch(API_URL, {
                                 method: 'POST', 
                                 body: JSON.stringify({ 
                                     action: 'uploadMedia', 
@@ -852,7 +841,6 @@
                             
                             const upRes = await response.json();
                             if (upRes.success) { 
-                                // Menyimpan tautan preview pada file backend jika yang diupload adalah video
                                 let finalUrl = mimeType.startsWith('video/') ? upRes.url + '#video' : upRes.url;
                                 uploadedUrls.push(finalUrl); 
                             } 
@@ -868,14 +856,14 @@
                 const payload = { action: currentEditId ? 'updateData' : 'insertData', sheetName: currentAdminSheet, dataObj: obj };
                 if (currentEditId) payload.id = currentEditId;
                 
-                const response = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
+                const response = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const res = await response.json();
                 
                 resetBtn(); hideLoading();
                 if(res.success) {
                     bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
                     Swal.fire('Sukses', res.message, 'success');
-                    localStorage.removeItem('puskesmasDataCache'); // Hapus cache agar web update otomatis
+                    localStorage.removeItem('puskesmasDataCache'); 
                     loadAdminModule(currentAdminSheet);
                 } else { Swal.fire('Error', res.message, 'error'); }
             } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
@@ -892,7 +880,7 @@
                 if (result.isConfirmed) {
                     showLoading("Menghapus...");
                     try {
-                        const response = await fetch(GAS_URL, {
+                        const response = await fetch(API_URL, {
                             method: 'POST', body: JSON.stringify({ action: 'deleteData', sheetName: currentAdminSheet, id: id })
                         });
                         const res = await response.json();
