@@ -8,7 +8,6 @@
     <title>Puskesmas Nelayan Kabupaten Gresik - Layanan Kesehatan & Gizi</title>
     <meta name="description" content="Cari layanan kesehatan dan gizi terdekat di Gresik? Puskesmas nelayan Kabupaten Gresik melayani kesehatan masyarakat nelayan, pendampingan gizi anak stunting, dan terapi medis secara profesional.">
     
-    <!-- Penambahan Favicon -->
     <link rel="icon" href="https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o" type="image/png">
     
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -333,12 +332,15 @@
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
             
-            if(!sessionStorage.getItem('IS_ADMIN') && !isVisitRecorded) {
-                isVisitRecorded = true;
-                fetch(GAS_URL, {
-                    method: 'POST', body: JSON.stringify({action: 'recordWebVisit'})
-                }).catch(e => console.log('Silent visit gagal:', e));
-            }
+            // Optimasi Loading: Tunda POST recordWebVisit agar GET data utama tidak tertahan
+            setTimeout(() => {
+                if(!sessionStorage.getItem('IS_ADMIN') && !isVisitRecorded) {
+                    isVisitRecorded = true;
+                    fetch(GAS_URL, {
+                        method: 'POST', body: JSON.stringify({action: 'recordWebVisit'})
+                    }).catch(e => console.log('Silent visit gagal:', e));
+                }
+            }, 3000); 
         });
         
         function handleRouting() {
@@ -398,19 +400,27 @@
             return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
         }
 
-        // ================= CONVERTER VIDEO URL =================
+        // ================= CONVERTER VIDEO URL FIX =================
         function getPlayableVideoUrl(rawUrl) {
             let cleanUrl = rawUrl.replace('#video', '');
+            
+            // Ubah link "uc?export=download" menjadi link "preview" (wajib agar video jalan tanpa error)
+            let idMatch = cleanUrl.match(/[?&]id=([^&]+)/);
+            if (idMatch && idMatch[1]) {
+                return `https://drive.google.com/file/d/${idMatch[1]}/preview`;
+            }
+            
+            // Ubah link lh3.googleusercontent.com menjadi mode preview jika ditandai #video
             if (cleanUrl.includes('lh3.googleusercontent.com/d/')) {
                 let fileId = cleanUrl.split('/d/')[1];
-                return `https://drive.google.com/uc?export=download&id=${fileId}`;
+                return `https://drive.google.com/file/d/${fileId}/preview`;
             }
+            
             return cleanUrl;
         }
         
         // ================= PUBLIC FETCH & RENDER =================
         async function loadPublicData() {
-            // Optimasi 0-Second Load: Tampilkan dari Cache LocalStorage dulu
             const cachedStr = localStorage.getItem('puskesmasDataCache');
             if (cachedStr) {
                 try {
@@ -421,21 +431,19 @@
             } else {
                 showLoading();
             }
-
-            // Ambil data terbaru di latar belakang
             try {
                 const response = await fetch(`${GAS_URL}?action=getAllData`);
                 const result = await response.json();
                 if(result.success) {
                     localStorage.setItem('puskesmasDataCache', JSON.stringify(result));
-                    renderPublicContent(result.data); // Update tampilan jika ada yg baru
+                    renderPublicContent(result.data);
                 }
             } catch (e) {
                 if(!cachedStr) renderDefaultLayanan();
             }
             hideLoading();
         }
-
+        
         function renderPublicContent(data) {
             const pengaturan = data.pengaturan;
             const layanan = data.layanan;
@@ -478,15 +486,22 @@
                     let isVideo = imgSrc.includes('#video');
                     let finalUrl = isVideo ? getPlayableVideoUrl(imgSrc) : imgSrc;
                     let slug = createSlugJS(p.judul);
-
+                    
+                    // Gunakan Iframe jika video agar preview berjalan lancar dari gdrive, dibungkus div overlay transparan agar tetap bisa diklik
                     programContainer.innerHTML += `
                     <div class="col-md-6 col-lg-4">
                         <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
                             <div class="position-relative overflow-hidden cursor-pointer bg-dark" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
                                 ${isVideo 
-                                    ? `<video src="${finalUrl}" class="w-100 h-100 object-fit-cover opacity-75" preload="metadata"></video><div class="position-absolute top-50 start-50 translate-middle text-white display-4"><i class="fa-solid fa-play-circle"></i></div>` 
+                                    ? `<div class="w-100 h-100 position-relative">
+                                           <iframe src="${finalUrl}" class="w-100 h-100" style="pointer-events:none; border:none;" frameborder="0"></iframe>
+                                           <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index:1;"></div>
+                                           <div class="position-absolute top-50 start-50 translate-middle text-white display-4" style="z-index:2;">
+                                               <i class="fa-solid fa-play-circle" style="text-shadow: 0 0 10px rgba(0,0,0,0.5);"></i>
+                                           </div>
+                                       </div>` 
                                     : `<img src="${finalUrl}" class="w-100 h-100 object-fit-cover">`}
-                                <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
+                                <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill" style="z-index:3;">${p.kategori || 'Program'}</span>
                             </div>
                             <div class="p-4 d-flex flex-column flex-grow-1">
                                 <h3 class="fw-bold h5 mb-3 cursor-pointer text-dark" onclick="bukaProgramSlug('${slug}')">${p.judul}</h3>
@@ -508,7 +523,6 @@
             nav('baca-program', false);
             if (pushHistory) history.pushState({ section: 'baca-program', slug: slug }, '', '#' + slug);
             
-            // Coba muat instan dari Cache LocalStorage
             let isInstant = false;
             try {
                 let cache = JSON.parse(localStorage.getItem('puskesmasDataCache'));
@@ -522,15 +536,12 @@
             } catch(e) {}
             
             if(!isInstant) showLoading("Memuat Detail...");
-
             try {
-                // Tetap lakukan fetch POST agar API menghitung penambahan Views
                 const response = await fetch(GAS_URL, {
                     method: 'POST', body: JSON.stringify({action: 'getProgramBySlug', slug: slug})
                 });
                 const res = await response.json();
                 hideLoading();
-
                 if(res.success && res.data) {
                     let dObj = {};
                     res.headers.forEach((h, i) => dObj[h] = res.data[i]);
@@ -543,7 +554,7 @@
                 if(!isInstant) document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
             }
         }
-
+        
         function renderDetailBuku(d) {
             let imgRaw = d.gambar || ''; let mediaList = [];
             try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
@@ -553,7 +564,10 @@
                 let urlRaw = mediaList[0];
                 if (urlRaw.includes('#video')) {
                      let videoUrl = getPlayableVideoUrl(urlRaw);
-                     imgHtml = `<video src="${videoUrl}" class="w-100 rounded-4 shadow-sm mb-4 bg-dark" style="max-height:500px; object-fit:contain;" controls playsinline preload="metadata"></video>`;
+                     // Gunakan div.ratio untuk respon iframe Google Drive yang baik agar video tidak pecah
+                     imgHtml = `<div class="ratio ratio-16x9 mb-4 rounded-4 shadow-sm overflow-hidden bg-dark">
+                                    <iframe src="${videoUrl}" allow="autoplay" allowfullscreen style="border: none;"></iframe>
+                                </div>`;
                 } else {
                      imgHtml = `<img src="${urlRaw}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
                 }
@@ -704,7 +718,7 @@
                             if(text.startsWith('http')) {
                                 if(text.includes('#video')) {
                                     let vUrl = getPlayableVideoUrl(text);
-                                    body += `<td><video src="${vUrl}" class="rounded-3 shadow-sm bg-dark" style="width:50px; height:50px; object-fit:cover;"></video></td>`;
+                                    body += `<td><div class="position-relative" style="width:50px; height:50px;"><iframe src="${vUrl}" class="rounded-3 shadow-sm bg-dark w-100 h-100" style="border:none; pointer-events:none;"></iframe><div class="position-absolute top-0 start-0 w-100 h-100" style="z-index:1;"></div></div></td>`;
                                 } else {
                                     body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
                                 }
@@ -749,7 +763,7 @@
                         mediaArr.forEach(url => {
                             if (url.includes('#video')) {
                                 let vUrl = getPlayableVideoUrl(url);
-                                preview += `<video src="${vUrl}" class="rounded shadow-sm bg-dark" style="height:60px; width:60px; object-fit:cover;" controls></video>`;
+                                preview += `<div class="position-relative" style="height:60px; width:60px;"><iframe src="${vUrl}" class="rounded shadow-sm bg-dark w-100 h-100" style="border:none; pointer-events:none;"></iframe><div class="position-absolute top-0 start-0 w-100 h-100" style="z-index:1;"></div></div>`;
                             } else {
                                 preview += `<img src="${url}" class="rounded shadow-sm" style="height:60px; width:60px; object-fit:cover;">`;
                             }
@@ -838,6 +852,7 @@
                             
                             const upRes = await response.json();
                             if (upRes.success) { 
+                                // Menyimpan tautan preview pada file backend jika yang diupload adalah video
                                 let finalUrl = mimeType.startsWith('video/') ? upRes.url + '#video' : upRes.url;
                                 uploadedUrls.push(finalUrl); 
                             } 
@@ -860,7 +875,7 @@
                 if(res.success) {
                     bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
                     Swal.fire('Sukses', res.message, 'success');
-                    localStorage.removeItem('puskesmasDataCache'); // Hapus cache agar web update
+                    localStorage.removeItem('puskesmasDataCache'); // Hapus cache agar web update otomatis
                     loadAdminModule(currentAdminSheet);
                 } else { Swal.fire('Error', res.message, 'error'); }
             } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
