@@ -15,6 +15,11 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://puskesmasnelayangresik.my.id/">
     
+    <!-- Optimasi Kecepatan: Preconnect ke server CDN utama -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -59,14 +64,12 @@
         .text-primary { color: var(--primary-green) !important; }
         .bg-primary { background-color: var(--primary-green) !important; }
         
-        /* Hero Section */
         .hero-section { 
             padding: 120px 0 80px; color: white; position: relative; overflow: hidden;
             border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
         }
         
-        /* Styling Card Gizi & Portofolio */
         .card-gizi { 
             border: none; transition: all 0.3s ease; border-radius: 24px; background: #ffffff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(16, 185, 129, 0.1);
@@ -75,39 +78,35 @@
             transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12); border-color: var(--light-green);
         }
         
-        /* Tombol */
         .btn-wa { background-color: #25d366; color: white; font-weight: 600; border-radius: 50px; transition: 0.3s; }
         .btn-wa:hover { background-color: #128c7e; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
         .btn-outline-primary { border-color: var(--primary-green); color: var(--primary-green); border-radius: 50px; }
         .btn-outline-primary:hover { background-color: var(--primary-green); color: white; }
-        /* Ikon Fitur */
+        
         .feature-icon { 
             font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; background: var(--light-green);
             width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin-left: auto; margin-right: auto;
             display: flex; align-items: center; justify-content: center;
         }
         
-        /* Judul Section */
         .section-title { font-weight: 700; position: relative; margin-bottom: 50px; color: var(--dark-text); }
         .section-title::after { 
             content: ''; width: 60px; height: 4px; background: var(--accent-orange); position: absolute;
             bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px;
         }
         
-        /* Navbar */
         .navbar { padding: 12px 0; background: rgba(255, 255, 255, 0.98) !important; backdrop-filter: blur(10px); }
         .navbar-brand img { height: 45px; width: auto; object-fit: contain; }
         .nav-link { font-weight: 500; color: #475569 !important; padding: 10px 15px !important; }
         .nav-link:hover { color: var(--primary-green) !important; }
-        /* SEO Footer Area */
+        
         .seo-areas { font-size: 0.85rem; color: #cbd5e1; line-height: 1.8; text-align: center; }
         
-        /* System Styles */
         #loading-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
         .site-section { display: none; animation: fadeIn 0.5s; }
         .site-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        /* Admin Sidebar */
+        
         .admin-sidebar { width: 250px; background: #1e293b; color: white; min-height: 100vh; position: fixed; left: 0; top: 0; overflow-y: auto; z-index: 1000; }
         .admin-sidebar a { display: block; padding: 15px 25px; color: #cbd5e1; text-decoration: none; font-weight: 500; border-left: 4px solid transparent; transition: 0.3s; cursor: pointer; }
         .admin-sidebar a:hover, .admin-sidebar a.active { background: rgba(255,255,255,0.1); color: white; border-left-color: var(--primary-green); }
@@ -128,6 +127,7 @@
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
         <p class="mt-3 text-secondary fw-bold" id="loading-text">Memuat Data...</p>
     </div>
+    
     <!-- ================= PUBLIC VIEW ================= -->
     <div id="public-view">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
@@ -275,6 +275,7 @@
         </footer>
     </div>
     <!-- ================= END PUBLIC VIEW ================= -->
+    
     <!-- ================= ADMIN LOGIN VIEW ================= -->
     <div id="login-view" style="display: none; height: 100vh; background: #e2e8f0; align-items: center; justify-content: center;">
         <div class="bg-white p-5 rounded-4 shadow-lg w-100 mx-3" style="max-width: 400px;">
@@ -298,6 +299,7 @@
             </div>
         </div>
     </div>
+    
     <!-- ================= ADMIN DASHBOARD & CRUD VIEW ================= -->
     <div id="admin-view" style="display: none;">
         <aside class="admin-sidebar">
@@ -319,7 +321,7 @@
             <!-- DASHBOARD TAB -->
             <div id="admin-dashboard-view" style="display:none;">
                 <h2 class="fw-bold text-dark mb-2">Monitoring Viewers</h2>
-                <p class="text-muted mb-4">Statistik kinerja program pada website Puskesmas Anda</p>
+                <p class="text-muted mb-4">Statistik kinerja pengunjung dan program pada website Anda</p>
                 <div class="row g-4" id="dashboard-stats-container"></div>
             </div>
             <!-- TABLE TAB -->
@@ -340,6 +342,7 @@
             </div>
         </main>
     </div>
+    
     <!-- Modal Admin Form -->
     <div class="modal fade" id="adminModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -358,6 +361,7 @@
             </div>
         </div>
     </div>
+    
     <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -367,13 +371,26 @@
     <script>
         // MASUKKAN URL APLIKASI WEB ANDA DI SINI
         const GAS_URL = "https://script.google.com/macros/s/AKfycbxhSlWG69VHuSnHWGRKEFbaSJD4rwZkRl5_KwR2rwpL2E3Y3GR1KOUH4SQnnftj4j4Z/exec"; 
+        
         let currentAdminSheet = 'Pengaturan';
         let currentAdminHeaders = [];
         let currentEditId = null;
+        let isVisitRecorded = false; // Memastikan fitur kunjungan hanya tercatat 1x per sesi
+        
         document.addEventListener("DOMContentLoaded", function() {
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
+            
+            // Catat kunjungan ke web secara background (tidak membebani loading)
+            if(!sessionStorage.getItem('IS_ADMIN') && !isVisitRecorded) {
+                isVisitRecorded = true;
+                fetch(GAS_URL, {
+                    method: 'POST', 
+                    body: JSON.stringify({action: 'recordWebVisit'})
+                }).catch(e => console.log('Silent record visit gagal:', e));
+            }
         });
+        
         function handleRouting() {
             let hash = window.location.hash.substring(1);
             if (hash === 'admin') {
@@ -402,6 +419,7 @@
                 }
             }
         }
+        
         function nav(section, pushHistory = true) {
             document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(section);
@@ -414,19 +432,23 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if(pushHistory) history.pushState({section: section}, '', '#' + section);
         }
+        
         function showLoading(msg = "Memuat Data...") {
             document.getElementById('loading-text').innerText = msg;
             document.getElementById('loading-screen').style.opacity = '1';
             document.getElementById('loading-screen').style.display = 'flex';
         }
+        
         function hideLoading() {
             const loader = document.getElementById('loading-screen');
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 500);
         }
+        
         function createSlugJS(str) {
             return str ? str.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
         }
+        
         // ================= PUBLIC FETCH =================
         async function loadPublicData() {
             showLoading();
@@ -447,6 +469,7 @@
                     
                     let linkWa = pengaturan.Link_WA || "https://wa.me/6285536666320";
                     document.querySelectorAll('.dyn-wa').forEach(el => el.href = linkWa);
+                    
                     const layananContainer = document.getElementById('layanan-container');
                     layananContainer.innerHTML = ''; 
                     if(layanan.length > 0) {
@@ -464,6 +487,7 @@
                             </div>`;
                         });
                     } else { renderDefaultLayanan(); }
+                    
                     const programContainer = document.getElementById('program-container');
                     programContainer.innerHTML = '';
                     if(program.length > 0) {
@@ -472,12 +496,19 @@
                             let imgArr = [];
                             try { imgArr = JSON.parse(imgRaw); } catch(e) { imgArr = [imgRaw]; }
                             let imgSrc = imgArr.length > 0 ? imgArr[0] : imgRaw;
+                            
+                            // Jika media adalah video (ada flag #video), fallback tampilan gambar bisa dikustom. Kita bersihkan flagnya:
+                            let isVideo = imgSrc.includes('#video');
+                            imgSrc = imgSrc.replace('#video', '');
+                            
                             let slug = createSlugJS(p.judul);
                             programContainer.innerHTML += `
                             <div class="col-md-6 col-lg-4">
                                 <div class="card-gizi h-100 d-flex flex-column overflow-hidden">
-                                    <div class="position-relative overflow-hidden cursor-pointer" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
-                                        <img src="${imgSrc}" class="w-100 h-100 object-fit-cover" style="transition:0.5s;">
+                                    <div class="position-relative overflow-hidden cursor-pointer bg-dark" onclick="bukaProgramSlug('${slug}')" style="height:200px;">
+                                        ${isVideo 
+                                            ? `<video src="${imgSrc}" class="w-100 h-100 object-fit-cover opacity-75" style="transition:0.5s;"></video><div class="position-absolute top-50 start-50 translate-middle text-white display-4"><i class="fa-solid fa-play-circle"></i></div>` 
+                                            : `<img src="${imgSrc}" class="w-100 h-100 object-fit-cover" style="transition:0.5s;">`}
                                         <span class="position-absolute top-0 end-0 bg-primary text-white small fw-bold px-3 py-1 m-3 rounded-pill">${p.kategori || 'Program'}</span>
                                     </div>
                                     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -498,6 +529,7 @@
             } catch (e) { renderDefaultLayanan(); }
             hideLoading();
         }
+        
         async function bukaProgramSlug(slug, pushHistory = true) {
             showLoading("Memuat Detail...");
             nav('baca-program', false);
@@ -513,12 +545,20 @@
                     let iJ = headers.indexOf('judul'); let iK = headers.indexOf('kategori');
                     let iI = headers.indexOf('deskripsi'); let iG = headers.indexOf('gambar');
                     let iD = headers.indexOf('link_demo');
+                    
                     let imgRaw = d[iG] || ''; let mediaList = [];
                     try { mediaList = JSON.parse(imgRaw); } catch(e) { if(imgRaw) mediaList = [imgRaw]; }
                     
                     let imgHtml = '';
                     if (mediaList.length > 0) {
-                        imgHtml = `<img src="${mediaList[0]}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
+                        let urlRaw = mediaList[0];
+                        if (urlRaw.includes('#video')) {
+                             // Render ke format Video
+                             imgHtml = `<video src="${urlRaw.replace('#video','')}" class="w-100 rounded-4 shadow-sm mb-4 bg-dark" style="max-height:500px; object-fit:contain;" controls></video>`;
+                        } else {
+                             // Render ke format Image
+                             imgHtml = `<img src="${urlRaw}" class="w-100 rounded-4 shadow-sm mb-4" style="max-height:400px; object-fit:cover;">`;
+                        }
                     }
                     
                     let demoBtn = d[iD] ? `<a href="${d[iD]}" target="_blank" class="btn btn-dark btn-lg rounded-pill mt-4 px-5"><i class="fa-solid fa-external-link-alt me-2"></i> Akses Tautan / Demo</a>` : '';
@@ -541,12 +581,14 @@
                 document.getElementById('baca-container').innerHTML = `<div class="text-center text-danger py-5 fw-bold h4">Koneksi API Gagal.</div>`;
             }
         }
+        
         function renderDefaultLayanan() {
             document.getElementById('layanan-container').innerHTML = `
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-baby"></i></div><h3 class="fw-bold mb-3 h5">Gizi Anak & Stunting</h3><p class="text-muted small mb-4 flex-grow-1">Evaluasi status gizi presisi, perhitungan Z-Score WHO, dan terapi nutrisi khusus untuk kejar tumbuh serta pencegahan stunting pada balita.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon"><i class="fa-solid fa-weight-scale"></i></div><h3 class="fw-bold mb-3 h5">Manajemen Kesehatan Nelayan</h3><p class="text-muted small mb-4 flex-grow-1">Program kesehatan preventif dan kuratif yang disesuaikan dengan aktivitas melaut untuk menjaga kebugaran fisik dan stamina nelayan.</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>
                 <div class="col-md-6 col-lg-4"><article class="card-gizi h-100 p-4 text-center d-flex flex-column"><div class="feature-icon" style="color: var(--accent-orange); background: #fef3c7;"><i class="fa-solid fa-notes-medical"></i></div><h3 class="fw-bold mb-3 h5">Layanan Medis Umum</h3><p class="text-muted small mb-4 flex-grow-1">Perencanaan kesehatan, cek medis rutin, dan edukasi pencegahan untuk Penyakit Tidak Menular (Diabetes, Hipertensi, Asam Urat).</p><a href="https://wa.me/6285536666320" target="_blank" class="btn btn-outline-primary w-100 mt-auto">Daftar Program</a></article></div>`;
         }
+        
         // ================= ADMIN FUNCTIONS =================
         async function handleLogin(e) {
             e.preventDefault();
@@ -564,10 +606,12 @@
                 } else { hideLoading(); Swal.fire('Gagal', res.message, 'error'); }
             } catch (err) { hideLoading(); Swal.fire('Error', 'Koneksi gagal.', 'error'); }
         }
+        
         function handleLogout() {
             sessionStorage.removeItem('IS_ADMIN'); 
             handleRouting();
         }
+        
         async function loadAdminDashboard() {
             document.getElementById('admin-table-view').style.display = 'none';
             document.getElementById('admin-dashboard-view').style.display = 'block';
@@ -592,17 +636,29 @@
                 } else {
                     topProgHtml = '<p class="text-muted fst-italic">Belum ada data interaksi.</p>';
                 }
+                
                 document.getElementById('dashboard-stats-container').innerHTML = `
-                    <div class="col-md-5">
-                        <div class="bg-white p-5 rounded-4 shadow-sm border-start border-4 border-primary h-100 d-flex flex-column justify-content-center align-items-center text-center">
-                            <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fs-2 mb-4" style="width:70px; height:70px;"><i class="fa-solid fa-chart-line"></i></div>
-                            <h6 class="text-muted fw-bold text-uppercase mb-2">Total Viewers Program</h6>
-                            <h1 class="display-3 fw-bolder text-dark mb-0">${detail.totalViews || 0}</h1>
+                    <div class="col-md-6 mb-3">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border-start border-4 border-success h-100 d-flex align-items-center">
+                            <div class="bg-light text-success rounded-circle d-flex align-items-center justify-content-center fs-3 me-4" style="width:60px; height:60px;"><i class="fa-solid fa-users"></i></div>
+                            <div>
+                                <h6 class="text-muted fw-bold text-uppercase mb-1">Kunjungan Web Keseluruhan</h6>
+                                <h2 class="fw-bolder text-dark mb-0">${detail.webVisits || 0}</h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6 mb-3">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border-start border-4 border-primary h-100 d-flex align-items-center">
+                            <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fs-3 me-4" style="width:60px; height:60px;"><i class="fa-solid fa-eye"></i></div>
+                            <div>
+                                <h6 class="text-muted fw-bold text-uppercase mb-1">Total Pembaca Program</h6>
+                                <h2 class="fw-bolder text-dark mb-0">${detail.totalViews || 0}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
                         <div class="bg-white p-5 rounded-4 shadow-sm h-100">
-                            <h5 class="fw-bold text-dark mb-4 pb-3 border-bottom"><i class="fa-solid fa-star text-warning me-2"></i> Top 5 Program Kesehatan</h5>
+                            <h5 class="fw-bold text-dark mb-4 pb-3 border-bottom"><i class="fa-solid fa-star text-warning me-2"></i> Top 5 Program Paling Populer</h5>
                             ${topProgHtml}
                         </div>
                     </div>
@@ -610,6 +666,7 @@
             } catch(e) { document.getElementById('dashboard-stats-container').innerHTML = '<div class="col-12"><div class="alert alert-danger">Gagal memuat statistik.</div></div>'; }
             hideLoading();
         }
+        
         async function loadAdminModule(sheet) {
             currentAdminSheet = sheet;
             document.getElementById('admin-dashboard-view').style.display = 'none';
@@ -631,6 +688,7 @@
             } catch (e) { Swal.fire('Error', 'Gagal memuat data tabel. Pastikan Sheet tidak kosong.', 'error'); }
             hideLoading();
         }
+        
         function renderAdminTable(data) {
             let head = '<tr>';
             currentAdminHeaders.forEach((h, i) => {
@@ -653,7 +711,12 @@
                         if(isMedia) {
                             try { let arr = JSON.parse(text); if(arr.length>0) text = arr[0]; } catch(e){}
                             if(text.startsWith('http')) {
-                                body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
+                                // Pengecekan rendering Media (Video atau Foto) dalam Panel Admin
+                                if(text.includes('#video')) {
+                                    body += `<td><video src="${text.replace('#video','')}" class="rounded-3 shadow-sm bg-dark" style="width:50px; height:50px; object-fit:cover;"></video></td>`;
+                                } else {
+                                    body += `<td><img src="${text}" class="rounded-3 shadow-sm" style="width:50px; height:50px; object-fit:cover;"></td>`;
+                                }
                             } else { body += `<td><div style="max-height:50px; overflow:hidden;">${text}</div></td>`; }
                         } else {
                             let clean = text.replace(/<[^>]*>?/gm, '').substring(0, 50);
@@ -661,7 +724,6 @@
                         }
                     });
                     
-                    // PEMBARUAN TOMBOL SOLID KUNING DAN MERAH
                     body += `<td class="text-center text-nowrap">
                         <button class="btn btn-sm border-0 rounded-3 me-1 shadow-sm" style="background-color: #ffb703; color: white; width: 32px; height: 32px; line-height: 1;" onclick="openAdminModal('edit', '${row[0]}', this)" data-row='${JSON.stringify(row)}'><i class="fa-solid fa-pen"></i></button>
                         <button class="btn btn-sm border-0 rounded-3 shadow-sm" style="background-color: #e63946; color: white; width: 32px; height: 32px; line-height: 1;" onclick="deleteAdminData('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
@@ -670,6 +732,7 @@
             }
             document.getElementById('admin-table-body').innerHTML = body;
         }
+        
         function openAdminModal(mode, id = null, btnObj = null) {
             currentEditId = mode === 'edit' ? id : null;
             document.getElementById('modal-title').innerText = mode === 'add' ? 'Tambah Data Baru' : 'Edit Data';
@@ -692,12 +755,18 @@
                     try { mediaArr = JSON.parse(val); } catch(e) { if(val) mediaArr = [val]; }
                     if (mediaArr.length > 0) {
                         preview = '<div class="mt-2 d-flex gap-2">';
-                        mediaArr.forEach(url => preview += `<img src="${url}" class="rounded shadow-sm" style="height:60px; width:60px; object-fit:cover;">`);
+                        mediaArr.forEach(url => {
+                            if (url.includes('#video')) {
+                                preview += `<video src="${url.replace('#video','')}" class="rounded shadow-sm bg-dark" style="height:60px; width:60px; object-fit:cover;" controls></video>`;
+                            } else {
+                                preview += `<img src="${url}" class="rounded shadow-sm" style="height:60px; width:60px; object-fit:cover;">`;
+                            }
+                        });
                         preview += '</div>';
                     }
                     html += `
                     <div class="col-md-6 mb-3">
-                        <label class="form-label text-muted small fw-bold">${h} (File Upload)</label>
+                        <label class="form-label text-muted small fw-bold">${h} (File Upload, up to 10MB)</label>
                         <input type="file" class="form-control admin-file border-0 bg-light rounded-3" data-header="${h}" accept="image/*,video/*" multiple>
                         <input type="hidden" class="admin-input" data-header="${h}" value='${val}'>
                         ${preview}
@@ -726,10 +795,12 @@
             });
             new bootstrap.Modal(document.getElementById('adminModal')).show();
         }
+        
         const getBase64 = (file) => new Promise((resolve, reject) => {
             const reader = new FileReader(); reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
         });
+        
         async function saveAdminData() {
             let obj = {}; 
             document.querySelectorAll('.admin-input').forEach(input => {
@@ -743,27 +814,50 @@
             
             document.getElementById('btnSave').innerText = "Menyimpan...";
             document.getElementById('btnSave').disabled = true;
+            
             const fileInputs = document.querySelectorAll('.admin-file');
             for (let fileInput of fileInputs) {
                 const header = fileInput.dataset.header;
                 if (fileInput.files && fileInput.files.length > 0) {
                     showLoading("Mengunggah File Media...");
                     let uploadedUrls = [];
+                    
                     for(let i=0; i<fileInput.files.length; i++) {
+                        let f = fileInput.files[i];
+                        // Mencegah file terlalu besar client-side yang berpotensi menyangkut jika > 10MB murni
+                        if (f.size > 15 * 1024 * 1024) { 
+                             Swal.fire('Error', `File ${f.name} terlalu besar. Maksimal disarankan ~10MB - 15MB.`, 'error');
+                             hideLoading(); resetBtn(); return;
+                        }
+                        
                         try {
-                            let base64Str = await getBase64(fileInput.files[i]);
-                            const fName = "img_" + new Date().getTime() + "_" + fileInput.files[i].name;
+                            let base64Str = await getBase64(f);
+                            const fName = "media_" + new Date().getTime() + "_" + f.name;
+                            let mimeType = f.type || 'application/octet-stream';
+                            
                             const response = await fetch(GAS_URL, {
-                                method: 'POST', body: JSON.stringify({ action: 'uploadMedia', base64Data: base64Str, fileName: fName })
+                                method: 'POST', 
+                                body: JSON.stringify({ 
+                                    action: 'uploadMedia', 
+                                    base64Data: base64Str, 
+                                    fileName: fName, 
+                                    mimeType: mimeType 
+                                })
                             });
+                            
                             const upRes = await response.json();
-                            if (upRes.success) { uploadedUrls.push(upRes.url); } 
+                            if (upRes.success) { 
+                                // Tag khusus video agar dirender di UI
+                                let finalUrl = mimeType.startsWith('video/') ? upRes.url + '#video' : upRes.url;
+                                uploadedUrls.push(finalUrl); 
+                            } 
                             else { Swal.fire('Gagal', upRes.message, 'error'); hideLoading(); resetBtn(); return; }
                         } catch (e) { Swal.fire('Error', 'Gagal upload media', 'error'); hideLoading(); resetBtn(); return; }
                     }
                     obj[header] = JSON.stringify(uploadedUrls); 
                 }
             }
+            
             showLoading("Menyimpan Database...");
             try {
                 const payload = { action: currentEditId ? 'updateData' : 'insertData', sheetName: currentAdminSheet, dataObj: obj };
@@ -780,10 +874,12 @@
                 } else { Swal.fire('Error', res.message, 'error'); }
             } catch (e) { resetBtn(); hideLoading(); Swal.fire('Error', 'Gagal menyimpan.', 'error'); }
         }
+        
         function resetBtn() {
             document.getElementById('btnSave').innerText = "Simpan Data";
             document.getElementById('btnSave').disabled = false;
         }
+        
         function deleteAdminData(id) {
             Swal.fire({ title: 'Yakin hapus?', text: "Data akan dihapus permanen!", icon: 'warning', showCancelButton: true, confirmButtonText: 'Hapus'
             }).then(async (result) => {
