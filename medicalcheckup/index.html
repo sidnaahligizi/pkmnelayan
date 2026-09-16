@@ -23,7 +23,7 @@
 
     /* CSS PRINT (Pemisahan Paksa 2 Halaman & Tabel Rapi) */
     @media print {
-      @page { margin: 10mm; }
+      @page { margin: 10mm; size: A4 portrait; }
       body { background-color: #fff !important; margin: 0; padding: 0; }
       
       #loginView, #appView, .navbar, .no-print { display: none !important; }
@@ -32,7 +32,6 @@
         display: block !important; 
         position: static !important; 
         width: 100%; 
-        font-size: 11pt !important; 
         color: black !important; 
         font-family: 'Times New Roman', serif; 
       }
@@ -41,33 +40,31 @@
       thead.report-header { display: table-header-group; }
       tfoot.report-footer { display: table-footer-group; }
       
-      .kop-surat-img { width: 100%; max-height: 120px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 5px; }
+      .kop-surat-img { width: 100%; max-height: 110px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 5px; }
       
-      .title-container { position: relative; text-align: center; margin-bottom: 20px; }
-      .title-section { font-weight: bold; font-size: 14pt; text-decoration: underline; margin: 0; padding-top: 5px; }
-      .no-periksa-box { position: absolute; right: 0; top: 0; border: 3px solid black; padding: 5px 15px; font-weight: bold; font-size: 12pt; }
+      .title-container { position: relative; text-align: center; margin-bottom: 10px; }
+      .title-section { font-weight: bold; font-size: 13pt; text-decoration: underline; margin: 0; padding-top: 5px; }
+      .no-periksa-box { position: absolute; right: 0; top: 0; border: 2px solid black; padding: 3px 10px; font-weight: bold; font-size: 11pt; }
       
-      .bio-grid { display: grid; grid-template-columns: 140px 10px auto; row-gap: 4px; margin-bottom: 15px; font-size: 11pt; }
+      .bio-grid { display: grid; grid-template-columns: 120px 10px auto; row-gap: 2px; margin-bottom: 10px; font-size: 10.5pt; }
       
-      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
-      .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
-      
-      /* Mencegah isi tabel terpotong di tengah baris */
-      .print-table tr { page-break-inside: avoid; }
+      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 10.5pt !important; }
+      .print-table td, .print-table th { border: 1px solid black; padding: 3px 5px; vertical-align: top; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      .lab-table { font-size: 9pt !important; margin-bottom: 10px; }
-      .lab-table td, .lab-table th { padding: 3px 5px; }
+      /* Format khusus agar Laboratorium muat 1 halaman */
+      .lab-table { font-size: 8.5pt !important; margin-bottom: 5px; }
+      .lab-table td, .lab-table th { padding: 2px 4px; line-height: 1.1; }
       
       .nested-align-table { width: 100%; border-collapse: collapse; }
-      .nested-align-table td { border: none !important; padding: 2px 4px !important; vertical-align: top; }
+      .nested-align-table td { border: none !important; padding: 1px 3px !important; vertical-align: top; }
       
       /* KELAS KHUSUS UNTUK MEMAKSA HALAMAN BARU */
       .page-break-tbody { page-break-before: always !important; break-before: page !important; }
       
-      .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
-      .catatan-box { border: 1px solid black; width: 250px; height: 80px; padding: 5px; }
-      .footer-print { text-align: center; font-size: 10pt; font-style: italic; color: #555; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px; }
+      .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10.5pt; }
+      .catatan-box { border: 1px solid black; width: 220px; height: 60px; padding: 5px; }
+      .footer-print { text-align: center; font-size: 9pt; font-style: italic; color: #555; margin-top: 5px; border-top: 1px dashed #ccc; padding-top: 3px; }
     }
   </style>
 </head>
@@ -325,7 +322,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF (2 HALAMAN PAKSA OTOMATIS) -->
+<!-- PRINT AREA PDF (2 HALAMAN OTOMATIS) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -405,13 +402,12 @@
               </td>
             </tr>
           </table>
-
         </td>
       </tr>
     </tbody>
     
-    <!-- HALAMAN 2 (LAB, KESIMPULAN, & TTD) -->
-    <tbody class="report-body page-break-tbody">
+    <!-- HALAMAN 2 (LAB & KESIMPULAN) - DIPAKSA TURUN HALAMAN -->
+    <tbody class="report-body page-break-before">
       <tr>
         <td style="border: none; padding-top: 10px;">
           
@@ -459,7 +455,7 @@
           <table class="print-table w-100 mt-3">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
-            <tr><td class="section-header">SARAN</td><td style="height: 50px;" id="p_saran"></td></tr>
+            <tr><td class="section-header">SARAN</td><td style="height: 40px;" id="p_saran"></td></tr>
           </table>
 
           <div class="ttd-section">
@@ -485,7 +481,7 @@
 
 <script>
   // ==========================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw7nUWCD3SMIcqgY98XcgMwQ07XoMffwqXUVQ_jlBDtxsVIPtznyZAqThX_KeuQP_U/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLzj7JhmJeZkJ4KrVtU_TdRrFnBP2R7E3BaJhvNZEvATbhl2-yHaO6MhGTyI8og-6g/exec';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
