@@ -21,12 +21,11 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* CSS PRINT PENYELESAIAN BUG BLANKO PUTIH */
+    /* CSS PRINT (Pemisahan 2 Halaman & Tabel Rapi) */
     @media print {
       @page { margin: 10mm; }
       body { background-color: #fff !important; margin: 0; padding: 0; }
       
-      /* Sembunyikan elemen web aplikasi, sehingga browser bisa render dokumen print 100% normal */
       #loginView, #appView, .navbar, .no-print { display: none !important; }
       
       #printArea { 
@@ -189,12 +188,10 @@
           </div>
         </div>
 
-        <!-- BAGIAN 2: HASIL LABORATORIUM -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
             <div class="row g-4">
-              <!-- Kolom Kiri -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">HEMATOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hemoglobin (Hb)</span><input type="text" class="form-control bg-kuning-light" name="Lab_Hb"></div>
@@ -210,7 +207,6 @@
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">MH</span><select class="form-select bg-kuning" name="Mikro_MH"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
               </div>
               
-              <!-- Kolom Tengah -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">URINALISA</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">pH</span><input type="text" class="form-control bg-kuning-light" name="Uri_pH"></div>
@@ -233,7 +229,6 @@
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Lain-lain</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lain"></div>
               </div>
 
-              <!-- Kolom Kanan -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">KIMIA KLINIK</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah Puasa</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDP"></div>
@@ -263,6 +258,7 @@
           </div>
         </div>
 
+        <!-- BAGIAN 3: KESIMPULAN -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-check-circle me-2"></i>III. Diagnosa & Kesimpulan</div>
           <div class="card-body">
@@ -326,7 +322,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF -->
+<!-- PRINT AREA PDF: HALAMAN 1 (FISIK), HALAMAN 2 (LAB & KESIMPULAN) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -337,10 +333,11 @@
       </tr>
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
+    
+    <!-- HALAMAN 1 -->
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
-          
           <div class="title-container">
             <h5 class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
             <div class="no-periksa-box" id="p_no"></div>
@@ -354,7 +351,7 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <table class="print-table w-100 mb-4">
+          <table class="print-table w-100">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
             <tr>
               <td colspan="4" style="padding: 0;">
@@ -404,15 +401,21 @@
               </td>
             </tr>
           </table>
-
-          <!-- HALAMAN LAB MENGALIR OTOMATIS JIKA LEBIH DARI 1 HALAMAN -->
+        </td>
+      </tr>
+    </tbody>
+    
+    <!-- HALAMAN 2 -->
+    <tbody class="report-body page-break">
+      <tr>
+        <td style="border: none; padding-top: 5px;">
           
           <table class="print-table lab-table w-100">
             <thead>
               <tr><th colspan="6" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
               <tr class="section-header text-center">
-                <th width="20%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="20%">NILAI RUJUKAN</th>
-                <th width="20%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="20%">NILAI RUJUKAN</th>
+                <th width="22%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="18%">NILAI RUJUKAN</th>
+                <th width="22%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="18%">NILAI RUJUKAN</th>
               </tr>
             </thead>
             <tbody>
@@ -448,17 +451,17 @@
             </tbody>
           </table>
 
-          <table class="print-table w-100 mt-3">
+          <table class="print-table w-100">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
-            <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
+            <tr><td class="section-header">SARAN</td><td style="height: 50px;" id="p_saran"></td></tr>
           </table>
 
           <div class="ttd-section">
             <div><p>Gresik, <span id="p_tgl_cetak"></span><br>Dokter Pemeriksa</p><br><br><br><p><span id="p_nama_dokter" class="fw-bold text-decoration-underline"></span><br>NIP. <span id="p_nip_dokter"></span></p></div>
             <div><div class="catatan-box"><b>Catatan :</b></div></div>
           </div>
-
+          
         </td>
       </tr>
     </tbody>
