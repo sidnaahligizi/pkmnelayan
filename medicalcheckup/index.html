@@ -20,27 +20,34 @@
     .bg-kuning-light { background-color: #fffdde !important; border-color: #fbc02d; }
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
-    .riwayat-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-    /* CSS PRINT AGAR MUAT 1 HALAMAN A4 */
+    /* CSS PRINT 3 LEMBAR DENGAN KOP BERULANG OTOMATIS */
     @media print {
-      @page { size: A4 portrait; margin: 10mm; }
+      @page { margin: 10mm; }
       body * { visibility: hidden; }
       #printArea, #printArea * { visibility: visible; }
-      #printArea { position: absolute; left: 0; top: 0; width: 100%; font-size: 10pt !important; color: black; font-family: 'Times New Roman', serif; }
+      #printArea { position: absolute; left: 0; top: 0; width: 100%; font-size: 12pt !important; color: black; font-family: 'Times New Roman', serif; }
       .no-print { display: none !important; }
+      
       table.report-container { width: 100%; border-collapse: collapse; }
       thead.report-header { display: table-header-group; }
       tfoot.report-footer { display: table-footer-group; }
-      .kop-surat-img { width: 100%; max-height: 90px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
-      .title-section { text-align: center; font-weight: bold; font-size: 12pt; text-decoration: underline; margin-bottom: 8px; }
-      .bio-grid { display: grid; grid-template-columns: 120px 10px auto; row-gap: 2px; margin-bottom: 5px; }
-      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 9.5pt !important; }
-      .print-table td, .print-table th { border: 1px solid black; padding: 2px 4px; vertical-align: top; line-height: 1.2; }
-      .print-table .section-header { font-weight: bold; background-color: #f8f8f8; text-transform: uppercase; }
-      .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; }
-      .catatan-box { border: 1px solid black; width: 220px; height: 70px; padding: 4px; }
-      .footer-print { text-align: center; font-size: 9pt; font-style: italic; color: #555; border-top: 1px dashed #ccc; padding-top: 3px; }
+      
+      .kop-surat-img { width: 100%; max-height: 120px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 5px; }
+      .title-section { text-align: center; font-weight: bold; font-size: 14pt; text-decoration: underline; margin-bottom: 10px; }
+      .bio-grid { display: grid; grid-template-columns: 140px 10px auto; row-gap: 4px; margin-bottom: 15px; }
+      
+      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
+      .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
+      .print-table tr { page-break-inside: avoid; }
+      .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; }
+      
+      /* Pemisah 3 Halaman */
+      .page-break { page-break-before: always; }
+      
+      .ttd-section { margin-top: 15px; display: flex; justify-content: space-between; page-break-inside: avoid; }
+      .catatan-box { border: 1px solid black; width: 250px; height: 100px; padding: 5px; }
+      .footer-print { text-align: center; font-size: 10pt; font-style: italic; color: #555; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px; }
     }
   </style>
 </head>
@@ -53,11 +60,6 @@
       <img src="https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o" width="100" class="mb-3 bg-white rounded-circle p-2 shadow">
       <h1 class="fw-bold mb-3"><i class="fas fa-notes-medical"></i> MCU Puskesmas Nelayan</h1>
       <p class="fs-5 text-center px-4">Platform terpadu untuk pencatatan dan akses hasil Medical Check-Up (MCU). Memastikan pelayanan kesehatan pekerja dan pasien menjadi lebih cepat, transparan, dan tersimpan aman secara digital.</p>
-      <div class="d-flex gap-4 mt-4">
-        <div class="text-center"><i class="fas fa-shield-alt fs-2 text-warning"></i><div class="mt-2 fw-bold">Aman</div></div>
-        <div class="text-center"><i class="fas fa-bolt fs-2 text-warning"></i><div class="mt-2 fw-bold">Cepat</div></div>
-        <div class="text-center"><i class="fas fa-network-wired fs-2 text-warning"></i><div class="mt-2 fw-bold">Terintegrasi</div></div>
-      </div>
     </div>
     <div class="col-md-5 d-flex justify-content-center align-items-center bg-white shadow-lg z-index-1">
       <div class="w-100 px-5" style="max-width: 450px;">
@@ -74,12 +76,12 @@
             </select>
           </div>
           <div class="mb-3">
-            <label class="form-label fw-bold small text-muted">Username / Nama Lengkap Pasien</label>
-            <input type="text" class="form-control" id="logUser" required placeholder="Masukkan identitas...">
+            <label class="form-label fw-bold small text-muted">Username / Nama Pasien</label>
+            <input type="text" class="form-control" id="logUser" required>
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small text-muted">Password / PIN</label>
-            <input type="password" class="form-control" id="logPass" required placeholder="••••••••">
+            <label class="form-label fw-bold small text-muted">Password</label>
+            <input type="password" class="form-control" id="logPass" required>
           </div>
           <button type="submit" class="btn btn-primary w-100 py-2 fw-bold"><i class="fas fa-sign-in-alt me-2"></i> Login Masuk</button>
         </form>
@@ -105,6 +107,7 @@
   </nav>
 
   <div class="container-fluid mt-4 mb-5 px-4 no-print">
+    <!-- DASHBOARD WELCOME ALERT -->
     <div class="alert shadow-sm border-0 d-flex align-items-center mb-4 text-white rounded-4" style="background: var(--primary-color);">
       <i class="fas fa-stethoscope fs-1 me-3 ps-2 opacity-75"></i>
       <div><h5 class="mb-1 fw-bold" id="dashWelcome">Selamat Datang</h5><small class="opacity-100 text-light" id="dashSubtitle">Kelola rekam medis MCU dengan teliti.</small></div>
@@ -113,7 +116,7 @@
     <!-- 1. DATA PASIEN -->
     <div id="viewPasien" class="d-none tab-view">
       <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center"><span><i class="fas fa-users me-2"></i>Database Akun Pasien</span><button class="btn btn-sm btn-primary" onclick="resetFormPasien()" data-bs-toggle="modal" data-bs-target="#modalPasien"><i class="fas fa-plus"></i> Registrasi Pasien Baru</button></div>
+        <div class="card-header d-flex justify-content-between align-items-center"><span><i class="fas fa-users me-2"></i>Database Akun Pasien</span><button class="btn btn-sm btn-primary" onclick="openModalPasien()"><i class="fas fa-plus"></i> Registrasi Pasien Baru</button></div>
         <div class="card-body">
           <div class="table-responsive"><table id="tablePasien" class="table table-hover w-100" style="font-size:14px"><thead class="table-light"><tr><th>Nama</th><th>TTL</th><th>ID/Posisi</th><th>Bagian</th><th>Password</th><th>Aksi</th></tr></thead><tbody id="bodyPasien"></tbody></table></div>
         </div>
@@ -125,12 +128,18 @@
       <form id="mcuForm" onsubmit="handleFormMCU(event)">
         <input type="hidden" id="ID" name="ID">
         
+        <!-- BAGIAN 1: IDENTITAS & PEMERIKSAAN FISIK -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-file-medical me-2"></i>I. Identitas & Pemeriksaan Fisik</div>
           <div class="card-body">
             <div class="row g-4">
               <div class="col-md-6">
-                <h6 class="text-secondary fw-bold bg-light p-2 rounded">Biodata & Identitas</h6>
+                <h6 class="text-secondary fw-bold bg-light p-2 rounded">Biodata & Dokter</h6>
+                <div class="mb-2">
+                  <label class="small fw-bold text-primary">Dokter Pemeriksa</label>
+                  <select class="form-select bg-kuning fw-bold text-dark" name="NamaDokter" id="selectDokter" onchange="autoFillDokter()" required><option value="">-- Pilih Dokter --</option></select>
+                  <input type="hidden" name="NipDokter" id="inputNipDokter">
+                </div>
                 <div class="mb-3"><label class="small fw-bold text-primary">Ketik/Pilih Nama Pasien (Auto-fill)</label><input type="text" class="form-control bg-kuning" id="inputNamaFilter" list="pasienList" oninput="autoFillPasien()"><datalist id="pasienList"></datalist><input type="hidden" name="Nama" id="inputNama"></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small">No Periksa</label><input type="text" class="form-control form-control-sm" name="NoPeriksa" required></div><div class="col-6"><label class="small">Tgl Periksa</label><input type="date" class="form-control form-control-sm" name="TglPeriksa" required></div></div>
                 <div class="mb-2"><label class="small">Tempat/Tgl Lahir</label><input type="text" class="form-control form-control-sm bg-light" name="TTL" readonly></div>
@@ -151,79 +160,82 @@
 
               <div class="col-md-6">
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded">Pemeriksaan Organ</h6>
-                <div class="row g-2 mb-1"><div class="col-6"><label class="small text-muted">Visus Tnp Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusTanpaKa" placeholder="-"><input type="text" class="form-control" name="VisusTanpaKi" placeholder="-"></div></div><div class="col-6"><label class="small text-muted">Visus Dgn Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusKacaKa" placeholder="-"><input type="text" class="form-control" name="VisusKacaKi" placeholder="-"></div></div></div>
+                <div class="row g-2 mb-1"><div class="col-6"><label class="small text-muted">Visus Tnp Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusTanpaKa"><input type="text" class="form-control" name="VisusTanpaKi"></div></div><div class="col-6"><label class="small text-muted">Visus Dgn Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusKacaKa"><input type="text" class="form-control" name="VisusKacaKi"></div></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Juling (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="JulingKa"><option value="-">-</option><option>TIDAK</option><option>YA</option></select><select class="form-select bg-kuning" name="JulingKi"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div></div><div class="col-6"><label class="small text-muted">Radang (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="RadangKa"><option value="-">-</option><option>TIDAK</option><option>YA</option></select><select class="form-select bg-kuning" name="RadangKi"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Telinga Dengar (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaDengarKa"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select><select class="form-select bg-kuning" name="TelingaDengarKi"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select></div></div><div class="col-6"><label class="small text-muted">Liang/Cerumen (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaLiangKa"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select><select class="form-select bg-kuning" name="TelingaLiangKi"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select></div></div></div>
-                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Gigi</label><select class="form-select form-select-sm bg-kuning" name="Gigi"><option value="-">-</option><option>Normal</option><option>Berlubang</option><option>Patah/Ompong</option></select></div><div class="col-6"><label class="small text-muted">Lidah</label><select class="form-select form-select-sm bg-kuning" name="Lidah"><option value="-">-</option><option>Normal/Bersih</option><option>Kotor</option></select></div><div class="col-6"><label class="small text-muted">Tongsil</label><select class="form-select form-select-sm bg-kuning" name="Tongsil"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Nafas Frekuensi</label><input type="text" class="form-control form-control-sm" name="Nafas" placeholder="-"></div><div class="col-12"><label class="small text-muted">Leher</label><input type="text" class="form-control form-control-sm" name="Leher" value="-"></div></div>
-                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Abd Lingkar Perut</label><input type="text" class="form-control form-control-sm" name="AbdLingkar" placeholder="-"></div><div class="col-6"><label class="small text-muted">Abd Peristaltik</label><select class="form-select form-select-sm bg-kuning" name="AbdPeristaltik"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Genetalia & Anus</label><input type="text" class="form-control form-control-sm" name="Genetalia" value="-"></div><div class="col-6"><label class="small text-muted">Kulit</label><input type="text" class="form-control form-control-sm" name="Kulit" value="-"></div><div class="col-6"><label class="small text-muted">Tulang Belakang</label><select class="form-select form-select-sm bg-kuning" name="Tulang"><option value="-">-</option><option>Lurus/Batas Wajar</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Extrimitas Atas</label><input type="text" class="form-control form-control-sm" name="ExtAtas" value="-"></div><div class="col-12"><label class="small text-muted">Extrimitas Bawah</label><input type="text" class="form-control form-control-sm" name="ExtBawah" value="-"></div></div>
+                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Gigi</label><select class="form-select form-select-sm bg-kuning" name="Gigi"><option value="-">-</option><option>Normal</option><option>Berlubang</option><option>Patah/Ompong</option></select></div><div class="col-6"><label class="small text-muted">Lidah</label><select class="form-select form-select-sm bg-kuning" name="Lidah"><option value="-">-</option><option>Normal/Bersih</option><option>Kotor</option></select></div><div class="col-6"><label class="small text-muted">Tongsil</label><select class="form-select form-select-sm bg-kuning" name="Tongsil"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Nafas Frekuensi</label><input type="text" class="form-control form-control-sm" name="Nafas"></div><div class="col-12"><label class="small text-muted">Leher</label><input type="text" class="form-control form-control-sm" name="Leher" value="KELENJAR LIMFA, GONDOK TIDAK MEMBESAR"></div></div>
+                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Abd Lingkar Perut</label><input type="text" class="form-control form-control-sm" name="AbdLingkar" placeholder="cm"></div><div class="col-6"><label class="small text-muted">Abd Peristaltik</label><select class="form-select form-select-sm bg-kuning" name="AbdPeristaltik"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Genetalia & Anus</label><input type="text" class="form-control form-control-sm" name="Genetalia" value="-"></div><div class="col-6"><label class="small text-muted">Kulit</label><input type="text" class="form-control form-control-sm" name="Kulit" value="-"></div><div class="col-6"><label class="small text-muted">Tulang Belakang</label><select class="form-select form-select-sm bg-kuning" name="Tulang"><option value="-">-</option><option>Lurus/Batas Wajar</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Extrimitas Atas</label><input type="text" class="form-control form-control-sm" name="ExtAtas" value="DALAM BATAS NORMAL"></div><div class="col-12"><label class="small text-muted">Extrimitas Bawah</label><input type="text" class="form-control form-control-sm" name="ExtBawah" value="DALAM BATAS NORMAL"></div></div>
                 
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded mt-3">Penunjang Umum</h6>
-                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Radiologi (Thorax)</label><input type="text" class="form-control form-control-sm" name="Radiologi" value="-"></div><div class="col-6"><label class="small text-muted">EKG</label><select class="form-select form-select-sm bg-kuning" name="EKG"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div></div>
+                <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Radiologi</label><input type="text" class="form-control form-control-sm" name="Radiologi" value="TIDAK DILAKUKAN PEMERIKSAAN"></div><div class="col-6"><label class="small text-muted">EKG</label><select class="form-select form-select-sm bg-kuning" name="EKG"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- BAGIAN 2: HASIL LABORATORIUM (KOMPLIT) -->
+        <!-- BAGIAN 2: HASIL LABORATORIUM -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
             <div class="row g-4">
+              <!-- Kolom Kiri -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">HEMATOLOGI</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hemoglobin (Hb)</span><input type="text" class="form-control bg-kuning-light" name="Lab_Hb" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hematokrit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Ht" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Eritrosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Eritrosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Trombosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Trombosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Lekosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Jenis Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_JenisLekosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Laju Endap Darah</span><input type="text" class="form-control bg-kuning-light" name="Lab_LED" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hemoglobin (Hb)</span><input type="text" class="form-control bg-kuning-light" name="Lab_Hb"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hematokrit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Ht"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Eritrosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Eritrosit"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Trombosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Trombosit"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Lekosit"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Jenis Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_JenisLekosit"></div>
+                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Laju Endap Darah</span><input type="text" class="form-control bg-kuning-light" name="Lab_LED"></div>
 
                 <h6 class="fw-bold text-dark border-bottom pb-1">MIKROBIOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Fiksasi Sputum BTA</span><select class="form-select bg-kuning" name="Mikro_BTA"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">MH</span><select class="form-select bg-kuning" name="Mikro_MH"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
               </div>
               
+              <!-- Kolom Tengah -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">URINALISA</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">pH</span><input type="text" class="form-control bg-kuning-light" name="Uri_pH" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Berat Jenis</span><input type="text" class="form-control bg-kuning-light" name="Uri_BJ" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">pH</span><input type="text" class="form-control bg-kuning-light" name="Uri_pH"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Berat Jenis</span><input type="text" class="form-control bg-kuning-light" name="Uri_BJ"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Protein</span><select class="form-select bg-kuning" name="Uri_Protein"><option value="-">-</option><option>Negatif</option><option>Positif (+)</option><option>Positif (++)</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Glukosa</span><select class="form-select bg-kuning" name="Uri_Glukosa"><option value="-">-</option><option>Negatif</option><option>Positif (+)</option><option>Positif (++)</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Bilirubin</span><select class="form-select bg-kuning" name="Uri_Bilirubin"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Urobilinogen</span><select class="form-select bg-kuning" name="Uri_Urobilinogen"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Keton</span><select class="form-select bg-kuning" name="Uri_Keton"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Nitrit</span><select class="form-select bg-kuning" name="Uri_Nitrit"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit</span><select class="form-select bg-kuning" name="Uri_Lekosit"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
-                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Eritrosit</span><select class="form-select bg-kuning" name="Uri_Eritrosit"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit (Urine)</span><select class="form-select bg-kuning" name="Uri_Lekosit"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
+                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Eritrosit (Urine)</span><select class="form-select bg-kuning" name="Uri_Eritrosit"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 
-                <h6 class="fw-bold text-dark border-bottom pb-1">SEDIMEN URINE</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Eritrosit</span><input type="text" class="form-control bg-kuning-light" name="Sed_Eritrosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Leukosit</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lekosit" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Epitel</span><input type="text" class="form-control bg-kuning-light" name="Sed_Epitel" placeholder="-"></div>
+                <h6 class="fw-bold text-dark border-bottom pb-1">SEDIMEN</h6>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Eritrosit</span><input type="text" class="form-control bg-kuning-light" name="Sed_Eritrosit"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Leukosit</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lekosit"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Epitel</span><input type="text" class="form-control bg-kuning-light" name="Sed_Epitel"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Kristal</span><select class="form-select bg-kuning" name="Sed_Kristal"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Silinder</span><select class="form-select bg-kuning" name="Sed_Silinder"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
-                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Lain-lain</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lain" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Lain-lain</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lain"></div>
               </div>
 
+              <!-- Kolom Kanan -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">KIMIA KLINIK</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah Puasa</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDP" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah 2j PP</span><input type="text" class="form-control bg-kuning-light" name="Kim_GD2PP" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Gula Darah Acak</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDA" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah Puasa</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDP"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah 2j PP</span><input type="text" class="form-control bg-kuning-light" name="Kim_GD2PP"></div>
+                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Gula Darah Acak</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDA"></div>
 
                 <h6 class="fw-bold text-dark border-bottom pb-1">LEMAK & HATI & GINJAL</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Cholesterol Total</span><input type="text" class="form-control bg-kuning-light" name="Lemak_Chol" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Trigliserida</span><input type="text" class="form-control bg-kuning-light" name="Lemak_Trig" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Cholesterol Total</span><input type="text" class="form-control bg-kuning-light" name="Lemak_Chol"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Trigliserida</span><input type="text" class="form-control bg-kuning-light" name="Lemak_Trig"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">HDL / LDL</span><input type="text" class="form-control bg-kuning-light w-25" name="Lemak_HDL" placeholder="HDL"><input type="text" class="form-control bg-kuning-light w-25" name="Lemak_LDL" placeholder="LDL"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">SGOT / SGPT</span><input type="text" class="form-control bg-kuning-light w-25" name="Hati_SGOT" placeholder="SGOT"><input type="text" class="form-control bg-kuning-light w-25" name="Hati_SGPT" placeholder="SGPT"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Ureum</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_Ureum" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Kreatinin</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_Kreatinin" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Asam Urat</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_AsamUrat" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Ureum</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_Ureum"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Kreatinin</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_Kreatinin"></div>
+                <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Asam Urat</span><input type="text" class="form-control bg-kuning-light" name="Ginjal_AsamUrat"></div>
 
                 <h6 class="fw-bold text-dark border-bottom pb-1">SEROLOGI / LAIN-LAIN</h6>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Tes Kehamilan</span><input type="text" class="form-control bg-kuning-light" name="Sero_Hamil" placeholder="-"></div>
-                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Golongan Darah</span><input type="text" class="form-control bg-kuning-light" name="Sero_GolDarah" placeholder="-"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Tes Kehamilan</span><input type="text" class="form-control bg-kuning-light" name="Sero_Hamil"></div>
+                <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Golongan Darah</span><input type="text" class="form-control bg-kuning-light" name="Sero_GolDarah"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Widal O / H</span><input type="text" class="form-control bg-kuning-light w-25" name="Widal_TyphiO" placeholder="O"><input type="text" class="form-control bg-kuning-light w-25" name="Widal_TyphiH" placeholder="H"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Paratyphi A / B</span><input type="text" class="form-control bg-kuning-light w-25" name="Widal_ParaA" placeholder="PA"><input type="text" class="form-control bg-kuning-light w-25" name="Widal_ParaB" placeholder="PB"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">HBsAg</span><select class="form-select bg-kuning" name="Sero_HBsAg"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
@@ -239,21 +251,11 @@
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-check-circle me-2"></i>III. Diagnosa & Kesimpulan</div>
           <div class="card-body">
-            <div class="row">
-               <div class="col-md-6 mb-2"><label class="fw-bold">Dokter Pemeriksa</label>
-                  <select class="form-select bg-kuning" name="Dokter">
-                    <option value="Dr. Luky Mustika Dewi|199308212020122012">Dr. Luky Mustika Dewi</option>
-                    <option value="Dr. Miftahul Munir|198001012010101001">Dr. Miftahul Munir</option>
-                    <option value="Dr. Budi Santoso|197505052005051002">Dr. Budi Santoso</option>
-                    <option value="Dr. Siti Aminah|198506062015052001">Dr. Siti Aminah</option>
-                  </select>
-               </div>
-               <div class="col-md-6 mb-2"><label class="fw-bold">Diagnosa Medis</label><input type="text" class="form-control" name="Diagnosa" required></div>
-            </div>
-            <div class="mb-2"><label class="fw-bold">Kesimpulan Akhir</label><select class="form-select bg-kuning" name="Kesimpulan"><option>Sehat dengan catatan</option><option>Sehat</option><option>Tidak Sehat</option></select></div>
+            <div class="mb-2"><label class="fw-bold">Diagnosa Medis</label><input type="text" class="form-control" name="Diagnosa" required></div>
+            <div class="mb-2"><label class="fw-bold">Kesimpulan Akhir</label><select class="form-select bg-kuning" name="Kesimpulan"><option value="-">-</option><option>Sehat dengan catatan</option><option>Sehat</option><option>Tidak Sehat</option></select></div>
             <div class="mb-4"><label class="fw-bold">Saran / Rekomendasi Medis</label><textarea class="form-control" name="Saran" rows="2"></textarea></div>
             <div class="d-flex gap-2">
-              <button type="submit" class="btn btn-primary w-100 py-3 fw-bold"><i class="fas fa-save me-1"></i> Simpan Seluruh Data Ke Database</button>
+              <button type="submit" class="btn btn-primary w-100 py-3 fw-bold"><i class="fas fa-save me-1"></i> Simpan Ke Database</button>
               <button type="button" class="btn btn-light w-100 border py-3 fw-bold" onclick="resetFormMCU()"><i class="fas fa-eraser me-1"></i> Kosongkan Form</button>
             </div>
           </div>
@@ -301,15 +303,15 @@
           <div class="mb-2"><label>No Identitas / Posisi</label><input type="text" class="form-control form-control-sm" name="PosisiID" required></div>
           <div class="mb-2"><label>Gender</label><select class="form-select form-select-sm" name="Gender"><option>Male</option><option>Female</option></select></div>
           <div class="mb-2"><label>Bagian</label><input type="text" class="form-control form-control-sm" name="Bagian"></div>
-          <div class="mb-2"><label>Password (Untuk Login)</label><input type="text" class="form-control form-control-sm" name="Password" required></div>
+          <div class="mb-2"><label>Password (Untuk Login Pasien)</label><input type="text" class="form-control form-control-sm" name="Password" required></div>
         </div>
-        <div class="modal-footer"><button type="submit" class="btn btn-primary">Simpan Database</button></div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary">Simpan</button></div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- PRINT AREA PDF -->
+<!-- PRINT AREA PDF (3 HALAMAN OTOMATIS) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -319,7 +321,9 @@
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
-          <div class="d-flex justify-content-end mb-2 mt-1"><div class="no-periksa-box" id="p_no"></div></div>
+          
+          <!-- HALAMAN 1 -->
+          <div class="d-flex justify-content-end mb-3 mt-1"><div class="no-periksa-box" id="p_no"></div></div>
           <div class="bio-grid">
             <div class="fw-bold">Nama</div><div>:</div><div id="p_nama" class="fw-bold"></div>
             <div class="fw-bold">Tempat/Tgl. Lahir</div><div>:</div><div id="p_ttl"></div>
@@ -328,33 +332,46 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <table class="print-table w-100 mb-2">
+          <table class="print-table w-100 mb-4">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
             <tr><td colspan="4"><b>Kebersihan Umum :</b> <span id="p_kebersihan"></span></td></tr>
             <tr><td colspan="4"><b>Kepala & Muka :</b> <span id="p_kepala"></span></td></tr>
-            <tr><td colspan="4">
-              <b>Keluhan :</b> <span id="p_keluhan"></span><br>
-              <b>Riwayat Penyakit :</b> <span id="p_rpenyakit"></span><br>
-              <b>R. Keluarga :</b> <span id="p_rkeluarga"></span><br>
-              <b>Alergi :</b> <span id="p_ralergi"></span>
+            <tr><td colspan="4" style="line-height: 1.5;">
+                <b>Keluhan :</b> <span id="p_keluhan"></span><br>
+                <b>Riwayat Penyakit :</b> <span id="p_rpenyakit"></span><br>
+                <b>R. Keluarga :</b> <span id="p_rkeluarga"></span><br>
+                <b>Alergi :</b> <span id="p_ralergi"></span>
             </td></tr>
             <tr>
-              <td width="25%"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
-              <td width="25%"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
-              <td width="25%"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
-              <td width="25%"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
+              <td style="line-height: 1.5;"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
+              <td style="line-height: 1.5;"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
+              <td style="line-height: 1.5;"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
+              <td style="line-height: 1.5;"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
             </tr>
-            <tr><td colspan="4">
-                <b>Mata:</b> Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>) <br> Juling: <span id="p_j_ka"></span>/<span id="p_j_ki"></span> <br> Radang: <span id="p_r_ka"></span>/<span id="p_r_ki"></span><br>
-                <b>Telinga:</b> Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>) <br> Cerumen (Ka: <span id="p_c_ka"></span> Ki: <span id="p_c_ki"></span>)<br>
-                <b>Mulut & Leher:</b> Gigi: <span id="p_gigi"></span> <br> Lidah: <span id="p_lidah"></span> <br> Tongsil: <span id="p_tongsil"></span> <br> Leher: <span id="p_leher"></span><br>
-                <b>Pernafasan:</b> <span id="p_nafas"></span> <br> <b>Radiologi:</b> <span id="p_rad"></span> <br> <b>EKG:</b> <span id="p_ekg"></span><br>
-                <b>Abdomen:</b> Lingkar: <span id="p_abling"></span> <br> Peristaltik: <span id="p_abper"></span> <br> <b>Genetalia/Kulit:</b> <span id="p_gen"></span> / <span id="p_kulit"></span><br>
-                <b>Tulang Belakang/Extrimitas:</b> <span id="p_tul"></span> <br> Atas: <span id="p_exa"></span> <br> Bawah: <span id="p_exb"></span>
+            <tr><td colspan="4" style="line-height: 1.6;">
+                <b>Mata:</b> Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)<br>
+                <b>Juling:</b> Ka: <span id="p_j_ka"></span> Ki: <span id="p_j_ki"></span><br>
+                <b>Radang:</b> Ka: <span id="p_r_ka"></span> Ki: <span id="p_r_ki"></span><br>
+                <b>Telinga:</b> Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>)<br>
+                <b>Cerumen:</b> Ka: <span id="p_c_ka"></span> Ki: <span id="p_c_ki"></span><br>
+                <b>Mulut & Leher:</b> Gigi: <span id="p_gigi"></span><br>
+                <b>Lidah:</b> <span id="p_lidah"></span><br>
+                <b>Tongsil:</b> <span id="p_tongsil"></span><br>
+                <b>Leher:</b> <span id="p_leher"></span><br>
+                <b>Pernafasan:</b> <span id="p_nafas"></span> x/menit<br>
+                <b>Radiologi:</b> <span id="p_rad"></span><br>
+                <b>EKG:</b> <span id="p_ekg"></span><br>
+                <b>Abdomen:</b> Lingkar: <span id="p_abling"></span> cm<br>
+                <b>Peristaltik:</b> <span id="p_abper"></span><br>
+                <b>Genetalia/Kulit:</b> <span id="p_gen"></span> / <span id="p_kulit"></span><br>
+                <b>Tulang Belakang:</b> <span id="p_tul"></span><br>
+                <b>Extrimitas:</b> Atas: <span id="p_exa"></span> / Bawah: <span id="p_exb"></span>
             </td></tr>
           </table>
 
-          <h6 class="text-center fw-bold text-decoration-underline mb-1 mt-2">HASIL PEMERIKSAAN LABORATORIUM</h6>
+          <!-- HALAMAN 2 -->
+          <div class="page-break"></div>
+          <h5 class="text-center fw-bold text-decoration-underline mb-3">HASIL PEMERIKSAAN LABORATORIUM</h5>
           <table class="print-table w-100">
             <thead>
               <tr class="section-header text-center"><th width="35%">JENIS PEMERIKSAAN</th><th width="15%">HASIL</th><th width="35%">JENIS PEMERIKSAAN</th><th width="15%">HASIL</th></tr>
@@ -392,16 +409,19 @@
             </tbody>
           </table>
 
+          <!-- HALAMAN 3 -->
+          <div class="page-break"></div>
           <table class="print-table w-100">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
-            <tr><td class="section-header">SARAN</td><td id="p_saran"></td></tr>
+            <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
           </table>
 
           <div class="ttd-section">
-            <div><p>Gresik, <span id="p_tgl_cetak"></span><br>Dokter Pemeriksa</p><br><br><p><strong id="p_doc_nama">Dr. Luky Mustika Dewi</strong><br><span id="p_doc_nip">Nip.199308212020122012</span></p></div>
+            <div><p>Gresik, <span id="p_tgl_cetak"></span><br>Dokter Pemeriksa</p><br><br><br><p><span id="p_nama_dokter" class="fw-bold text-decoration-underline"></span><br>NIP. <span id="p_nip_dokter"></span></p></div>
             <div><div class="catatan-box"><b>Catatan :</b></div></div>
           </div>
+
         </td>
       </tr>
     </tbody>
@@ -424,7 +444,7 @@
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw7nUWCD3SMIcqgY98XcgMwQ07XoMffwqXUVQ_jlBDtxsVIPtznyZAqThX_KeuQP_U/exec';
   // ==========================================
 
-  let mcuData = [], pasienData = [], dtRekap, dtPasien, currentUser = {};
+  let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
 
   $(document).ready(() => { const savedUser = sessionStorage.getItem('loggedUser'); if(savedUser) { currentUser = JSON.parse(savedUser); setupDashboard(); } });
 
@@ -469,10 +489,11 @@
 
   function loadDataAll() {
     Swal.fire({ title: 'Memuat Database...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-    Promise.all([fetch(SCRIPT_URL + '?action=readPasien').then(r=>r.json()), fetch(SCRIPT_URL + '?action=readMCU').then(r=>r.json())]).then(([resPasien, resMCU]) => {
+    Promise.all([fetch(SCRIPT_URL + '?action=readPasien').then(r=>r.json()), fetch(SCRIPT_URL + '?action=readMCU').then(r=>r.json()), fetch(SCRIPT_URL + '?action=readDokter').then(r=>r.json())]).then(([resPasien, resMCU, resDokter]) => {
       if(resPasien.status === 'success') pasienData = resPasien.data;
       if(resMCU.status === 'success') mcuData = resMCU.data;
-      renderTablePasien(); renderTableRekap(); updateSelectPasien(); Swal.close();
+      if(resDokter && resDokter.status === 'success') dokterData = resDokter.data;
+      renderTablePasien(); renderTableRekap(); updateSelectPasien(); updateSelectDokter(); Swal.close();
     });
   }
   function loadData() { loadDataAll(); }
@@ -504,6 +525,9 @@
     $('#bodyRekap').html(html); dtRekap = $('#tableRekap').DataTable({ responsive: true, order: [[0, 'desc']], dom: 'Bfrtip', buttons: [ { extend: 'excelHtml5', text: '<i class="fas fa-file-excel"></i> Export Rekap Excel', className: 'btn btn-success btn-sm mb-3 fw-bold', exportOptions: { columns: ':not(.no-export)' } } ] });
   }
 
+  function updateSelectDokter() { let opts = '<option value="">-- Pilih Dokter --</option>'; dokterData.forEach(d => { opts += `<option value="${d.Nama}">${d.Nama}</option>`; }); $('#selectDokter').html(opts); }
+  function autoFillDokter() { const val = $('#selectDokter').val(), d = dokterData.find(x => x.Nama === val); if(d) { $('#inputNipDokter').val(d.NIP); } else { $('#inputNipDokter').val(''); } }
+
   function updateSelectPasien() { let opts = ''; pasienData.forEach(p => { opts += `<option value="${p.Nama}">${p['Posisi/ID']} - ${p.Bagian}</option>`; }); $('#pasienList').html(opts); }
   function autoFillPasien() {
     const val = $('#inputNamaFilter').val(), p = pasienData.find(x => x.Nama === val), f = document.getElementById('mcuForm');
@@ -511,19 +535,7 @@
     else { f.Nama.value = val; $('#inputNama').val(val); f.TTL.value = ''; f.PosisiID.value = ''; f.Gender.value = ''; f.Bagian.value = ''; }
   }
 
-  function handleFormPasien(e) {
-    e.preventDefault();
-    const dataObj = Object.fromEntries(new FormData(e.target).entries());
-    postData('savePasien', dataObj, () => {
-      // Force Close Modal agar tidak macet
-      const modalEl = document.getElementById('modalPasien');
-      const modalInstance = bootstrap.Modal.getInstance(modalEl);
-      if(modalInstance) modalInstance.hide();
-      $('.modal-backdrop').remove();
-      loadDataAll();
-    });
-  }
-  
+  function handleFormPasien(e) { e.preventDefault(); postData('savePasien', Object.fromEntries(new FormData(e.target).entries()), () => { bootstrap.Modal.getInstance(document.getElementById('modalPasien')).hide(); loadDataAll(); }); }
   function handleFormMCU(e) { e.preventDefault(); postData('saveMCU', Object.fromEntries(new FormData(e.target).entries()), () => { resetFormMCU(); switchTab('viewRekap', $('.nav-link').eq(2)); loadDataAll(); }); }
   
   function postData(action, dataObj, callback) {
@@ -535,10 +547,12 @@
 
   function hapusData(action, id) { Swal.fire({ title: 'Hapus Data?', icon: 'warning', showCancelButton: true }).then((r) => { if(r.isConfirmed) { fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: action, id: id }) }).then(res=>res.text()).then(()=>loadDataAll()); } }); }
 
-  function editPasien(id) { const p = pasienData.find(x => x.ID_Pasien == id); if(p) { const f = document.getElementById('formPasien'); f.ID_Pasien.value = p.ID_Pasien; f.Nama.value = p.Nama; f.TTL.value = p['Tempat/Tgl Lahir']; f.PosisiID.value = p['Posisi/ID']; f.Gender.value = p.Gender; f.Bagian.value = p.Bagian; f.Password.value = p.Password; $('#modalPasien').modal('show'); } }
+  function openModalPasien() { resetFormPasien(); new bootstrap.Modal(document.getElementById('modalPasien')).show(); }
+
+  function editPasien(id) { const p = pasienData.find(x => x.ID_Pasien == id); if(p) { const f = document.getElementById('formPasien'); f.ID_Pasien.value = p.ID_Pasien; f.Nama.value = p.Nama; f.TTL.value = p['Tempat/Tgl Lahir']; f.PosisiID.value = p['Posisi/ID']; f.Gender.value = p.Gender; f.Bagian.value = p.Bagian; f.Password.value = p.Password; new bootstrap.Modal(document.getElementById('modalPasien')).show(); } }
   
   function getFormNameByHeader(h) {
-    const map = { 'No Periksa':'NoPeriksa', 'Tgl Periksa':'TglPeriksa', 'Nama':'Nama', 'Tempat/Tgl Lahir':'TTL', 'Posisi/ID':'PosisiID', 'Gender':'Gender', 'Bagian':'Bagian', 'Kebersihan Umum':'Kebersihan', 'Kepala & Muka':'KepalaMuka', 'Keluhan':'Keluhan', 'Riwayat Penyakit':'RPenyakit', 'Riwayat Keluarga':'RKeluarga', 'Riwayat Alergi':'RAlergi', 'TB':'TB', 'BB':'BB', 'Tensi':'Tensi', 'Nadi':'Nadi', 'Suhu':'Suhu', 'Icterus':'Icterus', 'Anemis':'Anemis', 'Cyanosis':'Cyanosis', 'Buta Warna':'ButaWarna', 'Visus Tanpa Kaca Kanan':'VisusTanpaKa', 'Visus Tanpa Kaca Kiri':'VisusTanpaKi', 'Visus Kaca Kanan':'VisusKacaKa', 'Visus Kaca Kiri':'VisusKacaKi', 'Juling Kanan':'JulingKa', 'Juling Kiri':'JulingKi', 'Radang Kanan':'RadangKa', 'Radang Kiri':'RadangKi', 'Telinga Dengar Kanan':'TelingaDengarKa', 'Telinga Dengar Kiri':'TelingaDengarKi', 'Telinga Liang Kanan':'TelingaLiangKa', 'Telinga Liang Kiri':'TelingaLiangKi', 'Gigi':'Gigi', 'Lidah':'Lidah', 'Tongsil':'Tongsil', 'Leher':'Leher', 'Nafas Frekuensi':'Nafas', 'Abdomen Lingkar':'AbdLingkar', 'Abdomen Peristaltik':'AbdPeristaltik', 'Genetalia & Anus':'Genetalia', 'Kulit':'Kulit', 'Tulang Belakang':'Tulang', 'Extrimitas Atas':'ExtAtas', 'Extrimitas Bawah':'ExtBawah', 'Radiologi':'Radiologi', 'EKG':'EKG', 'Lab_Hb':'Lab_Hb', 'Lab_Ht':'Lab_Ht', 'Lab_Eritrosit':'Lab_Eritrosit', 'Lab_Trombosit':'Lab_Trombosit', 'Lab_Lekosit':'Lab_Lekosit', 'Lab_JenisLekosit':'Lab_JenisLekosit', 'Lab_LED':'Lab_LED', 'Uri_pH':'Uri_pH', 'Uri_BJ':'Uri_BJ', 'Uri_Protein':'Uri_Protein', 'Uri_Glukosa':'Uri_Glukosa', 'Uri_Bilirubin':'Uri_Bilirubin', 'Uri_Urobilinogen':'Uri_Urobilinogen', 'Uri_Keton':'Uri_Keton', 'Uri_Nitrit':'Uri_Nitrit', 'Uri_Lekosit':'Uri_Lekosit', 'Uri_Eritrosit':'Uri_Eritrosit', 'Sed_Eritrosit':'Sed_Eritrosit', 'Sed_Lekosit':'Sed_Lekosit', 'Sed_Epitel':'Sed_Epitel', 'Sed_Kristal':'Sed_Kristal', 'Sed_Silinder':'Sed_Silinder', 'Sed_Lain':'Sed_Lain', 'Mikro_BTA':'Mikro_BTA', 'Mikro_MH':'Mikro_MH', 'Kim_GDP':'Kim_GDP', 'Kim_GD2PP':'Kim_GD2PP', 'Kim_GDA':'Kim_GDA', 'Lemak_Chol':'Lemak_Chol', 'Lemak_Trig':'Lemak_Trig', 'Lemak_HDL':'Lemak_HDL', 'Lemak_LDL':'Lemak_LDL', 'Hati_SGOT':'Hati_SGOT', 'Hati_SGPT':'Hati_SGPT', 'Ginjal_Ureum':'Ginjal_Ureum', 'Ginjal_Kreatinin':'Ginjal_Kreatinin', 'Ginjal_AsamUrat':'Ginjal_AsamUrat', 'Sero_Hamil':'Sero_Hamil', 'Sero_GolDarah':'Sero_GolDarah', 'Widal_TyphiO':'Widal_TyphiO', 'Widal_TyphiH':'Widal_TyphiH', 'Widal_ParaA':'Widal_ParaA', 'Widal_ParaB':'Widal_ParaB', 'Sero_HBsAg':'Sero_HBsAg', 'Sero_Syphilis':'Sero_Syphilis', 'Sero_HIV':'Sero_HIV', 'Sero_HBsAb':'Sero_HBsAb', 'Diagnosa':'Diagnosa', 'Kesimpulan':'Kesimpulan', 'Saran':'Saran', 'Dokter_Pemeriksa':'Dokter' };
+    const map = { 'No Periksa':'NoPeriksa', 'Tgl Periksa':'TglPeriksa', 'Nama':'Nama', 'Tempat/Tgl Lahir':'TTL', 'Posisi/ID':'PosisiID', 'Gender':'Gender', 'Bagian':'Bagian', 'Kebersihan Umum':'Kebersihan', 'Kepala & Muka':'KepalaMuka', 'Keluhan':'Keluhan', 'Riwayat Penyakit':'RPenyakit', 'Riwayat Keluarga':'RKeluarga', 'Riwayat Alergi':'RAlergi', 'TB':'TB', 'BB':'BB', 'Tensi':'Tensi', 'Nadi':'Nadi', 'Suhu':'Suhu', 'Icterus':'Icterus', 'Anemis':'Anemis', 'Cyanosis':'Cyanosis', 'Buta Warna':'ButaWarna', 'Visus Tanpa Kaca Kanan':'VisusTanpaKa', 'Visus Tanpa Kaca Kiri':'VisusTanpaKi', 'Visus Kaca Kanan':'VisusKacaKa', 'Visus Kaca Kiri':'VisusKacaKi', 'Juling Kanan':'JulingKa', 'Juling Kiri':'JulingKi', 'Radang Kanan':'RadangKa', 'Radang Kiri':'RadangKi', 'Telinga Dengar Kanan':'TelingaDengarKa', 'Telinga Dengar Kiri':'TelingaDengarKi', 'Telinga Liang Kanan':'TelingaLiangKa', 'Telinga Liang Kiri':'TelingaLiangKi', 'Gigi':'Gigi', 'Lidah':'Lidah', 'Tongsil':'Tongsil', 'Leher':'Leher', 'Nafas Frekuensi':'Nafas', 'Abdomen Lingkar':'AbdLingkar', 'Abdomen Peristaltik':'AbdPeristaltik', 'Genetalia & Anus':'Genetalia', 'Kulit':'Kulit', 'Tulang Belakang':'Tulang', 'Extrimitas Atas':'ExtAtas', 'Extrimitas Bawah':'ExtBawah', 'Radiologi':'Radiologi', 'EKG':'EKG', 'Lab_Hb':'Lab_Hb', 'Lab_Ht':'Lab_Ht', 'Lab_Eritrosit':'Lab_Eritrosit', 'Lab_Trombosit':'Lab_Trombosit', 'Lab_Lekosit':'Lab_Lekosit', 'Lab_JenisLekosit':'Lab_JenisLekosit', 'Lab_LED':'Lab_LED', 'Uri_pH':'Uri_pH', 'Uri_BJ':'Uri_BJ', 'Uri_Protein':'Uri_Protein', 'Uri_Glukosa':'Uri_Glukosa', 'Uri_Bilirubin':'Uri_Bilirubin', 'Uri_Urobilinogen':'Uri_Urobilinogen', 'Uri_Keton':'Uri_Keton', 'Uri_Nitrit':'Uri_Nitrit', 'Uri_Lekosit':'Uri_Lekosit', 'Uri_Eritrosit':'Uri_Eritrosit', 'Sed_Eritrosit':'Sed_Eritrosit', 'Sed_Lekosit':'Sed_Lekosit', 'Sed_Epitel':'Sed_Epitel', 'Sed_Kristal':'Sed_Kristal', 'Sed_Silinder':'Sed_Silinder', 'Sed_Lain':'Sed_Lain', 'Mikro_BTA':'Mikro_BTA', 'Mikro_MH':'Mikro_MH', 'Kim_GDP':'Kim_GDP', 'Kim_GD2PP':'Kim_GD2PP', 'Kim_GDA':'Kim_GDA', 'Lemak_Chol':'Lemak_Chol', 'Lemak_Trig':'Lemak_Trig', 'Lemak_HDL':'Lemak_HDL', 'Lemak_LDL':'Lemak_LDL', 'Hati_SGOT':'Hati_SGOT', 'Hati_SGPT':'Hati_SGPT', 'Ginjal_Ureum':'Ginjal_Ureum', 'Ginjal_Kreatinin':'Ginjal_Kreatinin', 'Ginjal_AsamUrat':'Ginjal_AsamUrat', 'Sero_Hamil':'Sero_Hamil', 'Sero_GolDarah':'Sero_GolDarah', 'Widal_TyphiO':'Widal_TyphiO', 'Widal_TyphiH':'Widal_TyphiH', 'Widal_ParaA':'Widal_ParaA', 'Widal_ParaB':'Widal_ParaB', 'Sero_HBsAg':'Sero_HBsAg', 'Sero_Syphilis':'Sero_Syphilis', 'Sero_HIV':'Sero_HIV', 'Sero_HBsAb':'Sero_HBsAb', 'Diagnosa':'Diagnosa', 'Kesimpulan':'Kesimpulan', 'Saran':'Saran', 'NamaDokter':'NamaDokter', 'NipDokter':'NipDokter' };
     return map[h];
   }
 
@@ -561,7 +575,6 @@
       
       $('#p_kebersihan').text(d['Kebersihan Umum'] || '-'); $('#p_kepala').text(d['Kepala & Muka'] || '-'); $('#p_keluhan').text(d['Keluhan'] || '-'); $('#p_rpenyakit').text(d['Riwayat Penyakit'] || '-'); $('#p_rkeluarga').text(d['Riwayat Keluarga'] || '-'); $('#p_ralergi').text(d['Riwayat Alergi'] || '-');
       $('#p_tb').text(d['TB'] || '-'); $('#p_bb').text(d['BB'] || '-'); $('#p_tensi').text(d['Tensi'] || '-'); $('#p_nadi').text(d['Nadi'] || '-'); $('#p_suhu').text(d['Suhu'] || '-'); $('#p_icterus').text(d['Icterus'] || '-'); $('#p_anemis').text(d['Anemis'] || '-'); $('#p_cyanosis').text(d['Cyanosis'] || '-'); $('#p_butawarna').text(d['Buta Warna'] || '-');
-      
       $('#p_v_tk_ka').text(d['Visus Tanpa Kaca Kanan'] || '-'); $('#p_v_tk_ki').text(d['Visus Tanpa Kaca Kiri'] || '-'); $('#p_j_ka').text(d['Juling Kanan'] || '-'); $('#p_j_ki').text(d['Juling Kiri'] || '-'); $('#p_r_ka').text(d['Radang Kanan'] || '-'); $('#p_r_ki').text(d['Radang Kiri'] || '-');
       $('#p_d_ka').text(d['Telinga Dengar Kanan'] || '-'); $('#p_d_ki').text(d['Telinga Dengar Kiri'] || '-'); $('#p_c_ka').text(d['Telinga Liang Kanan'] || '-'); $('#p_c_ki').text(d['Telinga Liang Kiri'] || '-');
       $('#p_gigi').text(d['Gigi'] || '-'); $('#p_lidah').text(d['Lidah'] || '-'); $('#p_tongsil').text(d['Tongsil'] || '-'); $('#p_leher').text(d['Leher'] || '-'); $('#p_nafas').text(d['Nafas Frekuensi'] || '-'); $('#p_rad').text(d['Radiologi'] || '-'); $('#p_ekg').text(d['EKG'] || '-');
@@ -576,12 +589,11 @@
       $('#p_l_sgot').text(d['Hati_SGOT']||'-'); $('#p_l_sgpt').text(d['Hati_SGPT']||'-'); $('#p_l_ur').text(d['Ginjal_Ureum']||'-'); $('#p_l_kre').text(d['Ginjal_Kreatinin']||'-'); $('#p_l_au').text(d['Ginjal_AsamUrat']||'-');
       $('#p_s_hamil').text(d['Sero_Hamil']||'-'); $('#p_s_gol').text(d['Sero_GolDarah']||'-'); $('#p_w_o').text(d['Widal_TyphiO']||'-'); $('#p_w_h').text(d['Widal_TyphiH']||'-'); $('#p_w_pa').text(d['Widal_ParaA']||'-'); $('#p_w_pb').text(d['Widal_ParaB']||'-'); $('#p_s_hbsag').text(d['Sero_HBsAg']||'-'); $('#p_s_syp').text(d['Sero_Syphilis']||'-'); $('#p_s_hiv').text(d['Sero_HIV']||'-'); $('#p_s_hbsab').text(d['Sero_HBsAb']||'-');
 
-      // TTD Dokter Dynamic
-      let docData = (d['Dokter_Pemeriksa'] || 'Dr. Luky Mustika Dewi|199308212020122012').split('|');
-      $('#p_doc_nama').text(docData[0] || 'Dr. Luky Mustika Dewi');
-      $('#p_doc_nip').text('NIP. ' + (docData[1] || '199308212020122012'));
-
       $('#p_diagnosa').text(d['Diagnosa'] || '-'); $('#p_kesimpulan').text(d['Kesimpulan'] || '-'); $('#p_saran').text(d['Saran'] || '-');
+      
+      $('#p_nama_dokter').text(d['NamaDokter'] || '.........................');
+      $('#p_nip_dokter').text(d['NipDokter'] || '.........................');
+
       let parts = d['Tgl Periksa'] ? d['Tgl Periksa'].split('-') : []; $('#p_tgl_cetak').text(parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : d['Tgl Periksa']);
       
       const pArea = document.getElementById('printArea'); pArea.classList.remove('d-none'); window.print(); pArea.classList.add('d-none');
