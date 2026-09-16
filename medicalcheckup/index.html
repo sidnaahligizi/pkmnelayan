@@ -21,7 +21,7 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK TERPISAH (FISIK / LAB) */
+    /* CSS PRINT (Pemisahan Paksa 2 Halaman & Tabel Rapi) */
     @media print {
       @page { margin: 10mm; }
       body { background-color: #fff !important; margin: 0; padding: 0; }
@@ -51,6 +51,8 @@
       
       .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
       .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
+      
+      /* Mencegah isi tabel terpotong di tengah baris */
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
@@ -59,6 +61,9 @@
       
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 2px 4px !important; vertical-align: top; }
+      
+      /* KELAS KHUSUS UNTUK MEMAKSA HALAMAN BARU */
+      .page-break-tbody { page-break-before: always !important; break-before: page !important; }
       
       .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
       .catatan-box { border: 1px solid black; width: 250px; height: 80px; padding: 5px; }
@@ -122,6 +127,7 @@
   </nav>
 
   <div class="container-fluid mt-4 mb-5 px-4 no-print">
+    <!-- DASHBOARD WELCOME ALERT -->
     <div class="alert shadow-sm border-0 d-flex align-items-center mb-4 text-white rounded-4" style="background: var(--primary-color);">
       <i class="fas fa-stethoscope fs-1 me-3 ps-2 opacity-75"></i>
       <div><h5 class="mb-1 fw-bold" id="dashWelcome">Selamat Datang</h5><small class="opacity-100 text-light" id="dashSubtitle">Kelola rekam medis MCU dengan teliti.</small></div>
@@ -186,7 +192,6 @@
           </div>
         </div>
 
-        <!-- BAGIAN 2: HASIL LABORATORIUM -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
@@ -277,7 +282,7 @@
       <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center"><span><i class="fas fa-database me-2"></i>Rekap Database MCU</span><button class="btn btn-sm btn-outline-primary" onclick="loadData()"><i class="fas fa-sync-alt"></i> Refresh Data</button></div>
         <div class="card-body">
-          <div class="table-responsive"><table id="tableRekap" class="table table-hover align-middle w-100" style="font-size: 13px;"><thead class="table-light"><tr><th>No</th><th>Tgl</th><th>Nama Pasien</th><th>Bagian</th><th>Diagnosa</th><th class="text-center no-export">Aksi Cetak / Edit</th></tr></thead><tbody id="bodyRekap"></tbody></table></div>
+          <div class="table-responsive"><table id="tableRekap" class="table table-hover align-middle w-100" style="font-size: 13px;"><thead class="table-light"><tr><th>No</th><th>Tgl</th><th>Nama Pasien</th><th>Bagian</th><th>Diagnosa</th><th class="text-center no-export">Aksi</th></tr></thead><tbody id="bodyRekap"></tbody></table></div>
         </div>
       </div>
     </div>
@@ -320,7 +325,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA (DINAMIS 2 HASIL CETAK TERPISAH) -->
+<!-- PRINT AREA PDF (2 HALAMAN PAKSA OTOMATIS) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -331,12 +336,14 @@
       </tr>
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
+    
+    <!-- HALAMAN 1 (FISIK) -->
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
           
           <div class="title-container">
-            <h5 class="title-section" id="p_judul_cetak">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
+            <h5 class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
             <div class="no-periksa-box" id="p_no"></div>
           </div>
           
@@ -348,8 +355,7 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <!-- TABEL CETAK FISIK -->
-          <table class="print-table w-100 mb-4" id="tabelCetakFisik">
+          <table class="print-table w-100 mb-4">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
             <tr>
               <td colspan="4" style="padding: 0;">
@@ -399,9 +405,17 @@
               </td>
             </tr>
           </table>
+
+        </td>
+      </tr>
+    </tbody>
+    
+    <!-- HALAMAN 2 (LAB, KESIMPULAN, & TTD) -->
+    <tbody class="report-body page-break-tbody">
+      <tr>
+        <td style="border: none; padding-top: 10px;">
           
-          <!-- TABEL CETAK LABORATORIUM -->
-          <table class="print-table lab-table w-100" id="tabelCetakLab">
+          <table class="print-table lab-table w-100">
             <thead>
               <tr><th colspan="6" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
               <tr class="section-header text-center">
@@ -442,11 +456,10 @@
             </tbody>
           </table>
 
-          <!-- KESIMPULAN & TTD -->
           <table class="print-table w-100 mt-3">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
-            <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
+            <tr><td class="section-header">SARAN</td><td style="height: 50px;" id="p_saran"></td></tr>
           </table>
 
           <div class="ttd-section">
@@ -537,7 +550,7 @@
       Swal.close(); let histHtml = '';
       if(myHistory.length > 0) {
         myHistory.reverse().forEach((h) => {
-          histHtml += `<div class="card riwayat-card mb-3 bg-white"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><span class="badge bg-success px-2 py-1"><i class="fas fa-stethoscope"></i> No Periksa: ${h['No Periksa'] || '-'}</span><small class="text-muted fw-bold"><i class="fas fa-calendar-alt"></i> ${formatTanggalIndo(h['Tgl Periksa'])}</small></div><div class="row mt-3"><div class="col-8"><h6 class="fw-bold text-dark mb-1">Diagnosa: ${h.Diagnosa || '-'}</h6><p class="small text-muted mb-0">Kesimpulan: <b>${h.Kesimpulan || '-'}</b></p></div><div class="col-4"><button class="btn btn-outline-info btn-sm w-100 fw-bold mb-2" onclick="printFisik('${h.ID}')"><i class="fas fa-stethoscope"></i> Cetak Fisik</button><button class="btn btn-outline-success btn-sm w-100 fw-bold" onclick="printLab('${h.ID}')"><i class="fas fa-flask"></i> Cetak Lab</button></div></div></div></div>`;
+          histHtml += `<div class="card riwayat-card mb-3 bg-white"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><span class="badge bg-success px-2 py-1"><i class="fas fa-stethoscope"></i> No Periksa: ${h['No Periksa'] || '-'}</span><small class="text-muted fw-bold"><i class="fas fa-calendar-alt"></i> ${formatTanggalIndo(h['Tgl Periksa'])}</small></div><div class="row mt-3"><div class="col-8"><h6 class="fw-bold text-dark mb-1">Diagnosa: ${h.Diagnosa || '-'}</h6><p class="small text-muted mb-0">Kesimpulan: <b>${h.Kesimpulan || '-'}</b></p></div><div class="col-4 d-flex align-items-center"><button class="btn btn-outline-primary btn-sm w-100 fw-bold" onclick="printData('${h.ID}')"><i class="fas fa-print"></i> Cetak PDF</button></div></div></div></div>`;
         });
       } else { histHtml = `<div class="alert alert-warning text-center"><i class="fas fa-search mb-2 fs-3 d-block"></i> Rekam medis Anda belum tercatat.</div>`; }
       $('#pasienHistoryContainer').html(histHtml);
@@ -552,7 +565,7 @@
 
   function renderTableRekap() {
     if (dtRekap) dtRekap.destroy(); let html = '';
-    mcuData.forEach(r => { html += `<tr><td><span class="badge bg-secondary">${r['No Periksa'] || ''}</span></td><td>${formatTanggalIndo(r['Tgl Periksa']) || ''}</td><td class="fw-bold">${r['Nama'] || ''}</td><td>${r['Bagian'] || ''}</td><td>${r['Diagnosa'] || ''}</td><td class="text-center"><button class="btn btn-sm btn-info text-white me-1" title="Cetak Fisik" onclick="printFisik('${r.ID}')"><i class="fas fa-stethoscope"></i></button><button class="btn btn-sm btn-success me-1" title="Cetak Lab" onclick="printLab('${r.ID}')"><i class="fas fa-flask"></i></button> <button class="btn btn-sm btn-warning me-1" onclick="editMCU('${r.ID}')"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="hapusData('deleteMCU', '${r.ID}')"><i class="fas fa-trash"></i></button></td></tr>`; });
+    mcuData.forEach(r => { html += `<tr><td><span class="badge bg-secondary">${r['No Periksa'] || ''}</span></td><td>${formatTanggalIndo(r['Tgl Periksa']) || ''}</td><td class="fw-bold">${r['Nama'] || ''}</td><td>${r['Bagian'] || ''}</td><td>${r['Diagnosa'] || ''}</td><td class="text-center"><button class="btn btn-sm btn-success" onclick="printData('${r.ID}')"><i class="fas fa-print"></i></button> <button class="btn btn-sm btn-warning" onclick="editMCU('${r.ID}')"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="hapusData('deleteMCU', '${r.ID}')"><i class="fas fa-trash"></i></button></td></tr>`; });
     $('#bodyRekap').html(html); dtRekap = $('#tableRekap').DataTable({ responsive: true, order: [[0, 'desc']], dom: 'Bfrtip', buttons: [ { extend: 'excelHtml5', text: '<i class="fas fa-file-excel"></i> Export Rekap Excel', className: 'btn btn-success btn-sm mb-3 fw-bold', exportOptions: { columns: ':not(.no-export)' } } ] });
   }
 
@@ -623,15 +636,18 @@
     return `${parts[2]} ${bulan[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
   }
 
-  // CORE POPULATION FUNCTION FOR PRINTING
-  function populatePrintData(d) {
+  function printData(id) {
+    const d = mcuData.find(row => row.ID == id);
+    if(d) {
       $('#p_no').text(d['No Periksa'] || '-'); $('#p_nama').text(d['Nama'] || '-'); $('#p_ttl').text(d['Tempat/Tgl Lahir'] || '-'); $('#p_posisi').text(d['Posisi/ID'] || '-'); $('#p_gender').text(d['Gender'] || '-'); $('#p_bagian').text(d['Bagian'] || '-');
+      
       $('#p_kebersihan').text(d['Kebersihan Umum'] || '-'); $('#p_kepala').text(d['Kepala & Muka'] || '-'); $('#p_keluhan').text(d['Keluhan'] || '-'); $('#p_rpenyakit').text(d['Riwayat Penyakit'] || '-'); $('#p_rkeluarga').text(d['Riwayat Keluarga'] || '-'); $('#p_ralergi').text(d['Riwayat Alergi'] || '-');
       $('#p_tb').text(d['TB'] || '-'); $('#p_bb').text(d['BB'] || '-'); $('#p_tensi').text(d['Tensi'] || '-'); $('#p_nadi').text(d['Nadi'] || '-'); $('#p_suhu').text(d['Suhu'] || '-'); $('#p_icterus').text(d['Icterus'] || '-'); $('#p_anemis').text(d['Anemis'] || '-'); $('#p_cyanosis').text(d['Cyanosis'] || '-'); $('#p_butawarna').text(d['Buta Warna'] || '-');
       $('#p_v_tk_ka').text(d['Visus Tanpa Kaca Kanan'] || '-'); $('#p_v_tk_ki').text(d['Visus Tanpa Kaca Kiri'] || '-'); $('#p_j_ka').text(d['Juling Kanan'] || '-'); $('#p_j_ki').text(d['Juling Kiri'] || '-'); $('#p_r_ka').text(d['Radang Kanan'] || '-'); $('#p_r_ki').text(d['Radang Kiri'] || '-');
       $('#p_d_ka').text(d['Telinga Dengar Kanan'] || '-'); $('#p_d_ki').text(d['Telinga Dengar Kiri'] || '-'); $('#p_c_ka').text(d['Telinga Liang Kanan'] || '-'); $('#p_c_ki').text(d['Telinga Liang Kiri'] || '-');
       $('#p_gigi').text(d['Gigi'] || '-'); $('#p_lidah').text(d['Lidah'] || '-'); $('#p_tongsil').text(d['Tongsil'] || '-'); $('#p_leher').text(d['Leher'] || '-'); $('#p_nafas').text(d['Nafas Frekuensi'] || '-'); $('#p_rad').text(d['Radiologi'] || '-'); $('#p_ekg').text(d['EKG'] || '-');
       $('#p_abling').text(d['Abdomen Lingkar'] || '-'); $('#p_abper').text(d['Abdomen Peristaltik'] || '-'); $('#p_gen').text(d['Genetalia & Anus'] || '-'); $('#p_kulit').text(d['Kulit'] || '-'); $('#p_tul').text(d['Tulang Belakang'] || '-'); $('#p_exa').text(d['Extrimitas Atas'] || '-'); $('#p_exb').text(d['Extrimitas Bawah'] || '-');
+      
       $('#p_l_hb').text(d['Lab_Hb']||'-'); $('#p_l_ht').text(d['Lab_Ht']||'-'); $('#p_l_eri').text(d['Lab_Eritrosit']||'-'); $('#p_l_trombo').text(d['Lab_Trombosit']||'-'); $('#p_l_leko').text(d['Lab_Lekosit']||'-'); $('#p_l_jleko').text(d['Lab_JenisLekosit']||'-'); $('#p_l_led').text(d['Lab_LED']||'-');
       $('#p_u_ph').text(d['Uri_pH']||'-'); $('#p_u_bj').text(d['Uri_BJ']||'-'); $('#p_u_pro').text(d['Uri_Protein']||'-'); $('#p_u_glu').text(d['Uri_Glukosa']||'-'); $('#p_u_bil').text(d['Uri_Bilirubin']||'-'); $('#p_u_uro').text(d['Uri_Urobilinogen']||'-'); $('#p_u_ket').text(d['Uri_Keton']||'-'); $('#p_u_nit').text(d['Uri_Nitrit']||'-'); $('#p_u_lek').text(d['Uri_Lekosit']||'-'); $('#p_u_eri').text(d['Uri_Eritrosit']||'-');
       $('#p_s_eri').text(d['Sed_Eritrosit']||'-'); $('#p_s_lek').text(d['Sed_Lekosit']||'-'); $('#p_s_epi').text(d['Sed_Epitel']||'-'); $('#p_s_kri').text(d['Sed_Kristal']||'-'); $('#p_s_sil').text(d['Sed_Silinder']||'-'); $('#p_s_lain').text(d['Sed_Lain']||'-');
@@ -640,39 +656,17 @@
       $('#p_l_chol').text(d['Lemak_Chol']||'-'); $('#p_l_trig').text(d['Lemak_Trig']||'-'); $('#p_l_hdl').text(d['Lemak_HDL']||'-'); $('#p_l_ldl').text(d['Lemak_LDL']||'-');
       $('#p_l_sgot').text(d['Hati_SGOT']||'-'); $('#p_l_sgpt').text(d['Hati_SGPT']||'-'); $('#p_l_ur').text(d['Ginjal_Ureum']||'-'); $('#p_l_kre').text(d['Ginjal_Kreatinin']||'-'); $('#p_l_au').text(d['Ginjal_AsamUrat']||'-');
       $('#p_s_hamil').text(d['Sero_Hamil']||'-'); $('#p_s_gol').text(d['Sero_GolDarah']||'-'); $('#p_w_o').text(d['Widal_TyphiO']||'-'); $('#p_w_h').text(d['Widal_TyphiH']||'-'); $('#p_w_pa').text(d['Widal_ParaA']||'-'); $('#p_w_pb').text(d['Widal_ParaB']||'-'); $('#p_s_hbsag').text(d['Sero_HBsAg']||'-'); $('#p_s_syp').text(d['Sero_Syphilis']||'-'); $('#p_s_hiv').text(d['Sero_HIV']||'-'); $('#p_s_hbsab').text(d['Sero_HBsAb']||'-');
+
       $('#p_diagnosa').text(d['Diagnosa'] || '-'); $('#p_kesimpulan').text(d['Kesimpulan'] || '-'); $('#p_saran').text(d['Saran'] || '-');
-      $('#p_nama_dokter').text(d['NamaDokter'] || '.........................'); $('#p_nip_dokter').text(d['NipDokter'] || '.........................');
+      
+      $('#p_nama_dokter').text(d['NamaDokter'] || '.........................');
+      $('#p_nip_dokter').text(d['NipDokter'] || '.........................');
+
       $('#p_tgl_cetak').text(formatTanggalIndo(d['Tgl Periksa']));
-  }
-
-  // CETAK FISIK
-  function printFisik(id) {
-    const d = mcuData.find(row => row.ID == id);
-    if(d) {
-      populatePrintData(d);
-      $('#tabelCetakFisik').show();
-      $('#tabelCetakLab').hide();
-      const pArea = document.getElementById('printArea'); 
-      pArea.classList.remove('d-none'); 
-      window.print(); 
-      pArea.classList.add('d-none');
+      
+      const pArea = document.getElementById('printArea'); pArea.classList.remove('d-none'); window.print(); pArea.classList.add('d-none');
     }
   }
-
-  // CETAK LAB
-  function printLab(id) {
-    const d = mcuData.find(row => row.ID == id);
-    if(d) {
-      populatePrintData(d);
-      $('#tabelCetakFisik').hide();
-      $('#tabelCetakLab').show();
-      const pArea = document.getElementById('printArea'); 
-      pArea.classList.remove('d-none'); 
-      window.print(); 
-      pArea.classList.add('d-none');
-    }
-  }
-
 </script>
 </body>
 </html>
