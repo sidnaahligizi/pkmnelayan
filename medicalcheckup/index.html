@@ -21,7 +21,7 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* CSS PRINT 3 LEMBAR DENGAN KOP BERULANG OTOMATIS & TABEL RAPI */
+    /* PENGATURAN CETAK (PRINT) 2 LEMBAR */
     @media print {
       @page { margin: 10mm; }
       body * { visibility: hidden; }
@@ -33,19 +33,27 @@
       thead.report-header { display: table-header-group; }
       tfoot.report-footer { display: table-footer-group; }
       
-      .kop-surat-img { width: 100%; max-height: 120px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 5px; }
-      .title-section { text-align: center; font-weight: bold; font-size: 14pt; text-decoration: underline; margin-bottom: 10px; }
-      .bio-grid { display: grid; grid-template-columns: 140px 10px auto; row-gap: 4px; margin-bottom: 15px; font-size: 12pt; }
+      .kop-surat-img { width: 100%; max-height: 120px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 5px; }
+      
+      .title-container { position: relative; text-align: center; margin-bottom: 20px; }
+      .title-section { font-weight: bold; font-size: 14pt; text-decoration: underline; margin: 0; padding-top: 5px; }
+      .no-periksa-box { position: absolute; right: 0; top: 0; border: 3px solid black; padding: 5px 15px; font-weight: bold; font-size: 12pt; }
+      
+      .bio-grid { display: grid; grid-template-columns: 140px 10px auto; row-gap: 4px; margin-bottom: 15px; font-size: 11pt; }
       
       .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
-      .print-table td, .print-table th { border: 1px solid black; padding: 5px 8px; vertical-align: top; }
+      .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Pemisah Halaman */
+      /* Format tabel didalam kolom (Tanda : Lurus) */
+      .nested-align-table { width: 100%; border-collapse: collapse; }
+      .nested-align-table td { border: none !important; padding: 2px 4px !important; vertical-align: top; }
+      
+      /* Pemisah 2 Halaman Saja */
       .page-break { page-break-before: always; }
       
-      .ttd-section { margin-top: 15px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 12pt; }
+      .ttd-section { margin-top: 20px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
       .catatan-box { border: 1px solid black; width: 250px; height: 100px; padding: 5px; }
       .footer-print { text-align: center; font-size: 10pt; font-style: italic; color: #555; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px; }
     }
@@ -127,8 +135,6 @@
     <div id="viewForm" class="d-none tab-view">
       <form id="mcuForm" onsubmit="handleFormMCU(event)">
         <input type="hidden" id="ID" name="ID">
-        
-        <!-- BAGIAN 1: IDENTITAS & PEMERIKSAAN FISIK -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-file-medical me-2"></i>I. Identitas & Pemeriksaan Fisik</div>
           <div class="card-body">
@@ -152,12 +158,10 @@
                 <div class="mb-2"><label class="small">Riwayat Penyakit</label><input type="text" class="form-control form-control-sm" name="RPenyakit" value="-"></div>
                 <div class="mb-2"><label class="small">R. Penyakit Keluarga</label><input type="text" class="form-control form-control-sm" name="RKeluarga" value="-"></div>
                 <div class="mb-3"><label class="small">Riwayat Alergi</label><select class="form-select form-select-sm bg-kuning" name="RAlergi"><option value="-">-</option><option>TIDAK ADA</option><option>ADA</option></select></div>
-                
                 <div class="row g-2 mb-2"><div class="col-3"><label class="small">TB(cm)</label><input type="text" class="form-control form-control-sm" name="TB"></div><div class="col-3"><label class="small">BB(kg)</label><input type="text" class="form-control form-control-sm" name="BB"></div><div class="col-3"><label class="small">Tensi</label><input type="text" class="form-control form-control-sm" name="Tensi"></div><div class="col-3"><label class="small">Nadi</label><input type="text" class="form-control form-control-sm" name="Nadi"></div></div>
                 <div class="row g-2 mb-3"><div class="col-4"><label class="small">Suhu(C)</label><input type="text" class="form-control form-control-sm" name="Suhu"></div><div class="col-4"><label class="small">Icterus</label><select class="form-select form-select-sm bg-kuning" name="Icterus"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-4"><label class="small">Anemis</label><select class="form-select form-select-sm bg-kuning" name="Anemis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div></div>
                 <div class="row g-2 mb-3"><div class="col-6"><label class="small">Cyanosis</label><select class="form-select form-select-sm bg-kuning" name="Cyanosis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-6"><label class="small">Buta Warna</label><select class="form-select form-select-sm bg-kuning" name="ButaWarna"><option value="-">-</option><option>NORMAL</option><option>YA</option></select></div></div>
               </div>
-
               <div class="col-md-6">
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded">Pemeriksaan Organ</h6>
                 <div class="row g-2 mb-1"><div class="col-6"><label class="small text-muted">Visus Tnp Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusTanpaKa"><input type="text" class="form-control" name="VisusTanpaKi"></div></div><div class="col-6"><label class="small text-muted">Visus Dgn Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusKacaKa"><input type="text" class="form-control" name="VisusKacaKi"></div></div></div>
@@ -165,7 +169,6 @@
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Telinga Dengar (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaDengarKa"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select><select class="form-select bg-kuning" name="TelingaDengarKi"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select></div></div><div class="col-6"><label class="small text-muted">Liang/Cerumen (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaLiangKa"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select><select class="form-select bg-kuning" name="TelingaLiangKi"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select></div></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Gigi</label><select class="form-select form-select-sm bg-kuning" name="Gigi"><option value="-">-</option><option>Normal</option><option>Berlubang</option><option>Patah/Ompong</option></select></div><div class="col-6"><label class="small text-muted">Lidah</label><select class="form-select form-select-sm bg-kuning" name="Lidah"><option value="-">-</option><option>Normal/Bersih</option><option>Kotor</option></select></div><div class="col-6"><label class="small text-muted">Tongsil</label><select class="form-select form-select-sm bg-kuning" name="Tongsil"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Nafas Frekuensi</label><input type="text" class="form-control form-control-sm" name="Nafas"></div><div class="col-12"><label class="small text-muted">Leher</label><input type="text" class="form-control form-control-sm" name="Leher" value="KELENJAR LIMFA, GONDOK TIDAK MEMBESAR"></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Abd Lingkar Perut</label><input type="text" class="form-control form-control-sm" name="AbdLingkar" placeholder="cm"></div><div class="col-6"><label class="small text-muted">Abd Peristaltik</label><select class="form-select form-select-sm bg-kuning" name="AbdPeristaltik"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Genetalia & Anus</label><input type="text" class="form-control form-control-sm" name="Genetalia" value="-"></div><div class="col-6"><label class="small text-muted">Kulit</label><input type="text" class="form-control form-control-sm" name="Kulit" value="-"></div><div class="col-6"><label class="small text-muted">Tulang Belakang</label><select class="form-select form-select-sm bg-kuning" name="Tulang"><option value="-">-</option><option>Lurus/Batas Wajar</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Extrimitas Atas</label><input type="text" class="form-control form-control-sm" name="ExtAtas" value="DALAM BATAS NORMAL"></div><div class="col-12"><label class="small text-muted">Extrimitas Bawah</label><input type="text" class="form-control form-control-sm" name="ExtBawah" value="DALAM BATAS NORMAL"></div></div>
-                
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded mt-3">Penunjang Umum</h6>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Radiologi</label><input type="text" class="form-control form-control-sm" name="Radiologi" value="TIDAK DILAKUKAN PEMERIKSAAN"></div><div class="col-6"><label class="small text-muted">EKG</label><select class="form-select form-select-sm bg-kuning" name="EKG"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div></div>
               </div>
@@ -311,11 +314,15 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF (3 HALAMAN OTOMATIS) -->
+<!-- PRINT AREA PDF (TEPAT 2 HALAMAN OTOMATIS) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
-      <tr><td style="border: none;"><img src="https://lh3.googleusercontent.com/d/1DVC3tWoFuH0JgJCvVgR7zoRpDsRVPqE1" class="kop-surat-img" alt="Kop Surat"><div class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</div></td></tr>
+      <tr>
+        <td style="border: none;">
+          <img src="https://lh3.googleusercontent.com/d/1DVC3tWoFuH0JgJCvVgR7zoRpDsRVPqE1" class="kop-surat-img" alt="Kop Surat">
+        </td>
+      </tr>
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
     <tbody class="report-body">
@@ -323,7 +330,11 @@
         <td style="border: none;">
           
           <!-- HALAMAN 1 -->
-          <div class="d-flex justify-content-end mb-3 mt-1"><div class="no-periksa-box" id="p_no"></div></div>
+          <div class="title-container">
+            <h5 class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
+            <div class="no-periksa-box" id="p_no"></div>
+          </div>
+          
           <div class="bio-grid">
             <div class="fw-bold">Nama</div><div>:</div><div id="p_nama" class="fw-bold"></div>
             <div class="fw-bold">Tempat/Tgl. Lahir</div><div>:</div><div id="p_ttl"></div>
@@ -332,54 +343,64 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <table class="print-table w-100 mb-4">
+          <table class="print-table w-100 mb-2">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
+            
             <tr>
-              <td width="30%" class="fw-bold" style="border-right: none;">Kebersihan Umum</td>
-              <td colspan="3" style="border-left: none;">: <span id="p_kebersihan"></span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold" style="border-right: none;">Kepala & Muka</td>
-              <td colspan="3" style="border-left: none;">: <span id="p_kepala"></span></td>
-            </tr>
-            <tr>
-              <td colspan="4" style="line-height: 1.6;">
-                <b>Keluhan :</b> <span id="p_keluhan"></span> | <b>Riwayat Penyakit :</b> <span id="p_rpenyakit"></span><br>
-                <b>R. Keluarga :</b> <span id="p_rkeluarga"></span><br>
-                <b>Alergi :</b> <span id="p_ralergi"></span>
+              <td colspan="4" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td width="20%"><b>Kebersihan Umum</b></td><td width="2%">:</td><td><span id="p_kebersihan"></span></td></tr>
+                  <tr><td><b>Kepala & Muka</b></td><td>:</td><td><span id="p_kepala"></span></td></tr>
+                </table>
               </td>
             </tr>
+            
             <tr>
-              <td width="25%" style="line-height: 1.6;"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
-              <td width="25%" style="line-height: 1.6;"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
-              <td width="25%" style="line-height: 1.6;"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
-              <td width="25%" style="line-height: 1.6;"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
+              <td colspan="4" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td width="20%"><b>Keluhan</b></td><td width="2%">:</td><td><span id="p_keluhan"></span></td></tr>
+                  <tr><td><b>Riwayat Penyakit</b></td><td>:</td><td><span id="p_rpenyakit"></span></td></tr>
+                  <tr><td><b>R. Keluarga</b></td><td>:</td><td><span id="p_rkeluarga"></span></td></tr>
+                  <tr><td><b>Alergi</b></td><td>:</td><td><span id="p_ralergi"></span></td></tr>
+                </table>
+              </td>
             </tr>
+
             <tr>
-              <td colspan="4" style="line-height: 1.6;">
-                <b>Mata:</b> Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)<br>
-                <b>Juling:</b> Ka: <span id="p_j_ka"></span> Ki: <span id="p_j_ki"></span><br>
-                <b>Radang:</b> Ka: <span id="p_r_ka"></span> Ki: <span id="p_r_ki"></span><br>
-                <b>Telinga:</b> Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>)<br>
-                <b>Cerumen:</b> Ka: <span id="p_c_ka"></span> Ki: <span id="p_c_ki"></span><br>
-                <b>Mulut & Leher:</b> Gigi: <span id="p_gigi"></span><br>
-                <b>Lidah:</b> <span id="p_lidah"></span><br>
-                <b>Tongsil:</b> <span id="p_tongsil"></span><br>
-                <b>Leher:</b> <span id="p_leher"></span><br>
-                <b>Pernafasan:</b> <span id="p_nafas"></span> x/menit<br>
-                <b>Radiologi:</b> <span id="p_rad"></span><br>
-                <b>EKG:</b> <span id="p_ekg"></span><br>
-                <b>Abdomen:</b> Lingkar: <span id="p_abling"></span> cm<br>
-                <b>Peristaltik:</b> <span id="p_abper"></span><br>
-                <b>Genetalia/Kulit:</b> <span id="p_gen"></span> / <span id="p_kulit"></span><br>
-                <b>Tulang Belakang:</b> <span id="p_tul"></span><br>
-                <b>Extrimitas:</b> Atas: <span id="p_exa"></span> / Bawah: <span id="p_exb"></span>
+              <td width="25%"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
+              <td width="25%"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
+              <td width="25%"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
+              <td width="25%"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
+            </tr>
+            
+            <tr>
+              <td colspan="4" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td width="20%"><b>Mata</b></td><td width="2%">:</td><td>Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)</td></tr>
+                  <tr><td><b>Juling</b></td><td>:</td><td>Ka: <span id="p_j_ka"></span> Ki: <span id="p_j_ki"></span></td></tr>
+                  <tr><td><b>Radang</b></td><td>:</td><td>Ka: <span id="p_r_ka"></span> Ki: <span id="p_r_ki"></span></td></tr>
+                  <tr><td><b>Telinga</b></td><td>:</td><td>Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>)</td></tr>
+                  <tr><td><b>Cerumen</b></td><td>:</td><td>Ka: <span id="p_c_ka"></span> Ki: <span id="p_c_ki"></span></td></tr>
+                  <tr><td><b>Mulut & Leher</b></td><td>:</td><td>Gigi: <span id="p_gigi"></span></td></tr>
+                  <tr><td><b>Lidah</b></td><td>:</td><td><span id="p_lidah"></span></td></tr>
+                  <tr><td><b>Tongsil</b></td><td>:</td><td><span id="p_tongsil"></span></td></tr>
+                  <tr><td><b>Leher</b></td><td>:</td><td><span id="p_leher"></span></td></tr>
+                  <tr><td><b>Pernafasan</b></td><td>:</td><td><span id="p_nafas"></span> x/menit</td></tr>
+                  <tr><td><b>Radiologi</b></td><td>:</td><td><span id="p_rad"></span></td></tr>
+                  <tr><td><b>EKG</b></td><td>:</td><td><span id="p_ekg"></span></td></tr>
+                  <tr><td><b>Abdomen</b></td><td>:</td><td>Lingkar: <span id="p_abling"></span> cm</td></tr>
+                  <tr><td><b>Peristaltik</b></td><td>:</td><td><span id="p_abper"></span></td></tr>
+                  <tr><td><b>Genetalia/Kulit</b></td><td>:</td><td><span id="p_gen"></span> / <span id="p_kulit"></span></td></tr>
+                  <tr><td><b>Tulang Belakang</b></td><td>:</td><td><span id="p_tul"></span></td></tr>
+                  <tr><td><b>Extrimitas</b></td><td>:</td><td>Atas: <span id="p_exa"></span> / Bawah: <span id="p_exb"></span></td></tr>
+                </table>
               </td>
             </tr>
           </table>
 
           <!-- HALAMAN 2 -->
           <div class="page-break"></div>
+          
           <table class="print-table w-100">
             <thead>
               <tr><th colspan="4" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
@@ -421,9 +442,7 @@
             </tbody>
           </table>
 
-          <!-- HALAMAN 3 -->
-          <div class="page-break"></div>
-          <table class="print-table w-100">
+          <table class="print-table w-100 mt-3">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
             <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
@@ -547,13 +566,11 @@
     else { f.Nama.value = val; $('#inputNama').val(val); f.TTL.value = ''; f.PosisiID.value = ''; f.Gender.value = ''; f.Bagian.value = ''; }
   }
 
-  // PENYELESAIAN BUG TOMBOL REGISTRASI MACET (Menggunakan MDB/Bootstrap Modal API yang benar)
   function openModalPasien() { resetFormPasien(); const myModal = new bootstrap.Modal(document.getElementById('modalPasien')); myModal.show(); }
 
   function handleFormPasien(e) { 
     e.preventDefault(); 
     postData('savePasien', Object.fromEntries(new FormData(e.target).entries()), () => { 
-        // Tutup modal dengan instance baru
         const modalElement = document.getElementById('modalPasien');
         const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
         modalInstance.hide(); 
@@ -598,6 +615,14 @@
   function resetFormPasien() { document.getElementById('formPasien').reset(); document.getElementById('ID_Pasien').value = ''; }
   function resetFormMCU() { document.getElementById('mcuForm').reset(); document.getElementById('ID').value = ''; $('#inputNamaFilter').val(''); }
 
+  function formatTanggalIndo(tglStr) {
+    if (!tglStr) return '-';
+    const parts = tglStr.split('-');
+    if (parts.length !== 3) return tglStr;
+    const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    return `${parts[2]} ${bulan[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+  }
+
   function printData(id) {
     const d = mcuData.find(row => row.ID == id);
     if(d) {
@@ -624,7 +649,7 @@
       $('#p_nama_dokter').text(d['NamaDokter'] || '.........................');
       $('#p_nip_dokter').text(d['NipDokter'] || '.........................');
 
-      let parts = d['Tgl Periksa'] ? d['Tgl Periksa'].split('-') : []; $('#p_tgl_cetak').text(parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : d['Tgl Periksa']);
+      $('#p_tgl_cetak').text(formatTanggalIndo(d['Tgl Periksa']));
       
       const pArea = document.getElementById('printArea'); pArea.classList.remove('d-none'); window.print(); pArea.classList.add('d-none');
     }
