@@ -21,7 +21,7 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK (PRINT) FLEKSIBEL & RAPI */
+    /* PENGATURAN CETAK 2 LEMBAR RAPI */
     @media print {
       @page { margin: 10mm; }
       body * { visibility: hidden; }
@@ -43,19 +43,20 @@
       
       .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
       .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
-      
-      /* Supaya tabel tidak terpotong sembarangan */
       .print-table tr { page-break-inside: avoid; }
-      
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Format sub-tabel agar titik dua lurus */
+      /* Format khusus untuk tabel LAB agar muat 1 halaman */
+      .lab-table { font-size: 9pt !important; margin-bottom: 10px; }
+      .lab-table td, .lab-table th { padding: 3px 5px; }
+      
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 2px 4px !important; vertical-align: top; }
       
-      /* Area TTD tidak akan terpotong dan otomatis turun jika perlu */
-      .ttd-section { margin-top: 20px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
-      .catatan-box { border: 1px solid black; width: 250px; height: 100px; padding: 5px; }
+      .page-break { page-break-before: always; }
+      
+      .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
+      .catatan-box { border: 1px solid black; width: 250px; height: 80px; padding: 5px; }
       .footer-print { text-align: center; font-size: 10pt; font-style: italic; color: #555; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px; }
     }
   </style>
@@ -116,6 +117,7 @@
   </nav>
 
   <div class="container-fluid mt-4 mb-5 px-4 no-print">
+    <!-- DASHBOARD WELCOME ALERT -->
     <div class="alert shadow-sm border-0 d-flex align-items-center mb-4 text-white rounded-4" style="background: var(--primary-color);">
       <i class="fas fa-stethoscope fs-1 me-3 ps-2 opacity-75"></i>
       <div><h5 class="mb-1 fw-bold" id="dashWelcome">Selamat Datang</h5><small class="opacity-100 text-light" id="dashSubtitle">Kelola rekam medis MCU dengan teliti.</small></div>
@@ -136,6 +138,7 @@
       <form id="mcuForm" onsubmit="handleFormMCU(event)">
         <input type="hidden" id="ID" name="ID">
         
+        <!-- BAGIAN 1: IDENTITAS & PEMERIKSAAN FISIK -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-file-medical me-2"></i>I. Identitas & Pemeriksaan Fisik</div>
           <div class="card-body">
@@ -180,10 +183,12 @@
           </div>
         </div>
 
+        <!-- BAGIAN 2: HASIL LABORATORIUM -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
             <div class="row g-4">
+              <!-- Kolom Kiri -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">HEMATOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hemoglobin (Hb)</span><input type="text" class="form-control bg-kuning-light" name="Lab_Hb"></div>
@@ -193,11 +198,13 @@
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Lekosit"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Jenis Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_JenisLekosit"></div>
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Laju Endap Darah</span><input type="text" class="form-control bg-kuning-light" name="Lab_LED"></div>
+
                 <h6 class="fw-bold text-dark border-bottom pb-1">MIKROBIOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Fiksasi Sputum BTA</span><select class="form-select bg-kuning" name="Mikro_BTA"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">MH</span><select class="form-select bg-kuning" name="Mikro_MH"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
               </div>
               
+              <!-- Kolom Tengah -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">URINALISA</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">pH</span><input type="text" class="form-control bg-kuning-light" name="Uri_pH"></div>
@@ -220,6 +227,7 @@
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Lain-lain</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lain"></div>
               </div>
 
+              <!-- Kolom Kanan -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">KIMIA KLINIK</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah Puasa</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDP"></div>
@@ -249,6 +257,7 @@
           </div>
         </div>
 
+        <!-- BAGIAN 3: KESIMPULAN -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-check-circle me-2"></i>III. Diagnosa & Kesimpulan</div>
           <div class="card-body">
@@ -264,7 +273,7 @@
       </form>
     </div>
 
-    <!-- 3. REKAP MCU -->
+    <!-- 3. VIEW REKAP DATABASE MCU -->
     <div id="viewRekap" class="d-none tab-view">
       <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center"><span><i class="fas fa-database me-2"></i>Rekap Database MCU</span><button class="btn btn-sm btn-outline-primary" onclick="loadData()"><i class="fas fa-sync-alt"></i> Refresh Data</button></div>
@@ -274,7 +283,7 @@
       </div>
     </div>
 
-    <!-- 4. DASHBOARD PASIEN -->
+    <!-- 4. VIEW DASHBOARD PASIEN -->
     <div id="viewDashboardPasien" class="d-none tab-view">
       <div class="row">
         <div class="col-md-4 mb-4">
@@ -391,48 +400,51 @@
             </tr>
           </table>
 
-          <table class="print-table w-100 mt-4">
+          <!-- HALAMAN LAB (DINAMIS PAGE BREAK) -->
+          <div class="page-break"></div>
+          
+          <table class="print-table lab-table w-100">
             <thead>
-              <tr><th colspan="4" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
+              <tr><th colspan="6" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
               <tr class="section-header text-center">
-                <th width="35%">JENIS PEMERIKSAAN</th><th width="15%">HASIL</th>
-                <th width="35%">JENIS PEMERIKSAAN</th><th width="15%">HASIL</th>
+                <th width="20%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="20%">NILAI RUJUKAN</th>
+                <th width="20%">JENIS PEMERIKSAAN</th><th width="10%">HASIL</th><th width="20%">NILAI RUJUKAN</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td class="fw-bold bg-light">HEMATOLOGI</td><td class="bg-light"></td><td class="fw-bold bg-light">KIMIA KLINIK (GULA DARAH)</td><td class="bg-light"></td></tr>
-              <tr><td>Hemoglobin (Hb)</td><td id="p_l_hb"></td><td>Gula Darah Puasa</td><td id="p_l_gdp"></td></tr>
-              <tr><td>Hematokrit</td><td id="p_l_ht"></td><td>Gula Darah 2 jam PP</td><td id="p_l_gd2"></td></tr>
-              <tr><td>Hitung Eritrosit</td><td id="p_l_eri"></td><td>Gula Darah Acak</td><td id="p_l_gda"></td></tr>
-              <tr><td>Hitung Trombosit</td><td id="p_l_trombo"></td><td class="fw-bold bg-light">LEMAK DARAH</td><td class="bg-light"></td></tr>
-              <tr><td>Hitung Lekosit</td><td id="p_l_leko"></td><td>Cholesterol Total</td><td id="p_l_chol"></td></tr>
-              <tr><td>Hitung Jenis Lekosit</td><td id="p_l_jleko"></td><td>Trigliserida</td><td id="p_l_trig"></td></tr>
-              <tr><td>Laju Endap Darah</td><td id="p_l_led"></td><td>HDL</td><td id="p_l_hdl"></td></tr>
-              <tr><td class="fw-bold bg-light">URINALISA</td><td class="bg-light"></td><td>LDL</td><td id="p_l_ldl"></td></tr>
-              <tr><td>pH</td><td id="p_u_ph"></td><td class="fw-bold bg-light">FAAL HATI</td><td class="bg-light"></td></tr>
-              <tr><td>Berat Jenis</td><td id="p_u_bj"></td><td>SGOT</td><td id="p_l_sgot"></td></tr>
-              <tr><td>Protein</td><td id="p_u_pro"></td><td>SGPT</td><td id="p_l_sgpt"></td></tr>
-              <tr><td>Glukosa</td><td id="p_u_glu"></td><td class="fw-bold bg-light">FAAL GINJAL</td><td class="bg-light"></td></tr>
-              <tr><td>Bilirubin</td><td id="p_u_bil"></td><td>Ureum</td><td id="p_l_ur"></td></tr>
-              <tr><td>Urobilinogen</td><td id="p_u_uro"></td><td>Kreatinin</td><td id="p_l_kre"></td></tr>
-              <tr><td>Keton</td><td id="p_u_ket"></td><td>Asam Urat</td><td id="p_l_au"></td></tr>
-              <tr><td>Nitrit</td><td id="p_u_nit"></td><td class="fw-bold bg-light">LAIN - LAIN (SEROLOGI)</td><td class="bg-light"></td></tr>
-              <tr><td>Lekosit (Urine)</td><td id="p_u_lek"></td><td>Tes Kehamilan</td><td id="p_s_hamil"></td></tr>
-              <tr><td>Eritrosit (Urine)</td><td id="p_u_eri"></td><td>Gol. Darah</td><td id="p_s_gol"></td></tr>
-              <tr><td class="fw-bold bg-light">SEDIMEN</td><td class="bg-light"></td><td>Widal Typhi O</td><td id="p_w_o"></td></tr>
-              <tr><td>Eritrosit</td><td id="p_s_eri"></td><td>Widal Typhi H</td><td id="p_w_h"></td></tr>
-              <tr><td>Leukosit</td><td id="p_s_lek"></td><td>Widal Para A</td><td id="p_w_pa"></td></tr>
-              <tr><td>Epitel</td><td id="p_s_epi"></td><td>Widal Para B</td><td id="p_w_pb"></td></tr>
-              <tr><td>Kristal</td><td id="p_s_kri"></td><td>HBsAg</td><td id="p_s_hbsag"></td></tr>
-              <tr><td>Silinder</td><td id="p_s_sil"></td><td>Syphilis</td><td id="p_s_syp"></td></tr>
-              <tr><td>Lain-lain</td><td id="p_s_lain"></td><td>HIV</td><td id="p_s_hiv"></td></tr>
-              <tr><td class="fw-bold bg-light">MIKROBIOLOGI</td><td class="bg-light"></td><td>HBS Ab</td><td id="p_s_hbsab"></td></tr>
-              <tr><td>Fiksasi Sputum BTA</td><td id="p_m_bta"></td><td></td><td></td></tr>
-              <tr><td>MH</td><td id="p_m_mh"></td><td></td><td></td></tr>
+              <tr><td colspan="3" class="fw-bold bg-light">HEMATOLOGI (Darah Lengkap)</td><td colspan="3" class="fw-bold bg-light">KIMIA KLINIK (GULA DARAH)</td></tr>
+              <tr><td>Hemoglobin (Hb)</td><td id="p_l_hb"></td><td>14-18 g/dL (L), 12-16 (P)</td><td>Gula Darah Puasa</td><td id="p_l_gdp"></td><td>70 - 110</td></tr>
+              <tr><td>Hematokrit</td><td id="p_l_ht"></td><td>42%-52% (L), 37%-47% (P)</td><td>Gula Darah 2 jam PP</td><td id="p_l_gd2"></td><td>&lt; 140</td></tr>
+              <tr><td>Hitung Eritrosit</td><td id="p_l_eri"></td><td>4-6 x 10^6 / mm^3</td><td>Gula Darah Acak</td><td id="p_l_gda"></td><td>&lt; 150</td></tr>
+              <tr><td>Hitung Trombosit</td><td id="p_l_trombo"></td><td>150.000 - 400.000 /uL</td><td colspan="3" class="fw-bold bg-light">LEMAK DARAH</td></tr>
+              <tr><td>Hitung Lekosit</td><td id="p_l_leko"></td><td>4.000 - 11.000 /uL</td><td>Cholesterol Total</td><td id="p_l_chol"></td><td>&lt; 200 mg/dl</td></tr>
+              <tr><td>Hitung Jenis Lekosit</td><td id="p_l_jleko"></td><td>0-1/1-3/3-5/50-70/25-35/4-6</td><td>Trigliserida</td><td id="p_l_trig"></td><td>&lt; 200 mg/dl</td></tr>
+              <tr><td>Laju Endap Darah</td><td id="p_l_led"></td><td>&lt;10 mm/jam (L), &lt;20 (P)</td><td>HDL</td><td id="p_l_hdl"></td><td>30-70 (L), 30-85 (P) mg/dl</td></tr>
+              <tr><td colspan="3" class="fw-bold bg-light">URINALISA</td><td>LDL</td><td id="p_l_ldl"></td><td>66 - 178</td></tr>
+              <tr><td>pH</td><td id="p_u_ph"></td><td>5 - 6</td><td colspan="3" class="fw-bold bg-light">FAAL HATI</td></tr>
+              <tr><td>Berat Jenis</td><td id="p_u_bj"></td><td>1.001 - 1.035</td><td>SGOT</td><td id="p_l_sgot"></td><td>&lt;35 U/L (L), &lt;31 U/L (P)</td></tr>
+              <tr><td>Protein</td><td id="p_u_pro"></td><td>Negatif</td><td>SGPT</td><td id="p_l_sgpt"></td><td>&lt;41 U/L (L), &lt;31 U/L (P)</td></tr>
+              <tr><td>Glukosa</td><td id="p_u_glu"></td><td>Negatif</td><td colspan="3" class="fw-bold bg-light">FAAL GINJAL</td></tr>
+              <tr><td>Bilirubin</td><td id="p_u_bil"></td><td>Negatif</td><td>Ureum</td><td id="p_l_ur"></td><td>26 - 45 mg/dl</td></tr>
+              <tr><td>Urobilinogen</td><td id="p_u_uro"></td><td>Negatif</td><td>Kreatinin</td><td id="p_l_kre"></td><td>0,7 - 1,03</td></tr>
+              <tr><td>Keton</td><td id="p_u_ket"></td><td>Negatif</td><td>Asam Urat</td><td id="p_l_au"></td><td>3,5-7,2 (L), 2,6-6,0 mg/dl (P)</td></tr>
+              <tr><td>Nitrit</td><td id="p_u_nit"></td><td>Negatif</td><td colspan="3" class="fw-bold bg-light">SEROLOGI / LAIN - LAIN</td></tr>
+              <tr><td>Lekosit (Urine)</td><td id="p_u_lek"></td><td>Negatif</td><td>Tes Kehamilan</td><td id="p_s_hamil"></td><td>Negatif</td></tr>
+              <tr><td>Eritrosit (Urine)</td><td id="p_u_eri"></td><td>Negatif</td><td>Gol. Darah</td><td id="p_s_gol"></td><td>-</td></tr>
+              <tr><td colspan="3" class="fw-bold bg-light">SEDIMEN URINE</td><td>Widal Typhi O</td><td id="p_w_o"></td><td>Negatif</td></tr>
+              <tr><td>Eritrosit</td><td id="p_s_eri"></td><td>0 - 2 /Lp</td><td>Widal Typhi H</td><td id="p_w_h"></td><td>Negatif</td></tr>
+              <tr><td>Leukosit</td><td id="p_s_lek"></td><td>0 - 2 /Lp</td><td>Widal Para A</td><td id="p_w_pa"></td><td>Negatif</td></tr>
+              <tr><td>Epitel</td><td id="p_s_epi"></td><td>0 - 2 /Lp</td><td>Widal Para B</td><td id="p_w_pb"></td><td>Negatif</td></tr>
+              <tr><td>Kristal</td><td id="p_s_kri"></td><td>Negatif</td><td>HBsAg</td><td id="p_s_hbsag"></td><td>Negatif</td></tr>
+              <tr><td>Silinder</td><td id="p_s_sil"></td><td>Negatif</td><td>Syphilis</td><td id="p_s_syp"></td><td>Negatif</td></tr>
+              <tr><td>Lain-lain</td><td id="p_s_lain"></td><td>Negatif</td><td>HIV</td><td id="p_s_hiv"></td><td>Negatif</td></tr>
+              <tr><td colspan="3" class="fw-bold bg-light">MIKROBIOLOGI</td><td>HBS Ab</td><td id="p_s_hbsab"></td><td>Negatif</td></tr>
+              <tr><td>Fiksasi Sputum BTA</td><td id="p_m_bta"></td><td>Negatif</td><td></td><td></td><td></td></tr>
+              <tr><td>MH</td><td id="p_m_mh"></td><td>Negatif</td><td></td><td></td><td></td></tr>
             </tbody>
           </table>
 
-          <table class="print-table w-100 mt-4">
+          <table class="print-table w-100 mt-3">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
             <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
@@ -461,7 +473,7 @@
 
 <script>
   // ==========================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw7nUWCD3SMIcqgY98XcgMwQ07XoMffwqXUVQ_jlBDtxsVIPtznyZAqThX_KeuQP_U/exec';
+  const SCRIPT_URL = 'MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
