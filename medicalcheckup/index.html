@@ -21,13 +21,22 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK 2 LEMBAR RAPI */
+    /* CSS PRINT PENYELESAIAN BUG BLANKO PUTIH */
     @media print {
       @page { margin: 10mm; }
-      body * { visibility: hidden; }
-      #printArea, #printArea * { visibility: visible; }
-      #printArea { position: absolute; left: 0; top: 0; width: 100%; font-size: 11pt !important; color: black; font-family: 'Times New Roman', serif; }
-      .no-print { display: none !important; }
+      body { background-color: #fff !important; margin: 0; padding: 0; }
+      
+      /* Sembunyikan elemen web aplikasi, sehingga browser bisa render dokumen print 100% normal */
+      #loginView, #appView, .navbar, .no-print { display: none !important; }
+      
+      #printArea { 
+        display: block !important; 
+        position: static !important; 
+        width: 100%; 
+        font-size: 11pt !important; 
+        color: black !important; 
+        font-family: 'Times New Roman', serif; 
+      }
       
       table.report-container { width: 100%; border-collapse: collapse; }
       thead.report-header { display: table-header-group; }
@@ -46,7 +55,6 @@
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Format khusus untuk tabel LAB agar muat 1 halaman */
       .lab-table { font-size: 9pt !important; margin-bottom: 10px; }
       .lab-table td, .lab-table th { padding: 3px 5px; }
       
@@ -117,7 +125,6 @@
   </nav>
 
   <div class="container-fluid mt-4 mb-5 px-4 no-print">
-    <!-- DASHBOARD WELCOME ALERT -->
     <div class="alert shadow-sm border-0 d-flex align-items-center mb-4 text-white rounded-4" style="background: var(--primary-color);">
       <i class="fas fa-stethoscope fs-1 me-3 ps-2 opacity-75"></i>
       <div><h5 class="mb-1 fw-bold" id="dashWelcome">Selamat Datang</h5><small class="opacity-100 text-light" id="dashSubtitle">Kelola rekam medis MCU dengan teliti.</small></div>
@@ -138,7 +145,6 @@
       <form id="mcuForm" onsubmit="handleFormMCU(event)">
         <input type="hidden" id="ID" name="ID">
         
-        <!-- BAGIAN 1: IDENTITAS & PEMERIKSAAN FISIK -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-file-medical me-2"></i>I. Identitas & Pemeriksaan Fisik</div>
           <div class="card-body">
@@ -257,7 +263,6 @@
           </div>
         </div>
 
-        <!-- BAGIAN 3: KESIMPULAN -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-check-circle me-2"></i>III. Diagnosa & Kesimpulan</div>
           <div class="card-body">
@@ -321,7 +326,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF (FLEKSIBEL - TITIK DUA RAPI) -->
+<!-- PRINT AREA PDF -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -400,8 +405,7 @@
             </tr>
           </table>
 
-          <!-- HALAMAN LAB (DINAMIS PAGE BREAK) -->
-          <div class="page-break"></div>
+          <!-- HALAMAN LAB MENGALIR OTOMATIS JIKA LEBIH DARI 1 HALAMAN -->
           
           <table class="print-table lab-table w-100">
             <thead>
