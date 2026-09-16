@@ -21,7 +21,7 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK (PRINT) 2 LEMBAR */
+    /* PENGATURAN CETAK (PRINT) FLEKSIBEL & RAPI */
     @media print {
       @page { margin: 10mm; }
       body * { visibility: hidden; }
@@ -43,16 +43,17 @@
       
       .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 11pt !important; }
       .print-table td, .print-table th { border: 1px solid black; padding: 4px 6px; vertical-align: top; }
+      
+      /* Supaya tabel tidak terpotong sembarangan */
       .print-table tr { page-break-inside: avoid; }
+      
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Format tabel didalam kolom (Tanda : Lurus) */
+      /* Format sub-tabel agar titik dua lurus */
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 2px 4px !important; vertical-align: top; }
       
-      /* Pemisah 2 Halaman Saja */
-      .page-break { page-break-before: always; }
-      
+      /* Area TTD tidak akan terpotong dan otomatis turun jika perlu */
       .ttd-section { margin-top: 20px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 11pt; }
       .catatan-box { border: 1px solid black; width: 250px; height: 100px; padding: 5px; }
       .footer-print { text-align: center; font-size: 10pt; font-style: italic; color: #555; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px; }
@@ -115,7 +116,6 @@
   </nav>
 
   <div class="container-fluid mt-4 mb-5 px-4 no-print">
-    <!-- DASHBOARD WELCOME ALERT -->
     <div class="alert shadow-sm border-0 d-flex align-items-center mb-4 text-white rounded-4" style="background: var(--primary-color);">
       <i class="fas fa-stethoscope fs-1 me-3 ps-2 opacity-75"></i>
       <div><h5 class="mb-1 fw-bold" id="dashWelcome">Selamat Datang</h5><small class="opacity-100 text-light" id="dashSubtitle">Kelola rekam medis MCU dengan teliti.</small></div>
@@ -135,6 +135,7 @@
     <div id="viewForm" class="d-none tab-view">
       <form id="mcuForm" onsubmit="handleFormMCU(event)">
         <input type="hidden" id="ID" name="ID">
+        
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-file-medical me-2"></i>I. Identitas & Pemeriksaan Fisik</div>
           <div class="card-body">
@@ -158,10 +159,12 @@
                 <div class="mb-2"><label class="small">Riwayat Penyakit</label><input type="text" class="form-control form-control-sm" name="RPenyakit" value="-"></div>
                 <div class="mb-2"><label class="small">R. Penyakit Keluarga</label><input type="text" class="form-control form-control-sm" name="RKeluarga" value="-"></div>
                 <div class="mb-3"><label class="small">Riwayat Alergi</label><select class="form-select form-select-sm bg-kuning" name="RAlergi"><option value="-">-</option><option>TIDAK ADA</option><option>ADA</option></select></div>
+                
                 <div class="row g-2 mb-2"><div class="col-3"><label class="small">TB(cm)</label><input type="text" class="form-control form-control-sm" name="TB"></div><div class="col-3"><label class="small">BB(kg)</label><input type="text" class="form-control form-control-sm" name="BB"></div><div class="col-3"><label class="small">Tensi</label><input type="text" class="form-control form-control-sm" name="Tensi"></div><div class="col-3"><label class="small">Nadi</label><input type="text" class="form-control form-control-sm" name="Nadi"></div></div>
                 <div class="row g-2 mb-3"><div class="col-4"><label class="small">Suhu(C)</label><input type="text" class="form-control form-control-sm" name="Suhu"></div><div class="col-4"><label class="small">Icterus</label><select class="form-select form-select-sm bg-kuning" name="Icterus"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-4"><label class="small">Anemis</label><select class="form-select form-select-sm bg-kuning" name="Anemis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div></div>
                 <div class="row g-2 mb-3"><div class="col-6"><label class="small">Cyanosis</label><select class="form-select form-select-sm bg-kuning" name="Cyanosis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-6"><label class="small">Buta Warna</label><select class="form-select form-select-sm bg-kuning" name="ButaWarna"><option value="-">-</option><option>NORMAL</option><option>YA</option></select></div></div>
               </div>
+
               <div class="col-md-6">
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded">Pemeriksaan Organ</h6>
                 <div class="row g-2 mb-1"><div class="col-6"><label class="small text-muted">Visus Tnp Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusTanpaKa"><input type="text" class="form-control" name="VisusTanpaKi"></div></div><div class="col-6"><label class="small text-muted">Visus Dgn Kaca (Ka/Ki)</label><div class="input-group input-group-sm"><input type="text" class="form-control" name="VisusKacaKa"><input type="text" class="form-control" name="VisusKacaKi"></div></div></div>
@@ -169,6 +172,7 @@
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Telinga Dengar (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaDengarKa"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select><select class="form-select bg-kuning" name="TelingaDengarKi"><option value="-">-</option><option>NORMAL</option><option>GANGGUAN</option></select></div></div><div class="col-6"><label class="small text-muted">Liang/Cerumen (Ka/Ki)</label><div class="input-group input-group-sm"><select class="form-select bg-kuning" name="TelingaLiangKa"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select><select class="form-select bg-kuning" name="TelingaLiangKi"><option value="-">-</option><option>BERSIH</option><option>KOTOR</option></select></div></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Gigi</label><select class="form-select form-select-sm bg-kuning" name="Gigi"><option value="-">-</option><option>Normal</option><option>Berlubang</option><option>Patah/Ompong</option></select></div><div class="col-6"><label class="small text-muted">Lidah</label><select class="form-select form-select-sm bg-kuning" name="Lidah"><option value="-">-</option><option>Normal/Bersih</option><option>Kotor</option></select></div><div class="col-6"><label class="small text-muted">Tongsil</label><select class="form-select form-select-sm bg-kuning" name="Tongsil"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Nafas Frekuensi</label><input type="text" class="form-control form-control-sm" name="Nafas"></div><div class="col-12"><label class="small text-muted">Leher</label><input type="text" class="form-control form-control-sm" name="Leher" value="KELENJAR LIMFA, GONDOK TIDAK MEMBESAR"></div></div>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Abd Lingkar Perut</label><input type="text" class="form-control form-control-sm" name="AbdLingkar" placeholder="cm"></div><div class="col-6"><label class="small text-muted">Abd Peristaltik</label><select class="form-select form-select-sm bg-kuning" name="AbdPeristaltik"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Genetalia & Anus</label><input type="text" class="form-control form-control-sm" name="Genetalia" value="-"></div><div class="col-6"><label class="small text-muted">Kulit</label><input type="text" class="form-control form-control-sm" name="Kulit" value="-"></div><div class="col-6"><label class="small text-muted">Tulang Belakang</label><select class="form-select form-select-sm bg-kuning" name="Tulang"><option value="-">-</option><option>Lurus/Batas Wajar</option><option>Tidak Normal</option></select></div><div class="col-6"><label class="small text-muted">Extrimitas Atas</label><input type="text" class="form-control form-control-sm" name="ExtAtas" value="DALAM BATAS NORMAL"></div><div class="col-12"><label class="small text-muted">Extrimitas Bawah</label><input type="text" class="form-control form-control-sm" name="ExtBawah" value="DALAM BATAS NORMAL"></div></div>
+                
                 <h6 class="text-secondary fw-bold bg-light p-2 rounded mt-3">Penunjang Umum</h6>
                 <div class="row g-2 mb-2"><div class="col-6"><label class="small text-muted">Radiologi</label><input type="text" class="form-control form-control-sm" name="Radiologi" value="TIDAK DILAKUKAN PEMERIKSAAN"></div><div class="col-6"><label class="small text-muted">EKG</label><select class="form-select form-select-sm bg-kuning" name="EKG"><option value="-">-</option><option>NORMAL</option><option>Tidak Normal</option></select></div></div>
               </div>
@@ -176,12 +180,10 @@
           </div>
         </div>
 
-        <!-- BAGIAN 2: HASIL LABORATORIUM -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
             <div class="row g-4">
-              <!-- Kolom Kiri -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">HEMATOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Hemoglobin (Hb)</span><input type="text" class="form-control bg-kuning-light" name="Lab_Hb"></div>
@@ -191,13 +193,11 @@
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_Lekosit"></div>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Jenis Lekosit</span><input type="text" class="form-control bg-kuning-light" name="Lab_JenisLekosit"></div>
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Laju Endap Darah</span><input type="text" class="form-control bg-kuning-light" name="Lab_LED"></div>
-
                 <h6 class="fw-bold text-dark border-bottom pb-1">MIKROBIOLOGI</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Fiksasi Sputum BTA</span><select class="form-select bg-kuning" name="Mikro_BTA"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">MH</span><select class="form-select bg-kuning" name="Mikro_MH"><option value="-">-</option><option>Negatif</option><option>Positif</option></select></div>
               </div>
               
-              <!-- Kolom Tengah -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">URINALISA</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">pH</span><input type="text" class="form-control bg-kuning-light" name="Uri_pH"></div>
@@ -220,7 +220,6 @@
                 <div class="input-group input-group-sm mb-3"><span class="input-group-text w-50">Lain-lain</span><input type="text" class="form-control bg-kuning-light" name="Sed_Lain"></div>
               </div>
 
-              <!-- Kolom Kanan -->
               <div class="col-md-4">
                 <h6 class="fw-bold text-dark border-bottom pb-1">KIMIA KLINIK</h6>
                 <div class="input-group input-group-sm mb-1"><span class="input-group-text w-50">Gula Darah Puasa</span><input type="text" class="form-control bg-kuning-light" name="Kim_GDP"></div>
@@ -250,7 +249,6 @@
           </div>
         </div>
 
-        <!-- BAGIAN 3: KESIMPULAN -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-check-circle me-2"></i>III. Diagnosa & Kesimpulan</div>
           <div class="card-body">
@@ -266,7 +264,7 @@
       </form>
     </div>
 
-    <!-- 3. VIEW REKAP DATABASE MCU -->
+    <!-- 3. REKAP MCU -->
     <div id="viewRekap" class="d-none tab-view">
       <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center"><span><i class="fas fa-database me-2"></i>Rekap Database MCU</span><button class="btn btn-sm btn-outline-primary" onclick="loadData()"><i class="fas fa-sync-alt"></i> Refresh Data</button></div>
@@ -276,7 +274,7 @@
       </div>
     </div>
 
-    <!-- 4. VIEW DASHBOARD PASIEN -->
+    <!-- 4. DASHBOARD PASIEN -->
     <div id="viewDashboardPasien" class="d-none tab-view">
       <div class="row">
         <div class="col-md-4 mb-4">
@@ -314,7 +312,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF (TEPAT 2 HALAMAN OTOMATIS) -->
+<!-- PRINT AREA PDF (FLEKSIBEL - TITIK DUA RAPI) -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -329,7 +327,6 @@
       <tr>
         <td style="border: none;">
           
-          <!-- HALAMAN 1 -->
           <div class="title-container">
             <h5 class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
             <div class="no-periksa-box" id="p_no"></div>
@@ -343,9 +340,8 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <table class="print-table w-100 mb-2">
+          <table class="print-table w-100 mb-4">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
-            
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
@@ -354,7 +350,6 @@
                 </table>
               </td>
             </tr>
-            
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
@@ -365,14 +360,12 @@
                 </table>
               </td>
             </tr>
-
             <tr>
-              <td width="25%"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
-              <td width="25%"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
-              <td width="25%"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
-              <td width="25%"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
+              <td width="25%" style="line-height: 1.6;"><b>TB :</b> <span id="p_tb"></span> cm<br><b>Tempt :</b> <span id="p_suhu"></span> °C</td>
+              <td width="25%" style="line-height: 1.6;"><b>BB :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna :</b> <span id="p_butawarna"></span></td>
+              <td width="25%" style="line-height: 1.6;"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
+              <td width="25%" style="line-height: 1.6;"><b>Nadi :</b> <span id="p_nadi"></span> x/m<br><b>Anemis :</b> <span id="p_anemis"></span></td>
             </tr>
-            
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
@@ -398,10 +391,7 @@
             </tr>
           </table>
 
-          <!-- HALAMAN 2 -->
-          <div class="page-break"></div>
-          
-          <table class="print-table w-100">
+          <table class="print-table w-100 mt-4">
             <thead>
               <tr><th colspan="4" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
               <tr class="section-header text-center">
@@ -442,7 +432,7 @@
             </tbody>
           </table>
 
-          <table class="print-table w-100 mt-3">
+          <table class="print-table w-100 mt-4">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
             <tr><td class="section-header">SARAN</td><td style="height: 60px;" id="p_saran"></td></tr>
@@ -459,7 +449,6 @@
   </table>
 </div>
 
-<!-- JS Libraries -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -537,7 +526,7 @@
       Swal.close(); let histHtml = '';
       if(myHistory.length > 0) {
         myHistory.reverse().forEach((h) => {
-          histHtml += `<div class="card riwayat-card mb-3 bg-white"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><span class="badge bg-success px-2 py-1"><i class="fas fa-stethoscope"></i> No Periksa: ${h['No Periksa'] || '-'}</span><small class="text-muted fw-bold"><i class="fas fa-calendar-alt"></i> ${h['Tgl Periksa']}</small></div><div class="row mt-3"><div class="col-8"><h6 class="fw-bold text-dark mb-1">Diagnosa: ${h.Diagnosa || '-'}</h6><p class="small text-muted mb-0">Kesimpulan: <b>${h.Kesimpulan || '-'}</b></p></div><div class="col-4 d-flex align-items-center"><button class="btn btn-outline-primary btn-sm w-100 fw-bold" onclick="printData('${h.ID}')"><i class="fas fa-print"></i> Cetak PDF</button></div></div></div></div>`;
+          histHtml += `<div class="card riwayat-card mb-3 bg-white"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-2"><span class="badge bg-success px-2 py-1"><i class="fas fa-stethoscope"></i> No Periksa: ${h['No Periksa'] || '-'}</span><small class="text-muted fw-bold"><i class="fas fa-calendar-alt"></i> ${formatTanggalIndo(h['Tgl Periksa'])}</small></div><div class="row mt-3"><div class="col-8"><h6 class="fw-bold text-dark mb-1">Diagnosa: ${h.Diagnosa || '-'}</h6><p class="small text-muted mb-0">Kesimpulan: <b>${h.Kesimpulan || '-'}</b></p></div><div class="col-4 d-flex align-items-center"><button class="btn btn-outline-primary btn-sm w-100 fw-bold" onclick="printData('${h.ID}')"><i class="fas fa-print"></i> Cetak PDF</button></div></div></div></div>`;
         });
       } else { histHtml = `<div class="alert alert-warning text-center"><i class="fas fa-search mb-2 fs-3 d-block"></i> Rekam medis Anda belum tercatat.</div>`; }
       $('#pasienHistoryContainer').html(histHtml);
@@ -552,7 +541,7 @@
 
   function renderTableRekap() {
     if (dtRekap) dtRekap.destroy(); let html = '';
-    mcuData.forEach(r => { html += `<tr><td><span class="badge bg-secondary">${r['No Periksa'] || ''}</span></td><td>${r['Tgl Periksa'] || ''}</td><td class="fw-bold">${r['Nama'] || ''}</td><td>${r['Bagian'] || ''}</td><td>${r['Diagnosa'] || ''}</td><td class="text-center"><button class="btn btn-sm btn-success" onclick="printData('${r.ID}')"><i class="fas fa-print"></i></button> <button class="btn btn-sm btn-warning" onclick="editMCU('${r.ID}')"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="hapusData('deleteMCU', '${r.ID}')"><i class="fas fa-trash"></i></button></td></tr>`; });
+    mcuData.forEach(r => { html += `<tr><td><span class="badge bg-secondary">${r['No Periksa'] || ''}</span></td><td>${formatTanggalIndo(r['Tgl Periksa']) || ''}</td><td class="fw-bold">${r['Nama'] || ''}</td><td>${r['Bagian'] || ''}</td><td>${r['Diagnosa'] || ''}</td><td class="text-center"><button class="btn btn-sm btn-success" onclick="printData('${r.ID}')"><i class="fas fa-print"></i></button> <button class="btn btn-sm btn-warning" onclick="editMCU('${r.ID}')"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger" onclick="hapusData('deleteMCU', '${r.ID}')"><i class="fas fa-trash"></i></button></td></tr>`; });
     $('#bodyRekap').html(html); dtRekap = $('#tableRekap').DataTable({ responsive: true, order: [[0, 'desc']], dom: 'Bfrtip', buttons: [ { extend: 'excelHtml5', text: '<i class="fas fa-file-excel"></i> Export Rekap Excel', className: 'btn btn-success btn-sm mb-3 fw-bold', exportOptions: { columns: ':not(.no-export)' } } ] });
   }
 
