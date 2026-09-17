@@ -21,9 +21,9 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK (PRINT) 2 HALAMAN PAS */
+    /* CSS PRINT */
     @media print {
-      @page { margin: 8mm; size: A4 portrait; }
+      @page { margin: 10mm; size: A4 portrait; }
       body { background-color: #fff !important; margin: 0; padding: 0; }
       
       #loginView, #appView, .navbar, .no-print { display: none !important; }
@@ -40,32 +40,29 @@
       thead.report-header { display: table-header-group; }
       tfoot.report-footer { display: table-footer-group; }
       
-      .kop-surat-img { width: 100%; max-height: 105px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
+      .kop-surat-img { width: 100%; max-height: 110px; object-fit: contain; border-bottom: 2px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
       
       .title-container { position: relative; text-align: center; margin-bottom: 10px; }
       .title-section { font-weight: bold; font-size: 13pt; text-decoration: underline; margin: 0; padding-top: 3px; }
       .no-periksa-box { position: absolute; right: 0; top: 0; border: 2px solid black; padding: 3px 10px; font-weight: bold; font-size: 11pt; }
       
-      .bio-grid { display: grid; grid-template-columns: 130px 10px auto; row-gap: 2px; margin-bottom: 10px; font-size: 10.5pt; }
+      .bio-grid { display: grid; grid-template-columns: 120px 10px auto; row-gap: 2px; margin-bottom: 10px; font-size: 10.5pt; }
       
-      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 10.5pt !important; }
+      .print-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 10.5pt !important; }
       .print-table td, .print-table th { border: 1px solid black; padding: 3px 5px; vertical-align: top; }
-      .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Ukuran tabel lab diperkecil agar pas 1 halaman bersama TTD */
-      .lab-table { font-size: 8pt !important; margin-bottom: 6px; }
-      .lab-table td, .lab-table th { padding: 1.5px 3px; line-height: 1.05; }
+      .lab-table { font-size: 8.5pt !important; margin-bottom: 5px; }
+      .lab-table td, .lab-table th { padding: 2px 4px; line-height: 1.1; }
       
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 1px 3px !important; vertical-align: top; }
       
-      /* Pemisah Halaman Paksa */
       .page-break-tbody { page-break-before: always !important; break-before: page !important; }
       
-      .ttd-section { margin-top: 5px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10pt; }
-      .catatan-box { border: 1px solid black; width: 200px; height: 50px; padding: 3px; }
-      .footer-print { text-align: center; font-size: 8.5pt; font-style: italic; color: #555; margin-top: 3px; border-top: 1px dashed #ccc; padding-top: 2px; }
+      .ttd-section { margin-top: 10px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10.5pt; }
+      .catatan-box { border: 1px solid black; width: 220px; height: 60px; padding: 5px; }
+      .footer-print { text-align: center; font-size: 9pt; font-style: italic; color: #555; margin-top: 5px; border-top: 1px dashed #ccc; padding-top: 3px; }
     }
   </style>
 </head>
@@ -323,7 +320,7 @@
   </div>
 </div>
 
-<!-- PRINT AREA PDF: HALAMAN 1 (FISIK) & HALAMAN 2 (LAB + TTD) -->
+<!-- PRINT AREA PDF -->
 <div id="printArea" class="d-none">
   <table class="report-container">
     <thead class="report-header">
@@ -335,10 +332,11 @@
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
     
-    <!-- HALAMAN 1 -->
+    <!-- HALAMAN 1 (FISIK) -->
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
+          
           <div class="title-container">
             <h5 class="title-section">HASIL PEMERIKSAAN MEDICAL CHECK-UP</h5>
             <div class="no-periksa-box" id="p_no"></div>
@@ -352,7 +350,7 @@
             <div class="fw-bold">Bagian</div><div>:</div><div id="p_bagian"></div>
           </div>
           
-          <table class="print-table w-100">
+          <table class="print-table w-100 mb-4">
             <tr><td colspan="4" class="section-header">PEMERIKSAAN FISIK & UMUM</td></tr>
             <tr>
               <td colspan="4" style="padding: 0;">
@@ -373,10 +371,31 @@
               </td>
             </tr>
             <tr>
-              <td width="25%" style="line-height: 1.5;"><b>TB    :</b> <span id="p_tb"></span> cm<br><b>Tempt         :</b> <span id="p_suhu"></span> °C</td>
-              <td width="25%" style="line-height: 1.5;"><b>BB    :</b> <span id="p_bb"></span> Kg<br><b>Buta Warna    :</b> <span id="p_butawarna"></span></td>
-              <td width="25%" style="line-height: 1.5;"><b>Tensi :</b> <span id="p_tensi"></span> mmHg<br><b>Icterus  :</b> <span id="p_icterus"></span><br><b>Cyanosis :</b> <span id="p_cyanosis"></span></td>
-              <td width="25%" style="line-height: 1.5;"><b>Nadi  :</b> <span id="p_nadi"></span> x/m<br><b>Anemis     :</b> <span id="p_anemis"></span></td>
+              <td width="25%" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td style="white-space: nowrap;"><b>TB</b></td><td width="1%">:</td><td><span id="p_tb"></span> cm</td></tr>
+                  <tr><td style="white-space: nowrap;"><b>Tempt</b></td><td width="1%">:</td><td><span id="p_suhu"></span> °C</td></tr>
+                </table>
+              </td>
+              <td width="25%" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td style="white-space: nowrap;"><b>BB</b></td><td width="1%">:</td><td><span id="p_bb"></span> Kg</td></tr>
+                  <tr><td style="white-space: nowrap;"><b>Buta Warna</b></td><td width="1%">:</td><td><span id="p_butawarna"></span></td></tr>
+                </table>
+              </td>
+              <td width="25%" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td style="white-space: nowrap;"><b>Tensi</b></td><td width="1%">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
+                  <tr><td style="white-space: nowrap;"><b>Icterus</b></td><td width="1%">:</td><td><span id="p_icterus"></span></td></tr>
+                  <tr><td style="white-space: nowrap;"><b>Cyanosis</b></td><td width="1%">:</td><td><span id="p_cyanosis"></span></td></tr>
+                </table>
+              </td>
+              <td width="25%" style="padding: 0;">
+                <table class="nested-align-table">
+                  <tr><td style="white-space: nowrap;"><b>Nadi</b></td><td width="1%">:</td><td><span id="p_nadi"></span> x/m</td></tr>
+                  <tr><td style="white-space: nowrap;"><b>Anemis</b></td><td width="1%">:</td><td><span id="p_anemis"></span></td></tr>
+                </table>
+              </td>
             </tr>
             <tr>
               <td colspan="4" style="padding: 0;">
@@ -402,14 +421,15 @@
               </td>
             </tr>
           </table>
+
         </td>
       </tr>
     </tbody>
     
-    <!-- HALAMAN 2 (LAB, KESIMPULAN, & TTD) - DIPAKSA TURUN DENGAN PAGE BREAK -->
+    <!-- HALAMAN 2 (LAB & KESIMPULAN) -->
     <tbody class="report-body page-break-tbody">
       <tr>
-        <td style="border: none; padding-top: 5px;">
+        <td style="border: none; padding-top: 10px;">
           
           <table class="print-table lab-table w-100">
             <thead>
@@ -452,10 +472,10 @@
             </tbody>
           </table>
 
-          <table class="print-table w-100 mt-2">
+          <table class="print-table w-100 mt-3">
             <tr><td class="section-header" width="20%">DIAGNOSA</td><td><strong id="p_diagnosa"></strong></td></tr>
             <tr><td class="section-header">KESIMPULAN</td><td id="p_kesimpulan"></td></tr>
-            <tr><td class="section-header">SARAN</td><td style="height: 35px;" id="p_saran"></td></tr>
+            <tr><td class="section-header">SARAN</td><td style="height: 40px;" id="p_saran"></td></tr>
           </table>
 
           <div class="ttd-section">
@@ -481,7 +501,7 @@
 
 <script>
   // ==========================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLzj7JhmJeZkJ4KrVtU_TdRrFnBP2R7E3BaJhvNZEvATbhl2-yHaO6MhGTyI8og-6g/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF_Wk_RhJKkUq8Jh1bPq9ekPl1d_ji8IC0f19XZ5CtXNlr9BgrmsBGxYy9JES5QG-5/exec';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
