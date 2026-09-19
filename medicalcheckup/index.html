@@ -21,7 +21,7 @@
     .hero-bg { background: linear-gradient(rgba(0, 137, 123, 0.8), rgba(0, 77, 64, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
     .riwayat-card { border-left: 4px solid var(--primary-color); transition: transform 0.2s; }
 
-    /* PENGATURAN CETAK (PRINT) */
+    /* PENGATURAN CETAK (PRINT) 2 HALAMAN PAS - TANDA TITIK DUA RAPI */
     @media print {
       @page { margin: 8mm; size: A4 portrait; }
       body { background-color: #fff !important; margin: 0; padding: 0; }
@@ -53,12 +53,14 @@
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
+      /* Format khusus agar Laboratorium muat 1 halaman */
       .lab-table { font-size: 8pt !important; margin-bottom: 6px; }
       .lab-table td, .lab-table th { padding: 1.5px 3px; line-height: 1.05; }
       
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 1px 3px !important; vertical-align: top; }
       
+      /* Pemisah Halaman Paksa */
       .page-break-tbody { page-break-before: always !important; break-before: page !important; }
       
       .ttd-section { margin-top: 5px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10pt; }
@@ -375,7 +377,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td width="20%"><b>Kebersihan Umum</b></td><td width="2%">:</td><td><span id="p_kebersihan"></span></td></tr>
+                  <tr><td style="width: 45%;"><b>Kebersihan Umum</b></td><td style="width: 5%;">:</td><td><span id="p_kebersihan"></span></td></tr>
                   <tr><td><b>Kepala & Muka</b></td><td>:</td><td><span id="p_kepala"></span></td></tr>
                 </table>
               </td>
@@ -383,7 +385,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td width="20%"><b>Keluhan</b></td><td width="2%">:</td><td><span id="p_keluhan"></span></td></tr>
+                  <tr><td style="width: 45%;"><b>Keluhan</b></td><td style="width: 5%;">:</td><td><span id="p_keluhan"></span></td></tr>
                   <tr><td><b>Riwayat Penyakit</b></td><td>:</td><td><span id="p_rpenyakit"></span></td></tr>
                   <tr><td><b>R. Keluarga</b></td><td>:</td><td><span id="p_rkeluarga"></span></td></tr>
                   <tr><td><b>Alergi</b></td><td>:</td><td><span id="p_ralergi"></span></td></tr>
@@ -392,28 +394,28 @@
             </tr>
             <tr>
               <td width="25%" style="padding: 0; vertical-align: top;">
-                <table class="nested-align-table">
-                  <tr><td width="35%"><b>BB</b></td><td width="5%">:</td><td><span id="p_bb"></span> Kg</td></tr>
-                  <tr><td><b>TB</b></td><td>:</td><td><span id="p_tb"></span> cm</td></tr>
+                <table class="nested-align-table w-100">
+                  <tr><td style="width: 45%;"><b>TB</b></td><td style="width: 5%;">:</td><td><span id="p_tb"></span> cm</td></tr>
+                  <tr><td><b>Tempt</b></td><td>:</td><td><span id="p_suhu"></span> °C</td></tr>
                   <tr><td><b>IMT</b></td><td>:</td><td><span id="p_imt"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
-                <table class="nested-align-table">
-                  <tr><td width="50%"><b>Tempt</b></td><td width="5%">:</td><td><span id="p_suhu"></span> °C</td></tr>
+                <table class="nested-align-table w-100">
+                  <tr><td style="width: 45%;"><b>BB</b></td><td style="width: 5%;">:</td><td><span id="p_bb"></span> Kg</td></tr>
                   <tr><td><b>Buta Warna</b></td><td>:</td><td><span id="p_butawarna"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
-                <table class="nested-align-table">
-                  <tr><td width="40%"><b>Tensi</b></td><td width="5%">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
+                <table class="nested-align-table w-100">
+                  <tr><td style="width: 45%;"><b>Tensi</b></td><td style="width: 5%;">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
                   <tr><td><b>Icterus</b></td><td>:</td><td><span id="p_icterus"></span></td></tr>
                   <tr><td><b>Cyanosis</b></td><td>:</td><td><span id="p_cyanosis"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
-                <table class="nested-align-table">
-                  <tr><td width="40%"><b>Nadi</b></td><td width="5%">:</td><td><span id="p_nadi"></span> x/m</td></tr>
+                <table class="nested-align-table w-100">
+                  <tr><td style="width: 45%;"><b>Nadi</b></td><td style="width: 5%;">:</td><td><span id="p_nadi"></span> x/m</td></tr>
                   <tr><td><b>Anemis</b></td><td>:</td><td><span id="p_anemis"></span></td></tr>
                 </table>
               </td>
@@ -421,7 +423,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td width="20%"><b>Mata</b></td><td width="2%">:</td><td>Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)</td></tr>
+                  <tr><td style="width: 20%;"><b>Mata</b></td><td style="width: 2%;">:</td><td>Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)</td></tr>
                   <tr><td><b>Juling</b></td><td>:</td><td>Ka: <span id="p_j_ka"></span> Ki: <span id="p_j_ki"></span></td></tr>
                   <tr><td><b>Radang</b></td><td>:</td><td>Ka: <span id="p_r_ka"></span> Ki: <span id="p_r_ki"></span></td></tr>
                   <tr><td><b>Telinga</b></td><td>:</td><td>Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>)</td></tr>
