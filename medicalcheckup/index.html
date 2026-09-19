@@ -50,19 +50,17 @@
       
       .print-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 10.5pt !important; }
       .print-table td, .print-table th { border: 1px solid black; padding: 3px 5px; vertical-align: top; }
-      
-      /* Mencegah pemisahan di tengah tabel sebisa mungkin */
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
       .lab-table { font-size: 8pt !important; margin-bottom: 6px; }
       .lab-table td, .lab-table th { padding: 1.5px 3px; line-height: 1.05; }
       
-      /* Format Nested Table untuk presisi Tanda : */
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 1px 3px !important; vertical-align: top; }
       
-      /* Elemen TTD agar tidak pernah terpotong ke halaman sendiri (mengikut tabel atasnya) */
+      .page-break-tbody { page-break-before: always !important; break-before: page !important; }
+      
       .ttd-section { margin-top: 5px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10pt; }
       .catatan-box { border: 1px solid black; width: 200px; height: 50px; padding: 3px; }
       .footer-print { text-align: center; font-size: 8.5pt; font-style: italic; color: #555; margin-top: 3px; border-top: 1px dashed #ccc; padding-top: 2px; }
@@ -354,7 +352,7 @@
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
     
-    <!-- HALAMAN 1 (MENGALIR BEBAS, TANPA PAGE BREAK KAKU) -->
+    <!-- HALAMAN 1 -->
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
@@ -377,7 +375,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 140px;"><b>Kebersihan Umum</b></td><td style="width: 10px;">:</td><td><span id="p_kebersihan"></span></td></tr>
+                  <tr><td width="20%"><b>Kebersihan Umum</b></td><td width="2%">:</td><td><span id="p_kebersihan"></span></td></tr>
                   <tr><td><b>Kepala & Muka</b></td><td>:</td><td><span id="p_kepala"></span></td></tr>
                 </table>
               </td>
@@ -385,7 +383,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 140px;"><b>Keluhan</b></td><td style="width: 10px;">:</td><td><span id="p_keluhan"></span></td></tr>
+                  <tr><td width="20%"><b>Keluhan</b></td><td width="2%">:</td><td><span id="p_keluhan"></span></td></tr>
                   <tr><td><b>Riwayat Penyakit</b></td><td>:</td><td><span id="p_rpenyakit"></span></td></tr>
                   <tr><td><b>R. Keluarga</b></td><td>:</td><td><span id="p_rkeluarga"></span></td></tr>
                   <tr><td><b>Alergi</b></td><td>:</td><td><span id="p_ralergi"></span></td></tr>
@@ -393,29 +391,29 @@
               </td>
             </tr>
             <tr>
-              <td width="25%" style="padding: 0; vertical-align: top; border-right: 1px solid black;">
+              <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 35px;"><b>BB</b></td><td style="width: 10px;">:</td><td><span id="p_bb"></span> Kg</td></tr>
+                  <tr><td width="35%"><b>BB</b></td><td width="5%">:</td><td><span id="p_bb"></span> Kg</td></tr>
                   <tr><td><b>TB</b></td><td>:</td><td><span id="p_tb"></span> cm</td></tr>
                   <tr><td><b>IMT</b></td><td>:</td><td><span id="p_imt"></span></td></tr>
                 </table>
               </td>
-              <td width="25%" style="padding: 0; vertical-align: top; border-right: 1px solid black;">
+              <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 75px;"><b>Tempt</b></td><td style="width: 10px;">:</td><td><span id="p_suhu"></span> °C</td></tr>
+                  <tr><td width="50%"><b>Tempt</b></td><td width="5%">:</td><td><span id="p_suhu"></span> °C</td></tr>
                   <tr><td><b>Buta Warna</b></td><td>:</td><td><span id="p_butawarna"></span></td></tr>
                 </table>
               </td>
-              <td width="25%" style="padding: 0; vertical-align: top; border-right: 1px solid black;">
+              <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 60px;"><b>Tensi</b></td><td style="width: 10px;">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
+                  <tr><td width="40%"><b>Tensi</b></td><td width="5%">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
                   <tr><td><b>Icterus</b></td><td>:</td><td><span id="p_icterus"></span></td></tr>
                   <tr><td><b>Cyanosis</b></td><td>:</td><td><span id="p_cyanosis"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 50px;"><b>Nadi</b></td><td style="width: 10px;">:</td><td><span id="p_nadi"></span> x/m</td></tr>
+                  <tr><td width="40%"><b>Nadi</b></td><td width="5%">:</td><td><span id="p_nadi"></span> x/m</td></tr>
                   <tr><td><b>Anemis</b></td><td>:</td><td><span id="p_anemis"></span></td></tr>
                 </table>
               </td>
@@ -423,7 +421,7 @@
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
-                  <tr><td style="width: 130px;"><b>Mata</b></td><td style="width: 10px;">:</td><td>Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)</td></tr>
+                  <tr><td width="20%"><b>Mata</b></td><td width="2%">:</td><td>Visus Tnp Kaca (Ka: <span id="p_v_tk_ka"></span> Ki: <span id="p_v_tk_ki"></span>)</td></tr>
                   <tr><td><b>Juling</b></td><td>:</td><td>Ka: <span id="p_j_ka"></span> Ki: <span id="p_j_ki"></span></td></tr>
                   <tr><td><b>Radang</b></td><td>:</td><td>Ka: <span id="p_r_ka"></span> Ki: <span id="p_r_ki"></span></td></tr>
                   <tr><td><b>Telinga</b></td><td>:</td><td>Dengar (Ka: <span id="p_d_ka"></span> Ki: <span id="p_d_ki"></span>)</td></tr>
@@ -444,8 +442,15 @@
               </td>
             </tr>
           </table>
+        </td>
+      </tr>
+    </tbody>
+    
+    <!-- HALAMAN 2 (LAB & KESIMPULAN) - DIPAKSA TURUN HALAMAN BARU -->
+    <tbody class="report-body page-break-tbody">
+      <tr>
+        <td style="border: none; padding-top: 10px;">
           
-          <!-- TABEL LAB, DIAGNOSA, & TTD BEBAS MENGALIR KE HALAMAN 2 -->
           <table class="print-table lab-table w-100">
             <thead>
               <tr><th colspan="6" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
@@ -516,7 +521,7 @@
 
 <script>
   // ==========================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhQ78xMOB8HNJ1OinKEcmdmuXUIFbNoupBBKWu8jJe28xjnhiBMs6uTIt_ikdtGEg/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyetcWRLt4ulL37D7H4ScXNVAWEMsiIgSd74fyjdW_JIqMu3Ndf7fzbKPB6UP_ZuQep/exec';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
@@ -548,18 +553,28 @@
     }
   }
 
+  // PENYELESAIAN BUG LOGIN MENGGUNAKAN METODE GET
   function handleLogin(e) {
-    e.preventDefault(); const role = $('#logRole').val(), user = $('#logUser').val(), pass = $('#logPass').val();
+    e.preventDefault(); 
+    const role = $('#logRole').val(), user = $('#logUser').val(), pass = $('#logPass').val();
     Swal.fire({ title: 'Otentikasi Akun...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
     
-    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'login', role: role, user: user, pass: pass }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } })
-    .then(res => res.text()).then(text => {
-      try {
-        const res = JSON.parse(text);
-        if(res.status === 'success') { currentUser = { role: res.role, name: res.name, id: res.id }; sessionStorage.setItem('loggedUser', JSON.stringify(currentUser)); Swal.close(); setupDashboard(); } 
-        else { Swal.fire('Gagal', res.message, 'error'); }
-      } catch(err) { Swal.fire('Error', 'Sistem tidak merespon dengan baik.', 'error'); }
-    }).catch(err => Swal.fire('Error', 'Gagal terhubung ke Database.', 'error'));
+    // Login diubah menggunakan parameter GET agar browser tidak memblokir redirect CORS saat form submit
+    const loginUrl = SCRIPT_URL + '?action=login&role=' + encodeURIComponent(role) + '&user=' + encodeURIComponent(user) + '&pass=' + encodeURIComponent(pass);
+
+    fetch(loginUrl)
+    .then(res => res.json())
+    .then(res => {
+      if(res.status === 'success') { 
+        currentUser = { role: res.role, name: res.name, id: res.id }; 
+        sessionStorage.setItem('loggedUser', JSON.stringify(currentUser)); 
+        Swal.close(); 
+        setupDashboard(); 
+      } 
+      else { Swal.fire('Gagal', res.message, 'error'); }
+    }).catch(err => {
+      Swal.fire('Error', 'Gagal terhubung ke Database. Pastikan URL Apps Script benar.', 'error');
+    });
   }
 
   function logout() { sessionStorage.removeItem('loggedUser'); location.reload(); }
@@ -685,13 +700,24 @@
   function resetFormPasien() { document.getElementById('formPasien').reset(); document.getElementById('ID_Pasien').value = ''; }
   function resetFormMCU() { document.getElementById('mcuForm').reset(); document.getElementById('ID').value = ''; $('#inputNamaFilter').val(''); document.getElementById('valIMT').value = ''; document.getElementById('katIMT').value = ''; }
 
+  function formatTanggalIndo(tglStr) {
+    if (!tglStr) return '-';
+    const parts = tglStr.split('-');
+    if (parts.length !== 3) return tglStr;
+    const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    return `${parts[2]} ${bulan[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+  }
+
   function printData(id) {
     const d = mcuData.find(row => row.ID == id);
     if(d) {
+      // SET BIODATA
       $('#p_no').text(d['No Periksa'] \vert{}\vert{} '-'); $('#p_nama').text(d['Nama'] || '-'); $('#p_ttl').text(d['Tempat/Tgl Lahir'] \vert{}\vert{} '-'); $('#p_posisi').text(d['Posisi/ID'] || '-'); $('#p_gender').text(d['Gender'] \vert{}\vert{} '-'); $('#p_bagian').text(d['Bagian'] || '-');
       
+      // SET FISIK
       $('#p_kebersihan').text(d['Kebersihan Umum'] \vert{}\vert{} '-'); $('#p_kepala').text(d['Kepala & Muka'] || '-'); $('#p_keluhan').text(d['Keluhan'] \vert{}\vert{} '-'); $('#p_rpenyakit').text(d['Riwayat Penyakit'] || '-'); $('#p_rkeluarga').text(d['Riwayat Keluarga'] \vert{}\vert{} '-'); $('#p_ralergi').text(d['Riwayat Alergi'] || '-');
       
+      // CALCULATE IMT FOR PRINT
       let tbVal = parseFloat(d['TB']);
       let bbVal = parseFloat(d['BB']);
       let imtStr = '-';
@@ -715,6 +741,7 @@
       $('#p_gigi').text(d['Gigi'] || '-'); $('#p_lidah').text(d['Lidah'] \vert{}\vert{} '-'); $('#p_tongsil').text(d['Tongsil'] || '-'); $('#p_leher').text(d['Leher'] \vert{}\vert{} '-'); $('#p_nafas').text(d['Nafas Frekuensi'] || '-'); $('#p_rad').text(d['Radiologi'] \vert{}\vert{} '-'); $('#p_ekg').text(d['EKG'] || '-');
       $('#p_abling').text(d['Abdomen Lingkar'] || '-'); $('#p_abper').text(d['Abdomen Peristaltik'] \vert{}\vert{} '-'); $('#p_gen').text(d['Genetalia & Anus'] || '-'); $('#p_kulit').text(d['Kulit'] \vert{}\vert{} '-'); $('#p_tul').text(d['Tulang Belakang'] || '-'); $('#p_exa').text(d['Extrimitas Atas'] \vert{}\vert{} '-'); $('#p_exb').text(d['Extrimitas Bawah'] || '-');
       
+      // SET LAB
       $('#p_l_hb').text(d['Lab_Hb']||'-'); $('#p_l_ht').text(d['Lab_Ht']\vert{}\vert{}'-'); $('#p_l_eri').text(d['Lab_Eritrosit']||'-'); $('#p_l_trombo').text(d['Lab_Trombosit']\vert{}\vert{}'-'); $('#p_l_leko').text(d['Lab_Lekosit']||'-'); $('#p_l_jleko').text(d['Lab_JenisLekosit']\vert{}\vert{}'-'); $('#p_l_led').text(d['Lab_LED']||'-');
       $('#p_u_ph').text(d['Uri_pH']\vert{}\vert{}'-'); $('#p_u_bj').text(d['Uri_BJ']||'-'); $('#p_u_pro').text(d['Uri_Protein']\vert{}\vert{}'-'); $('#p_u_glu').text(d['Uri_Glukosa']||'-'); $('#p_u_bil').text(d['Uri_Bilirubin']\vert{}\vert{}'-'); $('#p_u_uro').text(d['Uri_Urobilinogen']||'-'); $('#p_u_ket').text(d['Uri_Keton']\vert{}\vert{}'-'); $('#p_u_nit').text(d['Uri_Nitrit']||'-'); $('#p_u_lek').text(d['Uri_Lekosit']\vert{}\vert{}'-'); $('#p_u_eri').text(d['Uri_Eritrosit']||'-');
       $('#p_s_eri').text(d['Sed_Eritrosit']\vert{}\vert{}'-'); $('#p_s_lek').text(d['Sed_Lekosit']||'-'); $('#p_s_epi').text(d['Sed_Epitel']\vert{}\vert{}'-'); $('#p_s_kri').text(d['Sed_Kristal']||'-'); $('#p_s_sil').text(d['Sed_Silinder']\vert{}\vert{}'-'); $('#p_s_lain').text(d['Sed_Lain']||'-');
@@ -724,6 +751,7 @@
       $('#p_l_sgot').text(d['Hati_SGOT']||'-'); $('#p_l_sgpt').text(d['Hati_SGPT']\vert{}\vert{}'-'); $('#p_l_ur').text(d['Ginjal_Ureum']||'-'); $('#p_l_kre').text(d['Ginjal_Kreatinin']\vert{}\vert{}'-'); $('#p_l_au').text(d['Ginjal_AsamUrat']||'-');
       $('#p_s_hamil').text(d['Sero_Hamil']\vert{}\vert{}'-'); $('#p_s_gol').text(d['Sero_GolDarah']||'-'); $('#p_w_o').text(d['Widal_TyphiO']\vert{}\vert{}'-'); $('#p_w_h').text(d['Widal_TyphiH']||'-'); $('#p_w_pa').text(d['Widal_ParaA']\vert{}\vert{}'-'); $('#p_w_pb').text(d['Widal_ParaB']||'-'); $('#p_s_hbsag').text(d['Sero_HBsAg']\vert{}\vert{}'-'); $('#p_s_syp').text(d['Sero_Syphilis']||'-'); $('#p_s_hiv').text(d['Sero_HIV']\vert{}\vert{}'-'); $('#p_s_hbsab').text(d['Sero_HBsAb']||'-');
 
+      // KESIMPULAN
       $('#p_diagnosa').text(d['Diagnosa'] || '-'); $('#p_kesimpulan').text(d['Kesimpulan'] \vert{}\vert{} '-'); $('#p_saran').text(d['Saran'] || '-');
       
       $('#p_nama_dokter').text(d['NamaDokter'] || '.........................');
