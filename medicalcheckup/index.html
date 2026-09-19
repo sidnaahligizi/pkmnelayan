@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Sistem MCU - UPT Puskesmas Nelayan</title>
   <link rel="icon" href="https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -53,14 +56,12 @@
       .print-table tr { page-break-inside: avoid; }
       .print-table .section-header { font-weight: bold; background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; text-transform: uppercase; text-align: center; }
       
-      /* Ukuran tabel lab diperkecil agar pas 1 halaman bersama TTD */
       .lab-table { font-size: 8pt !important; margin-bottom: 6px; }
       .lab-table td, .lab-table th { padding: 1.5px 3px; line-height: 1.05; }
       
       .nested-align-table { width: 100%; border-collapse: collapse; }
       .nested-align-table td { border: none !important; padding: 1px 3px !important; vertical-align: top; }
       
-      /* Pemisah Halaman Paksa */
       .page-break-tbody { page-break-before: always !important; break-before: page !important; }
       
       .ttd-section { margin-top: 5px; display: flex; justify-content: space-between; page-break-inside: avoid; font-size: 10pt; }
@@ -170,9 +171,28 @@
                 <div class="mb-2"><label class="small">R. Penyakit Keluarga</label><input type="text" class="form-control form-control-sm" name="RKeluarga" value="-"></div>
                 <div class="mb-3"><label class="small">Riwayat Alergi</label><select class="form-select form-select-sm bg-kuning" name="RAlergi"><option value="-">-</option><option>TIDAK ADA</option><option>ADA</option></select></div>
                 
-                <div class="row g-2 mb-2"><div class="col-3"><label class="small">TB(cm)</label><input type="text" class="form-control form-control-sm" name="TB"></div><div class="col-3"><label class="small">BB(kg)</label><input type="text" class="form-control form-control-sm" name="BB"></div><div class="col-3"><label class="small">Tensi</label><input type="text" class="form-control form-control-sm" name="Tensi"></div><div class="col-3"><label class="small">Nadi</label><input type="text" class="form-control form-control-sm" name="Nadi"></div></div>
-                <div class="row g-2 mb-3"><div class="col-4"><label class="small">Suhu(C)</label><input type="text" class="form-control form-control-sm" name="Suhu"></div><div class="col-4"><label class="small">Icterus</label><select class="form-select form-select-sm bg-kuning" name="Icterus"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-4"><label class="small">Anemis</label><select class="form-select form-select-sm bg-kuning" name="Anemis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div></div>
-                <div class="row g-2 mb-3"><div class="col-6"><label class="small">Cyanosis</label><select class="form-select form-select-sm bg-kuning" name="Cyanosis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div><div class="col-6"><label class="small">Buta Warna</label><select class="form-select form-select-sm bg-kuning" name="ButaWarna"><option value="-">-</option><option>NORMAL</option><option>YA</option></select></div></div>
+                <!-- UPDATE LAYOUT TANDA VITAL DAN PERHITUNGAN IMT -->
+                <div class="row g-2 mb-3 align-items-start">
+                    <div class="col-6 col-md-3">
+                        <div class="mb-2"><label class="small">BB (Kg)</label><input type="number" step="0.1" class="form-control form-control-sm" name="BB" id="inputBB" oninput="hitungIMT()"></div>
+                        <div class="mb-2"><label class="small">TB (cm)</label><input type="number" step="0.1" class="form-control form-control-sm" name="TB" id="inputTB" oninput="hitungIMT()"></div>
+                        <div class="mb-1"><label class="small">IMT</label><input type="text" class="form-control form-control-sm bg-light fw-bold" name="IMT" id="inputIMT" readonly></div>
+                        <small id="kategoriIMT" class="d-block"></small>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="mb-2"><label class="small">Tempt (°C)</label><input type="text" class="form-control form-control-sm" name="Suhu"></div>
+                        <div class="mb-2"><label class="small">Buta Warna</label><select class="form-select form-select-sm bg-kuning" name="ButaWarna"><option value="-">-</option><option>NORMAL</option><option>YA</option></select></div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="mb-2"><label class="small">Tensi (mmHg)</label><input type="text" class="form-control form-control-sm" name="Tensi"></div>
+                        <div class="mb-2"><label class="small">Icterus</label><select class="form-select form-select-sm bg-kuning" name="Icterus"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div>
+                        <div class="mb-2"><label class="small">Cyanosis</label><select class="form-select form-select-sm bg-kuning" name="Cyanosis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="mb-2"><label class="small">Nadi (x/m)</label><input type="text" class="form-control form-control-sm" name="Nadi"></div>
+                        <div class="mb-2"><label class="small">Anemis</label><select class="form-select form-select-sm bg-kuning" name="Anemis"><option value="-">-</option><option>TIDAK</option><option>YA</option></select></div>
+                    </div>
+                </div>
               </div>
 
               <div class="col-md-6">
@@ -190,6 +210,7 @@
           </div>
         </div>
 
+        <!-- FORM LABORATORIUM, DSB (Tetap sama seperti aslinya) -->
         <div class="card shadow-sm mb-4">
           <div class="card-header text-primary"><i class="fas fa-flask me-2"></i>II. Hasil Pemeriksaan Laboratorium</div>
           <div class="card-body bg-light">
@@ -335,7 +356,6 @@
     </thead>
     <tfoot class="report-footer"><tr><td style="border: none;"><div class="footer-print">Puskesmas Nelayan support by Belajar Inovasi</div></td></tr></tfoot>
     
-    <!-- HALAMAN 1 (FISIK) -->
     <tbody class="report-body">
       <tr>
         <td style="border: none;">
@@ -373,33 +393,37 @@
                 </table>
               </td>
             </tr>
+            
+            <!-- UPDATE STRUKTUR KOLOM PRINT SESUAI GAMBAR RUJUKAN -->
             <tr>
               <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td width="35%"><b>TB</b></td><td width="5%">:</td><td><span id="p_tb"></span> cm</td></tr>
-                  <tr><td><b>Tempt</b></td><td>:</td><td><span id="p_suhu"></span> °C</td></tr>
+                  <tr><td width="40%"><b>BB</b></td><td width="5%">:</td><td><span id="p_bb"></span> Kg</td></tr>
+                  <tr><td><b>TB</b></td><td>:</td><td><span id="p_tb"></span> cm</td></tr>
+                  <tr><td><b>IMT</b></td><td>:</td><td><span id="p_imt"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td width="50%"><b>BB</b></td><td width="5%">:</td><td><span id="p_bb"></span> Kg</td></tr>
+                  <tr><td width="50%"><b>Tempt</b></td><td width="5%">:</td><td><span id="p_suhu"></span> °C</td></tr>
                   <tr><td><b>Buta Warna</b></td><td>:</td><td><span id="p_butawarna"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td width="40%"><b>Tensi</b></td><td width="5%">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
+                  <tr><td width="45%"><b>Tensi</b></td><td width="5%">:</td><td><span id="p_tensi"></span> mmHg</td></tr>
                   <tr><td><b>Icterus</b></td><td>:</td><td><span id="p_icterus"></span></td></tr>
                   <tr><td><b>Cyanosis</b></td><td>:</td><td><span id="p_cyanosis"></span></td></tr>
                 </table>
               </td>
               <td width="25%" style="padding: 0; vertical-align: top;">
                 <table class="nested-align-table">
-                  <tr><td width="40%"><b>Nadi</b></td><td width="5%">:</td><td><span id="p_nadi"></span> x/m</td></tr>
+                  <tr><td width="45%"><b>Nadi</b></td><td width="5%">:</td><td><span id="p_nadi"></span> x/m</td></tr>
                   <tr><td><b>Anemis</b></td><td>:</td><td><span id="p_anemis"></span></td></tr>
                 </table>
               </td>
             </tr>
+
             <tr>
               <td colspan="4" style="padding: 0;">
                 <table class="nested-align-table">
@@ -428,11 +452,9 @@
       </tr>
     </tbody>
     
-    <!-- HALAMAN 2 (LAB, KESIMPULAN, & TTD) -->
     <tbody class="report-body page-break-tbody">
       <tr>
         <td style="border: none; padding-top: 10px;">
-          
           <table class="print-table lab-table w-100">
             <thead>
               <tr><th colspan="6" class="section-header">HASIL PEMERIKSAAN LABORATORIUM</th></tr>
@@ -503,12 +525,13 @@
 
 <script>
   // ==========================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQnVfVKYZx4f6HoRIZQmNnfV9xIeHMKd9hjRGXNQvKr8fzuEqtfpRVTbwl0SPuX-Zh/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEDf1i1nOGo6a_hnRlzBeDJNRBasGTFp522Sd3QbqEEZTIA7tPvuK7lvPGzdRqHLxM/exec';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
 
-  $(document).ready(() => { const savedUser = sessionStorage.getItem('loggedUser'); if(savedUser) { currentUser = JSON.parse(savedUser); setupDashboard(); } });
+  // GANTI SESSION KE LOCAL STORAGE AGAR PROSES LEBIH CEPAT TANPA HARUS LOGIN TERUS
+  $(document).ready(() => { const savedUser = localStorage.getItem('loggedUser'); if(savedUser) { currentUser = JSON.parse(savedUser); setupDashboard(); } });
 
   function handleLogin(e) {
     e.preventDefault(); const role = $('#logRole').val(), user = $('#logUser').val(), pass = $('#logPass').val();
@@ -517,13 +540,38 @@
     .then(res => res.text()).then(text => {
       try {
         const res = JSON.parse(text);
-        if(res.status === 'success') { currentUser = { role: res.role, name: res.name, id: res.id }; sessionStorage.setItem('loggedUser', JSON.stringify(currentUser)); Swal.close(); setupDashboard(); } 
+        if(res.status === 'success') { currentUser = { role: res.role, name: res.name, id: res.id }; localStorage.setItem('loggedUser', JSON.stringify(currentUser)); Swal.close(); setupDashboard(); } 
         else { Swal.fire('Gagal', res.message, 'error'); }
       } catch(err) { Swal.fire('Error', 'Sistem tidak merespon dengan baik.', 'error'); }
     }).catch(err => Swal.fire('Error', 'Gagal terhubung ke Database.', 'error'));
   }
 
-  function logout() { sessionStorage.removeItem('loggedUser'); location.reload(); }
+  function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
+
+  // FUNGSI HITUNG IMT (RUMUS BB / TB(m)^2)
+  function hitungIMT() {
+    let bb = parseFloat($('#inputBB').val());
+    let tb = parseFloat($('#inputTB').val());
+    
+    if (bb > 0 && tb > 0) {
+      let tbMeter = tb / 100;
+      let imt = bb / (tbMeter * tbMeter);
+      $('#inputIMT').val(imt.toFixed(1));
+      
+      let kat = '';
+      let colorClass = '';
+      if (imt <= 18.4) { kat = 'Berat Badan Kurang'; colorClass = 'text-warning'; }
+      else if (imt >= 18.5 && imt <= 24.9) { kat = 'Berat Badan Ideal'; colorClass = 'text-success'; }
+      else if (imt >= 25 && imt <= 29.9) { kat = 'Berat Badan Lebih'; colorClass = 'text-warning'; }
+      else if (imt >= 30 && imt <= 39.9) { kat = 'Gemuk'; colorClass = 'text-danger'; }
+      else if (imt >= 40) { kat = 'Sangat Gemuk'; colorClass = 'text-danger fw-bold'; }
+      
+      $('#kategoriIMT').text(kat).removeClass().addClass('d-block mt-1 small fw-bold ' + colorClass);
+    } else {
+      $('#inputIMT').val('');
+      $('#kategoriIMT').text('').removeClass();
+    }
+  }
 
   function setupDashboard() {
     $('#loginView').addClass('d-none'); $('#appView').removeClass('d-none'); $('#navUsername').text(currentUser.name);
@@ -629,8 +677,9 @@
     } 
   }
   
+  // TAMBAHKAN PEMETAAN IMT
   function getFormNameByHeader(h) {
-    const map = { 'No Periksa':'NoPeriksa', 'Tgl Periksa':'TglPeriksa', 'Nama':'Nama', 'Tempat/Tgl Lahir':'TTL', 'Posisi/ID':'PosisiID', 'Gender':'Gender', 'Bagian':'Bagian', 'Kebersihan Umum':'Kebersihan', 'Kepala & Muka':'KepalaMuka', 'Keluhan':'Keluhan', 'Riwayat Penyakit':'RPenyakit', 'Riwayat Keluarga':'RKeluarga', 'Riwayat Alergi':'RAlergi', 'TB':'TB', 'BB':'BB', 'Tensi':'Tensi', 'Nadi':'Nadi', 'Suhu':'Suhu', 'Icterus':'Icterus', 'Anemis':'Anemis', 'Cyanosis':'Cyanosis', 'Buta Warna':'ButaWarna', 'Visus Tanpa Kaca Kanan':'VisusTanpaKa', 'Visus Tanpa Kaca Kiri':'VisusTanpaKi', 'Visus Kaca Kanan':'VisusKacaKa', 'Visus Kaca Kiri':'VisusKacaKi', 'Juling Kanan':'JulingKa', 'Juling Kiri':'JulingKi', 'Radang Kanan':'RadangKa', 'Radang Kiri':'RadangKi', 'Telinga Dengar Kanan':'TelingaDengarKa', 'Telinga Dengar Kiri':'TelingaDengarKi', 'Telinga Liang Kanan':'TelingaLiangKa', 'Telinga Liang Kiri':'TelingaLiangKi', 'Gigi':'Gigi', 'Lidah':'Lidah', 'Tongsil':'Tongsil', 'Leher':'Leher', 'Nafas Frekuensi':'Nafas', 'Abdomen Lingkar':'AbdLingkar', 'Abdomen Peristaltik':'AbdPeristaltik', 'Genetalia & Anus':'Genetalia', 'Kulit':'Kulit', 'Tulang Belakang':'Tulang', 'Extrimitas Atas':'ExtAtas', 'Extrimitas Bawah':'ExtBawah', 'Radiologi':'Radiologi', 'EKG':'EKG', 'Lab_Hb':'Lab_Hb', 'Lab_Ht':'Lab_Ht', 'Lab_Eritrosit':'Lab_Eritrosit', 'Lab_Trombosit':'Lab_Trombosit', 'Lab_Lekosit':'Lab_Lekosit', 'Lab_JenisLekosit':'Lab_JenisLekosit', 'Lab_LED':'Lab_LED', 'Uri_pH':'Uri_pH', 'Uri_BJ':'Uri_BJ', 'Uri_Protein':'Uri_Protein', 'Uri_Glukosa':'Uri_Glukosa', 'Uri_Bilirubin':'Uri_Bilirubin', 'Uri_Urobilinogen':'Uri_Urobilinogen', 'Uri_Keton':'Uri_Keton', 'Uri_Nitrit':'Uri_Nitrit', 'Uri_Lekosit':'Uri_Lekosit', 'Uri_Eritrosit':'Uri_Eritrosit', 'Sed_Eritrosit':'Sed_Eritrosit', 'Sed_Lekosit':'Sed_Lekosit', 'Sed_Epitel':'Sed_Epitel', 'Sed_Kristal':'Sed_Kristal', 'Sed_Silinder':'Sed_Silinder', 'Sed_Lain':'Sed_Lain', 'Mikro_BTA':'Mikro_BTA', 'Mikro_MH':'Mikro_MH', 'Kim_GDP':'Kim_GDP', 'Kim_GD2PP':'Kim_GD2PP', 'Kim_GDA':'Kim_GDA', 'Lemak_Chol':'Lemak_Chol', 'Lemak_Trig':'Lemak_Trig', 'Lemak_HDL':'Lemak_HDL', 'Lemak_LDL':'Lemak_LDL', 'Hati_SGOT':'Hati_SGOT', 'Hati_SGPT':'Hati_SGPT', 'Ginjal_Ureum':'Ginjal_Ureum', 'Ginjal_Kreatinin':'Ginjal_Kreatinin', 'Ginjal_AsamUrat':'Ginjal_AsamUrat', 'Sero_Hamil':'Sero_Hamil', 'Sero_GolDarah':'Sero_GolDarah', 'Widal_TyphiO':'Widal_TyphiO', 'Widal_TyphiH':'Widal_TyphiH', 'Widal_ParaA':'Widal_ParaA', 'Widal_ParaB':'Widal_ParaB', 'Sero_HBsAg':'Sero_HBsAg', 'Sero_Syphilis':'Sero_Syphilis', 'Sero_HIV':'Sero_HIV', 'Sero_HBsAb':'Sero_HBsAb', 'Diagnosa':'Diagnosa', 'Kesimpulan':'Kesimpulan', 'Saran':'Saran', 'NamaDokter':'NamaDokter', 'NipDokter':'NipDokter' };
+    const map = { 'No Periksa':'NoPeriksa', 'Tgl Periksa':'TglPeriksa', 'Nama':'Nama', 'Tempat/Tgl Lahir':'TTL', 'Posisi/ID':'PosisiID', 'Gender':'Gender', 'Bagian':'Bagian', 'Kebersihan Umum':'Kebersihan', 'Kepala & Muka':'KepalaMuka', 'Keluhan':'Keluhan', 'Riwayat Penyakit':'RPenyakit', 'Riwayat Keluarga':'RKeluarga', 'Riwayat Alergi':'RAlergi', 'TB':'TB', 'BB':'BB', 'Tensi':'Tensi', 'Nadi':'Nadi', 'Suhu':'Suhu', 'Icterus':'Icterus', 'Anemis':'Anemis', 'Cyanosis':'Cyanosis', 'Buta Warna':'ButaWarna', 'Visus Tanpa Kaca Kanan':'VisusTanpaKa', 'Visus Tanpa Kaca Kiri':'VisusTanpaKi', 'Visus Kaca Kanan':'VisusKacaKa', 'Visus Kaca Kiri':'VisusKacaKi', 'Juling Kanan':'JulingKa', 'Juling Kiri':'JulingKi', 'Radang Kanan':'RadangKa', 'Radang Kiri':'RadangKi', 'Telinga Dengar Kanan':'TelingaDengarKa', 'Telinga Dengar Kiri':'TelingaDengarKi', 'Telinga Liang Kanan':'TelingaLiangKa', 'Telinga Liang Kiri':'TelingaLiangKi', 'Gigi':'Gigi', 'Lidah':'Lidah', 'Tongsil':'Tongsil', 'Leher':'Leher', 'Nafas Frekuensi':'Nafas', 'Abdomen Lingkar':'AbdLingkar', 'Abdomen Peristaltik':'AbdPeristaltik', 'Genetalia & Anus':'Genetalia', 'Kulit':'Kulit', 'Tulang Belakang':'Tulang', 'Extrimitas Atas':'ExtAtas', 'Extrimitas Bawah':'ExtBawah', 'Radiologi':'Radiologi', 'EKG':'EKG', 'Lab_Hb':'Lab_Hb', 'Lab_Ht':'Lab_Ht', 'Lab_Eritrosit':'Lab_Eritrosit', 'Lab_Trombosit':'Lab_Trombosit', 'Lab_Lekosit':'Lab_Lekosit', 'Lab_JenisLekosit':'Lab_JenisLekosit', 'Lab_LED':'Lab_LED', 'Uri_pH':'Uri_pH', 'Uri_BJ':'Uri_BJ', 'Uri_Protein':'Uri_Protein', 'Uri_Glukosa':'Uri_Glukosa', 'Uri_Bilirubin':'Uri_Bilirubin', 'Uri_Urobilinogen':'Uri_Urobilinogen', 'Uri_Keton':'Uri_Keton', 'Uri_Nitrit':'Uri_Nitrit', 'Uri_Lekosit':'Uri_Lekosit', 'Uri_Eritrosit':'Uri_Eritrosit', 'Sed_Eritrosit':'Sed_Eritrosit', 'Sed_Lekosit':'Sed_Lekosit', 'Sed_Epitel':'Sed_Epitel', 'Sed_Kristal':'Sed_Kristal', 'Sed_Silinder':'Sed_Silinder', 'Sed_Lain':'Sed_Lain', 'Mikro_BTA':'Mikro_BTA', 'Mikro_MH':'Mikro_MH', 'Kim_GDP':'Kim_GDP', 'Kim_GD2PP':'Kim_GD2PP', 'Kim_GDA':'Kim_GDA', 'Lemak_Chol':'Lemak_Chol', 'Lemak_Trig':'Lemak_Trig', 'Lemak_HDL':'Lemak_HDL', 'Lemak_LDL':'Lemak_LDL', 'Hati_SGOT':'Hati_SGOT', 'Hati_SGPT':'Hati_SGPT', 'Ginjal_Ureum':'Ginjal_Ureum', 'Ginjal_Kreatinin':'Ginjal_Kreatinin', 'Ginjal_AsamUrat':'Ginjal_AsamUrat', 'Sero_Hamil':'Sero_Hamil', 'Sero_GolDarah':'Sero_GolDarah', 'Widal_TyphiO':'Widal_TyphiO', 'Widal_TyphiH':'Widal_TyphiH', 'Widal_ParaA':'Widal_ParaA', 'Widal_ParaB':'Widal_ParaB', 'Sero_HBsAg':'Sero_HBsAg', 'Sero_Syphilis':'Sero_Syphilis', 'Sero_HIV':'Sero_HIV', 'Sero_HBsAb':'Sero_HBsAb', 'Diagnosa':'Diagnosa', 'Kesimpulan':'Kesimpulan', 'Saran':'Saran', 'NamaDokter':'NamaDokter', 'NipDokter':'NipDokter', 'IMT':'IMT' };
     return map[h];
   }
 
@@ -639,12 +688,19 @@
     if(data) {
       switchTab('viewForm', $('.nav-link').eq(1)); const f = document.getElementById('mcuForm');$('#inputNamaFilter').val(data['Nama']); 
       Object.keys(data).forEach(k => { const inputName = getFormNameByHeader(k); if(inputName && f[inputName]) f[inputName].value = data[k]; });
-      f.ID.value = data.ID; $('#inputNama').val(data['Nama']); window.scrollTo({ top: 0, behavior: 'smooth' });
+      f.ID.value = data.ID; $('#inputNama').val(data['Nama']);
+      hitungIMT(); // Panggil hitung IMT untuk merender nilai dan kategorinya
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   function resetFormPasien() { document.getElementById('formPasien').reset(); document.getElementById('ID_Pasien').value = ''; }
-  function resetFormMCU() { document.getElementById('mcuForm').reset(); document.getElementById('ID').value = ''; $('#inputNamaFilter').val(''); }
+  function resetFormMCU() { 
+      document.getElementById('mcuForm').reset(); 
+      document.getElementById('ID').value = ''; 
+      $('#inputNamaFilter').val(''); 
+      $('#kategoriIMT').text('').removeClass(); 
+  }
 
   function formatTanggalIndo(tglStr) {
     if (!tglStr) return '-';
@@ -660,7 +716,9 @@
       $('#p_no').text(d['No Periksa'] \vert{}\vert{} '-'); $('#p_nama').text(d['Nama'] || '-'); $('#p_ttl').text(d['Tempat/Tgl Lahir'] \vert{}\vert{} '-'); $('#p_posisi').text(d['Posisi/ID'] || '-'); $('#p_gender').text(d['Gender'] \vert{}\vert{} '-'); $('#p_bagian').text(d['Bagian'] || '-');
       
       $('#p_kebersihan').text(d['Kebersihan Umum'] \vert{}\vert{} '-'); $('#p_kepala').text(d['Kepala & Muka'] || '-'); $('#p_keluhan').text(d['Keluhan'] \vert{}\vert{} '-'); $('#p_rpenyakit').text(d['Riwayat Penyakit'] || '-'); $('#p_rkeluarga').text(d['Riwayat Keluarga'] \vert{}\vert{} '-'); $('#p_ralergi').text(d['Riwayat Alergi'] || '-');
-      $('#p_tb').text(d['TB'] || '-'); $('#p_bb').text(d['BB'] \vert{}\vert{} '-'); $('#p_tensi').text(d['Tensi'] || '-'); $('#p_nadi').text(d['Nadi'] \vert{}\vert{} '-'); $('#p_suhu').text(d['Suhu'] || '-'); $('#p_icterus').text(d['Icterus'] \vert{}\vert{} '-'); $('#p_anemis').text(d['Anemis'] || '-'); $('#p_cyanosis').text(d['Cyanosis'] \vert{}\vert{} '-'); $('#p_butawarna').text(d['Buta Warna'] || '-');
+      
+      $('#p_tb').text(d['TB'] \vert{}\vert{} '-'); $('#p_bb').text(d['BB'] || '-'); $('#p_imt').text(d['IMT'] \vert{}\vert{} '-'); $('#p_tensi').text(d['Tensi'] || '-'); $('#p_nadi').text(d['Nadi'] \vert{}\vert{} '-'); $('#p_suhu').text(d['Suhu'] || '-'); $('#p_icterus').text(d['Icterus'] \vert{}\vert{} '-'); $('#p_anemis').text(d['Anemis'] || '-'); $('#p_cyanosis').text(d['Cyanosis'] \vert{}\vert{} '-'); $('#p_butawarna').text(d['Buta Warna'] || '-');
+      
       $('#p_v_tk_ka').text(d['Visus Tanpa Kaca Kanan'] \vert{}\vert{} '-'); $('#p_v_tk_ki').text(d['Visus Tanpa Kaca Kiri'] || '-'); $('#p_j_ka').text(d['Juling Kanan'] \vert{}\vert{} '-'); $('#p_j_ki').text(d['Juling Kiri'] || '-'); $('#p_r_ka').text(d['Radang Kanan'] \vert{}\vert{} '-'); $('#p_r_ki').text(d['Radang Kiri'] || '-');
       $('#p_d_ka').text(d['Telinga Dengar Kanan'] \vert{}\vert{} '-'); $('#p_d_ki').text(d['Telinga Dengar Kiri'] || '-'); $('#p_c_ka').text(d['Telinga Liang Kanan'] \vert{}\vert{} '-'); $('#p_c_ki').text(d['Telinga Liang Kiri'] || '-');
       $('#p_gigi').text(d['Gigi'] || '-'); $('#p_lidah').text(d['Lidah'] \vert{}\vert{} '-'); $('#p_tongsil').text(d['Tongsil'] || '-'); $('#p_leher').text(d['Leher'] \vert{}\vert{} '-'); $('#p_nafas').text(d['Nafas Frekuensi'] || '-'); $('#p_rad').text(d['Radiologi'] \vert{}\vert{} '-'); $('#p_ekg').text(d['EKG'] || '-');
