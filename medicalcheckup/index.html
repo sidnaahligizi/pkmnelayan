@@ -442,7 +442,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
- // ==========================================
+  // ==========================================
   // MASUKKAN URL WEB APP ANDA DI SINI
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEDf1i1nOGo6a_hnRlzBeDJNRBasGTFp522Sd3QbqEEZTIA7tPvuK7lvPGzdRqHLxM/exec';
   // ==========================================
@@ -457,19 +457,17 @@
         setupDashboard(); 
       } 
     } catch(err) {
-      localStorage.removeItem('loggedUser'); // Bersihkan jika cache corrupt
+      localStorage.removeItem('loggedUser');
     }
   });
 
-  // PENANGANAN LOGIN DENGAN EVENT LISTENER JQUERY (ANTI-MACET & ANTI-RELOAD)
   $('#loginForm').on('submit', function(e) {
-    e.preventDefault(); // Mengunci form mutlak agar tidak reload / tambah '?' di URL
+    e.preventDefault(); 
     
     const role = $('#logRole').val();
     const user = $('#logUser').val();
     const pass = $('#logPass').val();
 
-    // Validasi SCRIPT_URL
     if (SCRIPT_URL.includes('ganti_ini_dengan_url_asli_anda') || SCRIPT_URL.trim() === '') {
       Swal.fire('Error Developer', 'SCRIPT_URL belum diisi dengan link Web App Google yang benar!', 'error');
       return;
@@ -500,20 +498,16 @@
           Swal.fire('Gagal', res.message, 'warning'); 
         }
       } catch(err) { 
-        console.error("Respons server tidak valid:", text);
         Swal.fire('Error Sistem', 'Google Server mengembalikan data yang salah.', 'error'); 
       }
     })
     .catch(err => {
-      console.error("Fetch Error:", err);
       Swal.fire('Koneksi Terputus', 'Gagal terhubung ke Database Google.', 'error');
     });
   });
 
-  function logout() { 
-    localStorage.removeItem('loggedUser'); 
-    location.reload(); 
-  }
+  function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
+
   function hitungIMT() {
     let bb = parseFloat($('#inputBB').val());
     let tb = parseFloat($('#inputTB').val());
@@ -571,6 +565,7 @@
       renderTablePasien(); renderTableRekap(); updateSelectPasien(); updateSelectDokter(); Swal.close();
     });
   }
+  
   function loadData() { loadDataAll(); }
 
   function loadDataMCUForPasien() {
@@ -612,7 +607,6 @@
 
   function openModalPasien() { resetFormPasien(); const myModal = new bootstrap.Modal(document.getElementById('modalPasien')); myModal.show(); }
 
-  // PENANGANAN FORM PASIEN & MCU DENGAN PENCEGAHAN RELOAD
   function handleFormPasien(e) { 
     if(e) e.preventDefault(); 
     postData('savePasien', Object.fromEntries(new FormData(e.target).entries()), () => { 
@@ -693,14 +687,14 @@
       $('#p_gigi').text(d['Gigi'] || '-'); $('#p_lidah').text(d['Lidah'] \vert{}\vert{} '-'); $('#p_tongsil').text(d['Tongsil'] || '-'); $('#p_leher').text(d['Leher'] \vert{}\vert{} '-'); $('#p_nafas').text(d['Nafas Frekuensi'] || '-'); $('#p_rad').text(d['Radiologi'] \vert{}\vert{} '-'); $('#p_ekg').text(d['EKG'] || '-');
       $('#p_abling').text(d['Abdomen Lingkar'] || '-'); $('#p_abper').text(d['Abdomen Peristaltik'] \vert{}\vert{} '-'); $('#p_gen').text(d['Genetalia & Anus'] || '-'); $('#p_kulit').text(d['Kulit'] \vert{}\vert{} '-'); $('#p_tul').text(d['Tulang Belakang'] || '-'); $('#p_exa').text(d['Extrimitas Atas'] \vert{}\vert{} '-'); $('#p_exb').text(d['Extrimitas Bawah'] || '-');
       
-      $('#p_l_hb').text(d['Lab_Hb']||'-'); $('#p_l_ht').text(d['Lab_Ht']\vert{}\vert{}'-'); $('#p_l_eri').text(d['Lab_Eritrosit']||'-'); $('#p_l_trombo').text(d['Lab_Trombosit']\vert{}\vert{}'-'); $('#p_l_leko').text(d['Lab_Lekosit']||'-'); $('#p_l_jleko').text(d['Lab_JenisLekosit']\vert{}\vert{}'-'); $('#p_l_led').text(d['Lab_LED']||'-');
-      $('#p_u_ph').text(d['Uri_pH']\vert{}\vert{}'-'); $('#p_u_bj').text(d['Uri_BJ']||'-'); $('#p_u_pro').text(d['Uri_Protein']\vert{}\vert{}'-'); $('#p_u_glu').text(d['Uri_Glukosa']||'-'); $('#p_u_bil').text(d['Uri_Bilirubin']\vert{}\vert{}'-'); $('#p_u_uro').text(d['Uri_Urobilinogen']||'-'); $('#p_u_ket').text(d['Uri_Keton']\vert{}\vert{}'-'); $('#p_u_nit').text(d['Uri_Nitrit']||'-'); $('#p_u_lek').text(d['Uri_Lekosit']\vert{}\vert{}'-'); $('#p_u_eri').text(d['Uri_Eritrosit']||'-');
-      $('#p_s_eri').text(d['Sed_Eritrosit']\vert{}\vert{}'-'); $('#p_s_lek').text(d['Sed_Lekosit']||'-'); $('#p_s_epi').text(d['Sed_Epitel']\vert{}\vert{}'-'); $('#p_s_kri').text(d['Sed_Kristal']||'-'); $('#p_s_sil').text(d['Sed_Silinder']\vert{}\vert{}'-'); $('#p_s_lain').text(d['Sed_Lain']||'-');
-      $('#p_m_bta').text(d['Mikro_BTA']\vert{}\vert{}'-'); $('#p_m_mh').text(d['Mikro_MH']||'-');
-      $('#p_l_gdp').text(d['Kim_GDP']||'-'); $('#p_l_gd2').text(d['Kim_GD2PP']\vert{}\vert{}'-'); $('#p_l_gda').text(d['Kim_GDA']||'-');
-      $('#p_l_chol').text(d['Lemak_Chol']\vert{}\vert{}'-'); $('#p_l_trig').text(d['Lemak_Trig']||'-'); $('#p_l_hdl').text(d['Lemak_HDL']\vert{}\vert{}'-'); $('#p_l_ldl').text(d['Lemak_LDL']||'-');
-      $('#p_l_sgot').text(d['Hati_SGOT']||'-'); $('#p_l_sgpt').text(d['Hati_SGPT']\vert{}\vert{}'-'); $('#p_l_ur').text(d['Ginjal_Ureum']||'-'); $('#p_l_kre').text(d['Ginjal_Kreatinin']\vert{}\vert{}'-'); $('#p_l_au').text(d['Ginjal_AsamUrat']||'-');
-      $('#p_s_hamil').text(d['Sero_Hamil']\vert{}\vert{}'-'); $('#p_s_gol').text(d['Sero_GolDarah']||'-'); $('#p_w_o').text(d['Widal_TyphiO']\vert{}\vert{}'-'); $('#p_w_h').text(d['Widal_TyphiH']||'-'); $('#p_w_pa').text(d['Widal_ParaA']\vert{}\vert{}'-'); $('#p_w_pb').text(d['Widal_ParaB']||'-'); $('#p_s_hbsag').text(d['Sero_HBsAg']\vert{}\vert{}'-'); $('#p_s_syp').text(d['Sero_Syphilis']||'-'); $('#p_s_hiv').text(d['Sero_HIV']\vert{}\vert{}'-'); $('#p_s_hbsab').text(d['Sero_HBsAb']||'-');
+      $('#p_l_hb').text(d['Lab_Hb'] || '-'); $('#p_l_ht').text(d['Lab_Ht'] \vert{}\vert{} '-'); $('#p_l_eri').text(d['Lab_Eritrosit'] || '-'); $('#p_l_trombo').text(d['Lab_Trombosit'] \vert{}\vert{} '-'); $('#p_l_leko').text(d['Lab_Lekosit'] || '-'); $('#p_l_jleko').text(d['Lab_JenisLekosit'] \vert{}\vert{} '-'); $('#p_l_led').text(d['Lab_LED'] || '-');
+      $('#p_u_ph').text(d['Uri_pH'] \vert{}\vert{} '-'); $('#p_u_bj').text(d['Uri_BJ'] || '-'); $('#p_u_pro').text(d['Uri_Protein'] \vert{}\vert{} '-'); $('#p_u_glu').text(d['Uri_Glukosa'] || '-'); $('#p_u_bil').text(d['Uri_Bilirubin'] \vert{}\vert{} '-'); $('#p_u_uro').text(d['Uri_Urobilinogen'] || '-'); $('#p_u_ket').text(d['Uri_Keton'] \vert{}\vert{} '-'); $('#p_u_nit').text(d['Uri_Nitrit'] || '-'); $('#p_u_lek').text(d['Uri_Lekosit'] \vert{}\vert{} '-'); $('#p_u_eri').text(d['Uri_Eritrosit'] || '-');
+      $('#p_s_eri').text(d['Sed_Eritrosit'] \vert{}\vert{} '-'); $('#p_s_lek').text(d['Sed_Lekosit'] || '-'); $('#p_s_epi').text(d['Sed_Epitel'] \vert{}\vert{} '-'); $('#p_s_kri').text(d['Sed_Kristal'] || '-'); $('#p_s_sil').text(d['Sed_Silinder'] \vert{}\vert{} '-'); $('#p_s_lain').text(d['Sed_Lain'] || '-');
+      $('#p_m_bta').text(d['Mikro_BTA'] \vert{}\vert{} '-'); $('#p_m_mh').text(d['Mikro_MH'] || '-');
+      $('#p_l_gdp').text(d['Kim_GDP'] || '-'); $('#p_l_gd2').text(d['Kim_GD2PP'] \vert{}\vert{} '-'); $('#p_l_gda').text(d['Kim_GDA'] || '-');
+      $('#p_l_chol').text(d['Lemak_Chol'] \vert{}\vert{} '-'); $('#p_l_trig').text(d['Lemak_Trig'] || '-'); $('#p_l_hdl').text(d['Lemak_HDL'] \vert{}\vert{} '-'); $('#p_l_ldl').text(d['Lemak_LDL'] || '-');
+      $('#p_l_sgot').text(d['Hati_SGOT'] || '-'); $('#p_l_sgpt').text(d['Hati_SGPT'] \vert{}\vert{} '-'); $('#p_l_ur').text(d['Ginjal_Ureum'] || '-'); $('#p_l_kre').text(d['Ginjal_Kreatinin'] \vert{}\vert{} '-'); $('#p_l_au').text(d['Ginjal_AsamUrat'] || '-');
+      $('#p_s_hamil').text(d['Sero_Hamil'] \vert{}\vert{} '-'); $('#p_s_gol').text(d['Sero_GolDarah'] || '-'); $('#p_w_o').text(d['Widal_TyphiO'] \vert{}\vert{} '-'); $('#p_w_h').text(d['Widal_TyphiH'] || '-'); $('#p_w_pa').text(d['Widal_ParaA'] \vert{}\vert{} '-'); $('#p_w_pb').text(d['Widal_ParaB'] || '-'); $('#p_s_hbsag').text(d['Sero_HBsAg'] \vert{}\vert{} '-'); $('#p_s_syp').text(d['Sero_Syphilis'] || '-'); $('#p_s_hiv').text(d['Sero_HIV'] \vert{}\vert{} '-'); $('#p_s_hbsab').text(d['Sero_HBsAb'] || '-');
 
       $('#p_diagnosa').text(d['Diagnosa'] || '-'); $('#p_kesimpulan').text(d['Kesimpulan'] \vert{}\vert{} '-'); $('#p_saran').text(d['Saran'] || '-');
       $('#p_nama_dokter').text(d['NamaDokter'] \vert{}\vert{} '.........................'); $('#p_nip_dokter').text(d['NipDokter'] || '.........................');
