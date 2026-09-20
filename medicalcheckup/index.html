@@ -85,7 +85,7 @@
         <div class="text-center mb-4 d-md-none"><img src="https://lh3.googleusercontent.com/d/1lmHDe6r7V4bp3xdRNqfQyuzqREGYe29o" width="70" class="mb-2"><h4 class="text-primary fw-bold">MCU Puskesmas</h4></div>
         <h3 class="fw-bold text-dark mb-1">Masuk Akun</h3>
         <p class="text-muted mb-4">Silakan login untuk mengakses data kesehatan.</p>
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <form id="loginForm" action="javascript:void(0);" onsubmit="event.preventDefault(); handleLogin(event); return false;">
           <div class="mb-3">
             <label class="form-label fw-bold small text-muted">Role Akses</label>
             <select class="form-select bg-light" id="logRole">
