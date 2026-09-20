@@ -69,7 +69,7 @@
         <p class="text-muted mb-4">Silakan login untuk mengakses data kesehatan.</p>
         
         <!-- FORM LOGIN TERKUNCI -->
-        <form id="loginForm" action="javascript:void(0);" onsubmit="handleLogin(event); return false;">
+        <form id="loginForm">
           <div class="mb-3">
             <label class="form-label fw-bold small text-muted">Role Akses</label>
             <select class="form-select bg-light" id="logRole">
@@ -442,22 +442,45 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  // ==========================================
-  // PASTIKAN URL DI BAWAH INI ADALAH URL HASIL DEPLOY TERBARU!
+ // ==========================================
+  // MASUKKAN URL WEB APP ANDA DI SINI
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEDf1i1nOGo6a_hnRlzBeDJNRBasGTFp522Sd3QbqEEZTIA7tPvuK7lvPGzdRqHLxM/exec';
   // ==========================================
 
   let mcuData = [], pasienData = [], dokterData = [], dtRekap, dtPasien, currentUser = {};
 
-  $(document).ready(() => { const savedUser = localStorage.getItem('loggedUser'); if(savedUser) { currentUser = JSON.parse(savedUser); setupDashboard(); } });
+  $(document).ready(() => { 
+    try {
+      const savedUser = localStorage.getItem('loggedUser'); 
+      if(savedUser) { 
+        currentUser = JSON.parse(savedUser); 
+        setupDashboard(); 
+      } 
+    } catch(err) {
+      localStorage.removeItem('loggedUser'); // Bersihkan jika cache corrupt
+    }
+  });
 
-  // PENANGANAN LOGIN DENGAN PENCEGAHAN RELOAD
-  function handleLogin(e) {
-    if(e) e.preventDefault(); 
+  // PENANGANAN LOGIN DENGAN EVENT LISTENER JQUERY (ANTI-MACET & ANTI-RELOAD)
+  $('#loginForm').on('submit', function(e) {
+    e.preventDefault(); // Mengunci form mutlak agar tidak reload / tambah '?' di URL
     
-    const role = $('#logRole').val(), user = $('#logUser').val(), pass = $('#logPass').val();
-    
-    Swal.fire({ title: 'Otentikasi Akun...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+    const role = $('#logRole').val();
+    const user = $('#logUser').val();
+    const pass = $('#logPass').val();
+
+    // Validasi SCRIPT_URL
+    if (SCRIPT_URL.includes('ganti_ini_dengan_url_asli_anda') || SCRIPT_URL.trim() === '') {
+      Swal.fire('Error Developer', 'SCRIPT_URL belum diisi dengan link Web App Google yang benar!', 'error');
+      return;
+    }
+
+    Swal.fire({ 
+      title: 'Otentikasi Akun...', 
+      text: 'Menghubungkan ke server',
+      allowOutsideClick: false, 
+      didOpen: () => Swal.showLoading() 
+    });
     
     fetch(SCRIPT_URL, { 
       method: 'POST', 
@@ -474,17 +497,23 @@
           Swal.close(); 
           setupDashboard(); 
         } else { 
-          Swal.fire('Gagal', res.message, 'error'); 
+          Swal.fire('Gagal', res.message, 'warning'); 
         }
       } catch(err) { 
-        Swal.fire('Error', 'Gagal memproses respons dari server. Pastikan URL Apps Script benar.', 'error'); 
+        console.error("Respons server tidak valid:", text);
+        Swal.fire('Error Sistem', 'Google Server mengembalikan data yang salah.', 'error'); 
       }
     })
-    .catch(err => Swal.fire('Error', 'Gagal terhubung ke Database.', 'error'));
+    .catch(err => {
+      console.error("Fetch Error:", err);
+      Swal.fire('Koneksi Terputus', 'Gagal terhubung ke Database Google.', 'error');
+    });
+  });
+
+  function logout() { 
+    localStorage.removeItem('loggedUser'); 
+    location.reload(); 
   }
-
-  function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
-
   function hitungIMT() {
     let bb = parseFloat($('#inputBB').val());
     let tb = parseFloat($('#inputTB').val());
